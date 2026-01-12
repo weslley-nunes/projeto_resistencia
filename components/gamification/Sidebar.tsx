@@ -5,6 +5,7 @@ import Link from "next/link";
 import { LayoutDashboard, ShoppingBag, Map, Users, LogOut, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
+import { useGameStore } from "@/lib/store";
 
 const sidebarItems = [
     { icon: Map, label: "Trilha", href: "/dashboard" },
@@ -14,6 +15,7 @@ const sidebarItems = [
 
 export default function Sidebar() {
     const { data: session } = useSession();
+    const { level, educoins } = useGameStore(); // Destructured level and educoins
     const pathname = usePathname();
 
     return (
@@ -27,7 +29,9 @@ export default function Sidebar() {
 
             {/* User Stats Summary */}
             <div className="p-6 bg-white/5 mx-4 mt-6 rounded-2xl border border-white/5 relative overflow-hidden group hover:border-brand-primary/30 transition">
-                <div className="absolute top-0 right-0 p-2 opacity-50"><Settings size={14} /></div>
+                <Link href="/dashboard/profile" className="absolute top-0 right-0 p-2 opacity-50 hover:opacity-100 hover:text-brand-accent transition">
+                    <Settings size={14} />
+                </Link>
                 <div className="flex items-center gap-3 mb-3">
                     <div className="w-12 h-12 rounded-full bg-gray-600 overflow-hidden border-2 border-brand-accent">
                         {/* Avatar Image would go here */}
@@ -35,12 +39,12 @@ export default function Sidebar() {
                     </div>
                     <div>
                         <p className="font-bold text-sm truncate max-w-[100px]">{session?.user?.name || "Visitante"}</p>
-                        <p className="text-xs text-brand-accent">Nível {session?.user?.level || 1}</p>
+                        <p className="text-xs text-brand-accent">Nível {level}</p>
                     </div>
                 </div>
                 <div className="flex justify-between items-center bg-black/20 p-2 rounded-lg">
                     <span className="text-xs text-gray-400">Educoins</span>
-                    <span className="font-bold text-brand-accent">{session?.user?.educoins || 0} 🟡</span>
+                    <span className="font-bold text-brand-accent">{educoins} 🟡</span>
                 </div>
             </div>
 
