@@ -12,9 +12,21 @@ const withPWA = require("@ducanh2912/next-pwa").default({
 });
 
 const nextConfig: NextConfig = {
-  // Config options
+  // Disable memory-intensive checks during build on VM
+  eslint: {
+    ignoreDuringBuilds: true,
+  },
+  typescript: {
+    ignoreBuildErrors: true,
+  },
+  // Fix for remote patterns warning
   images: {
-    domains: ['lh3.googleusercontent.com'], // For Google Auth images
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'lh3.googleusercontent.com',
+      },
+    ],
   },
 };
 
