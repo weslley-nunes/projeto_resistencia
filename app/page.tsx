@@ -52,10 +52,10 @@ export default function LandingPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
-              onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+              onClick={() => signIn('google', { callbackUrl: '/inscricao' })}
               className="px-8 py-4 rounded-full bg-brand-primary text-white font-bold text-lg hover:bg-brand-primary/90 transition shadow-lg shadow-brand-primary/25 flex items-center justify-center gap-2 group"
             >
-              Começar Aventura
+              Inscreva-se Agora
               <ArrowRight className="group-hover:translate-x-1 transition-transform" />
             </button>
             <a href="#sobre" className="px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition backdrop-blur-sm flex items-center justify-center w-full sm:w-auto">
