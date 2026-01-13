@@ -6,7 +6,8 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { useState } from 'react';
-import { Loader2, Save, CheckCircle } from 'lucide-react';
+import { Loader2, Save, CheckCircle, LogOut } from 'lucide-react';
+import { signOut } from 'next-auth/react';
 
 // Validation Schema
 const schema = z.object({
@@ -67,7 +68,14 @@ export default function RegistrationPage() {
 
     return (
         <div className="min-h-screen bg-brand-secondary text-white font-sans py-12 px-6">
-            <div className="max-w-2xl mx-auto bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl">
+            <div className="max-w-2xl mx-auto bg-white/5 border border-white/10 rounded-3xl p-8 md:p-12 shadow-2xl relative">
+                <button
+                    onClick={() => signOut({ callbackUrl: '/' })}
+                    className="absolute top-6 right-6 p-2 text-white/30 hover:text-red-400 transition"
+                    title="Sair / Trocar Conta"
+                >
+                    <LogOut size={20} />
+                </button>
                 <div className="text-center mb-10">
                     <h1 className="text-3xl font-bold mb-2">Finalize sua Inscrição</h1>
                     <p className="text-gray-400">Complete seus dados para acessar o ambiente.</p>

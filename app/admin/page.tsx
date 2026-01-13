@@ -1,9 +1,10 @@
 'use client';
 
-import { useSession } from 'next-auth/react';
+import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Download, CheckCircle, XCircle, Search, Shield } from 'lucide-react';
+import { Download, CheckCircle, XCircle, Search, Shield, LogOut, ArrowLeft } from 'lucide-react';
+import Link from 'next/link';
 
 interface User {
     id: string;
@@ -102,6 +103,24 @@ export default function AdminDashboard() {
     return (
         <div className="min-h-screen bg-gray-50 p-6 md:p-12 font-sans">
             <div className="max-w-7xl mx-auto space-y-8">
+
+                {/* Navigation Bar */}
+                <div className="flex justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-gray-100 mb-8">
+                    <Link
+                        href="/dashboard"
+                        className="flex items-center gap-2 text-gray-500 hover:text-brand-primary transition font-medium"
+                    >
+                        <ArrowLeft size={20} />
+                        Voltar ao Dashboard
+                    </Link>
+                    <button
+                        onClick={() => signOut({ callbackUrl: '/' })}
+                        className="flex items-center gap-2 text-red-500 hover:bg-red-50 px-4 py-2 rounded-lg transition"
+                    >
+                        <LogOut size={20} />
+                        Sair
+                    </button>
+                </div>
 
                 {/* Header */}
                 <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
