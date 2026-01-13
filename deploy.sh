@@ -12,7 +12,7 @@ echo "📦 Instalando dependências..."
 npm install
 
 echo "🗄️ Atualizando Banco de Dados..."
-npx prisma migrate deploy
+npx prisma db push --accept-data-loss
 
 echo "🔄 Gerando Cliente do Banco..."
 npx prisma generate
