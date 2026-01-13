@@ -18,9 +18,11 @@ export default async function DashboardLayout({
 
     // @ts-ignore
     const status = session.user?.status;
+    // @ts-ignore
+    const role = session.user?.role;
 
-    // BLOCKING PENDING USERS
-    if (status === 'PENDING' || status === 'PENDING_APPROVAL') {
+    // BLOCKING PENDING USERS (Admins bypass this)
+    if ((status === 'PENDING' || status === 'PENDING_APPROVAL') && role !== 'ADMIN') {
         return (
             <div className="min-h-screen bg-brand-secondary text-white flex flex-col items-center justify-center p-6 text-center">
                 <div className="w-24 h-24 bg-brand-primary/20 rounded-full flex items-center justify-center mb-8 animate-pulse text-brand-primary">
