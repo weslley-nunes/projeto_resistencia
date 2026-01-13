@@ -67,6 +67,24 @@ export default function AdminDashboard() {
         }
     };
 
+    const handlePromote = async (userId: string) => {
+        if (!confirm('Tem certeza que deseja promover este usuário a ADMINISTRADOR?')) return;
+
+        try {
+            const res = await fetch('/api/admin/users', {
+                method: 'PATCH',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId, role: 'ADMIN' }),
+            });
+
+            if (res.ok) {
+                setUsers(users.map(u => u.id === userId ? { ...u, role: 'ADMIN' } : u));
+            }
+        } catch (error) {
+            console.error('Failed to promote user', error);
+        }
+    };
+
     const handleExport = () => {
         window.location.href = '/api/admin/export';
     };
@@ -168,7 +186,7 @@ export default function AdminDashboard() {
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={`px-3 py-1 rounded-full text-xs font-bold ${user.status === 'APPROVED' ? 'bg-green-100 text-green-700' :
-                                                    user.status === 'PENDING_APPROVAL' ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-500'
+                                                user.status === 'PENDING_APPROVAL' ? 'bg-yellow-100 text-yellow-700' : 'bg-gray-100 text-gray-500'
                                                 }`}>
                                                 {user.status === 'PENDING_APPROVAL' ? 'PENDENTE' : user.status}
                                             </span>
@@ -177,15 +195,29 @@ export default function AdminDashboard() {
                                             {user.role}
                                         </td>
                                         <td className="px-6 py-4 text-right">
-                                            {(user.status === 'PENDING' || user.status === 'PENDING_APPROVAL') && (
-                                                <button
-                                                    onClick={() => handleApprove(user.id)}
-                                                    className="inline-flex items-center gap-1 bg-brand-primary text-white px-3 py-1.5 rounded-lg text-sm font-bold hover:bg-brand-primary/90 transition shadow-sm"
-                                                >
-                                                    <CheckCircle size={14} />
-                                                    Aprovar
-                                                </button>
-                                            )}
+                                            <div className="flex justify-end gap-2">
+                                                {(user.status === 'PENDING' || user.status === 'PENDING_APPROVAL') && (
+                                                    <button
+                                                        onClick={() => handleApprove(user.id)}
+                                                        className="inline-flex items-center gap-1 bg-brand-primary text-white px-3 py-1.5 rounded-lg text-sm font-bold hover:bg-brand-primary/90 transition shadow-sm"
+                                                        title="Aprovar Aluno"
+                                                    >
+                                                        <CheckCircle size={14} />
+                                                        Aprovar
+                                                    </button>
+                                                )}
+
+                                                {/* Promote to Admin Button */}
+                                                {user.role !== 'ADMIN' && (
+                                                    <button
+                                                        onClick={() => handlePromote(user.id)}
+                                                        className="inline-flex items-center gap-1 bg-gray-200 text-gray-700 px-3 py-1.5 rounded-lg text-sm font-bold hover:bg-gray-300 transition shadow-sm"
+                                                        title="Tornar Admin"
+                                                    >
+                                                        <Shield size={14} />
+                                                    </button>
+                                                )}
+                                            </div>
                                         </td>
                                     </tr>
                                 ))}
