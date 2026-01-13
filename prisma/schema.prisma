@@ -51,6 +51,9 @@ model User {
   city          String?
   school        String?
   jobTitle      String?
+  teachingTime  String?
+  educationLevel String?
+  trainingArea  String?
 
   educoins      Int       @default(0)
   xp            Int       @default(0)

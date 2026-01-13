@@ -23,6 +23,9 @@ export async function PUT(req: Request) {
                 city: data.city,
                 school: data.school,
                 jobTitle: data.jobTitle,
+                teachingTime: data.teachingTime,
+                educationLevel: data.educationLevel,
+                trainingArea: data.trainingArea,
                 status: "PENDING_APPROVAL" // Mark as pending admin approval
             },
         });

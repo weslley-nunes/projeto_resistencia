@@ -16,6 +16,9 @@ const schema = z.object({
     city: z.string().min(1, "Selecione uma cidade"),
     school: z.string().min(3, "Nome da escola muito curto"),
     jobTitle: z.string().min(3, "Cargo/Função obrigatória"),
+    teachingTime: z.string().min(1, "Tempo de docência obrigatório"),
+    educationLevel: z.string().min(1, "Nível de escolaridade obrigatório"),
+    trainingArea: z.string().min(3, "Área de formação obrigatória"),
 });
 
 type FormData = z.infer<typeof schema>;
@@ -149,15 +152,64 @@ export default function RegistrationPage() {
                         {errors.school && <p className="text-red-400 text-xs mt-1">{errors.school.message}</p>}
                     </div>
 
-                    {/* Job Title */}
-                    <div>
-                        <label className="block text-sm font-medium mb-2">Função / Cargo <span className="text-red-400">*</span></label>
-                        <input
-                            {...register("jobTitle")}
-                            className="w-full bg-white/10 border border-white/20 rounded-xl p-3 focus:outline-none focus:border-brand-primary"
-                            placeholder="Ex: Professor de História"
-                        />
-                        {errors.jobTitle && <p className="text-red-400 text-xs mt-1">{errors.jobTitle.message}</p>}
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Job Title */}
+                        <div>
+                            <label className="block text-sm font-medium mb-2">Função / Cargo <span className="text-red-400">*</span></label>
+                            <input
+                                {...register("jobTitle")}
+                                className="w-full bg-white/10 border border-white/20 rounded-xl p-3 focus:outline-none focus:border-brand-primary"
+                                placeholder="Ex: Professor de História"
+                            />
+                            {errors.jobTitle && <p className="text-red-400 text-xs mt-1">{errors.jobTitle.message}</p>}
+                        </div>
+
+                        {/* Teaching Time */}
+                        <div>
+                            <label className="block text-sm font-medium mb-2">Tempo de Docência <span className="text-red-400">*</span></label>
+                            <select
+                                {...register("teachingTime")}
+                                className="w-full bg-white/10 border border-white/20 rounded-xl p-3 focus:outline-none focus:border-brand-primary text-gray-300 [&>option]:text-black"
+                            >
+                                <option value="">Selecione...</option>
+                                <option value="menos_2_anos">Menos de 2 anos</option>
+                                <option value="2_a_5_anos">2 a 5 anos</option>
+                                <option value="5_a_10_anos">5 a 10 anos</option>
+                                <option value="mais_10_anos">Mais de 10 anos</option>
+                            </select>
+                            {errors.teachingTime && <p className="text-red-400 text-xs mt-1">{errors.teachingTime.message}</p>}
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        {/* Education Level */}
+                        <div>
+                            <label className="block text-sm font-medium mb-2">Nível de Escolaridade <span className="text-red-400">*</span></label>
+                            <select
+                                {...register("educationLevel")}
+                                className="w-full bg-white/10 border border-white/20 rounded-xl p-3 focus:outline-none focus:border-brand-primary text-gray-300 [&>option]:text-black"
+                            >
+                                <option value="">Selecione...</option>
+                                <option value="medio_magisterio">Ensino Médio (Magistério)</option>
+                                <option value="graduacao">Graduação (Licenciatura)</option>
+                                <option value="graduacao_bacharel">Graduação (Bacharelado)</option>
+                                <option value="pos_graduacao">Pós-Graduação (Especialização)</option>
+                                <option value="mestrado">Mestrado</option>
+                                <option value="doutorado">Doutorado</option>
+                            </select>
+                            {errors.educationLevel && <p className="text-red-400 text-xs mt-1">{errors.educationLevel.message}</p>}
+                        </div>
+
+                        {/* Training Area */}
+                        <div>
+                            <label className="block text-sm font-medium mb-2">Área de Formação <span className="text-red-400">*</span></label>
+                            <input
+                                {...register("trainingArea")}
+                                className="w-full bg-white/10 border border-white/20 rounded-xl p-3 focus:outline-none focus:border-brand-primary"
+                                placeholder="Ex: Matemática, Pedagogia..."
+                            />
+                            {errors.trainingArea && <p className="text-red-400 text-xs mt-1">{errors.trainingArea.message}</p>}
+                        </div>
                     </div>
 
                     <button
