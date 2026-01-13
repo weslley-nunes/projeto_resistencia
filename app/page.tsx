@@ -153,16 +153,18 @@ export default function LandingPage() {
               </p>
             </div>
 
-            {/* Card 2 */}
+            {/* Card 2 - Selection Process */}
             <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition">
               <div className="w-12 h-12 bg-green-100 text-green-600 rounded-xl flex items-center justify-center mb-6">
                 <Users size={24} />
               </div>
-              <h3 className="text-xl font-bold mb-3">Público-Alvo e Território</h3>
-              <p className="text-gray-600 mb-4">Professores da rede estadual de ensino de 6 municípios:</p>
+              <h3 className="text-xl font-bold mb-3">Processo Seletivo</h3>
+              <p className="text-gray-600 mb-4 text-sm">
+                Inscrição e matrícula para professores da rede pública estadual dos municípios:
+              </p>
               <div className="flex flex-wrap gap-2">
                 {['Arraias', 'Aurora', 'Lavandeira', 'Combinado', 'Novo Alegre', 'Paranã'].map(city => (
-                  <span key={city} className="px-3 py-1 bg-gray-100 text-gray-600 text-sm rounded-full">{city}</span>
+                  <span key={city} className="px-3 py-1 bg-brand-primary/10 text-brand-secondary font-medium text-xs rounded-full border border-brand-primary/20">{city}</span>
                 ))}
               </div>
             </div>
@@ -178,14 +180,14 @@ export default function LandingPage() {
               </p>
             </div>
 
-            {/* Card 4 */}
+            {/* Card 4 - Context */}
             <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition">
               <div className="w-12 h-12 bg-red-100 text-brand-primary rounded-xl flex items-center justify-center mb-6">
                 <span className="font-bold">🎯</span>
               </div>
-              <h3 className="text-xl font-bold mb-3">Foco Temático</h3>
-              <p className="text-gray-600 leading-relaxed">
-                Educação Patrimonial e <strong>culturas afro-diaspóricas</strong>. Projetos voltados para comunidades escolares da rede pública.
+              <h3 className="text-xl font-bold mb-3">Contexto e Propósito</h3>
+              <p className="text-gray-600 leading-relaxed text-sm">
+                Valorização da cultura <strong>afrodescendente e quilombola</strong> no sudeste do Tocantins. Foco na educação patrimonial como ferramenta de transformação social.
               </p>
             </div>
           </div>
@@ -204,30 +206,57 @@ export default function LandingPage() {
             </p>
           </div>
 
-          <div className="grid md:grid-cols-2 gap-12 mb-20 items-center">
+          <div className="grid md:grid-cols-2 gap-12 mb-20">
             <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 rounded-bl-full -mr-16 -mt-16 transition group-hover:bg-brand-primary/20"></div>
               <h3 className="text-2xl font-bold mb-4 text-brand-secondary">Itinerário 1</h3>
-              <p className="text-gray-600 mb-6">
-                Enfatiza a <strong>educação escolar e patrimônio</strong>, promovendo cidadania, identidade e diversidade cultural,
-                conectando alunos com suas raízes.
+              <h4 className="text-brand-primary font-bold mb-4 text-sm uppercase tracking-wider">Educação Escolar e Patrimônio</h4>
+              <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                Trabalha conceitos de cidadania, identidade e diversidade cultural. Estimula professores a atuarem na perspectiva da preservação, transmissão e valorização do patrimônio cultural local/regional.
               </p>
               <ul className="space-y-2 text-sm text-gray-500">
-                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-primary"></div>Oficinas Temáticas</li>
-                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-primary"></div>Projetos em Sala de Aula</li>
+                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-primary"></div>O estudante como multiplicador</li>
+                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-primary"></div>Definições de patrimônio cultural</li>
               </ul>
             </div>
 
             <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden group">
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-accent/10 rounded-bl-full -mr-16 -mt-16 transition group-hover:bg-brand-accent/20"></div>
               <h3 className="text-2xl font-bold mb-4 text-brand-secondary">Itinerário 2</h3>
-              <p className="text-gray-600 mb-6">
-                Foca na <strong>educação patrimonial além da sala de aula</strong>, valorizando a cultura em contextos mais amplos e práticos.
+              <h4 className="text-brand-accent font-bold mb-4 text-sm uppercase tracking-wider">Além da Sala de Aula</h4>
+              <p className="text-gray-600 mb-6 text-sm leading-relaxed">
+                Expande a educação patrimonial para além dos muros da escola. Foca em educação museal, curadoria de exposições e festivais culturais.
               </p>
               <ul className="space-y-2 text-sm text-gray-500">
-                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-accent"></div>Saídas Experimentais</li>
-                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-accent"></div>Curadoria de Exposições</li>
+                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-accent"></div>Elaboração de material didático</li>
+                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-accent"></div>Integração Escola-Comunidade</li>
               </ul>
+            </div>
+          </div>
+
+          {/* Execution Phases Timeline */}
+          <div className="mb-20">
+            <h3 className="text-2xl font-bold text-center text-brand-secondary mb-12">Fases de Execução</h3>
+            <div className="relative">
+              {/* Line */}
+              <div className="hidden md:block absolute top-1/2 left-0 w-full h-1 bg-gray-200 -translate-y-1/2"></div>
+
+              <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
+                {[
+                  { step: "1", title: "Planejamento", desc: "Desenvolvimento do AVA, conteúdo e seleção." },
+                  { step: "2", title: "Itinerário 1", desc: "Oficinas, contação de histórias e visitas." },
+                  { step: "3", title: "Itinerário 2", desc: "Exposições, festivais e materiais didáticos." },
+                  { step: "4", title: "Disseminação", desc: "Certificação e relatório final." }
+                ].map((phase, i) => (
+                  <div key={i} className="relative bg-white p-6 rounded-2xl shadow-sm border border-gray-100 z-10 text-center group hover:-translate-y-1 transition duration-300">
+                    <div className="w-10 h-10 mx-auto bg-brand-secondary text-white rounded-full flex items-center justify-center font-bold mb-4 border-4 border-white shadow-lg group-hover:scale-110 transition">
+                      {phase.step}
+                    </div>
+                    <h4 className="font-bold text-lg mb-2 text-brand-secondary">{phase.title}</h4>
+                    <p className="text-sm text-gray-500">{phase.desc}</p>
+                  </div>
+                ))}
+              </div>
             </div>
           </div>
 
