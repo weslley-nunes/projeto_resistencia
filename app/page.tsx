@@ -192,25 +192,115 @@ export default function LandingPage() {
         </div>
       </section>
 
-      {/* Team Section */}
-      <section className="py-20 bg-white text-gray-800 border-t border-gray-100">
+      {/* Methodology Section */}
+      <section className="py-20 bg-gray-50 text-gray-800">
         <div className="max-w-7xl mx-auto px-6">
-          <h2 className="text-3xl font-bold text-center mb-12 text-brand-secondary">Estrutura da Equipe</h2>
-          <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-5 gap-6">
-            {[
-              { role: "Coordenador Geral", desc: "Supervisão de todas as atividades e garantia do cumprimento de cronogramas." },
-              { role: "Coord. Adjunto", desc: "Apoio nas operações diárias e ponto de contato para os participantes." },
-              { role: "Coord. de Tecnologia", desc: "Gerenciamento das necessidades técnicas e plataforma digital." },
-              { role: "Formadores", desc: "Produção de conteúdo e ministração dos componentes curriculares." },
-              { role: "Tutores", desc: "Assessoria pedagógica, tira-dúvidas e mediação nos fóruns." }
-            ].map((member, i) => (
-              <div key={i} className="p-6 bg-gray-50 rounded-2xl hover:bg-brand-primary/5 transition group">
-                <div className="w-10 h-10 rounded-full bg-brand-secondary text-white flex items-center justify-center mb-4 font-bold text-sm group-hover:bg-brand-primary transition">{i + 1}</div>
-                <h4 className="font-bold text-lg mb-2">{member.role}</h4>
-                <p className="text-sm text-gray-500">{member.desc}</p>
-              </div>
-            ))}
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-secondary mb-4">Metodologia do Curso</h2>
+            <div className="w-20 h-1 bg-brand-primary mx-auto rounded-full mb-6"></div>
+            <p className="max-w-3xl mx-auto text-gray-600">
+              O curso é organizado em dois itinerários didáticos, integrando teoria e prática através de oficinas temáticas,
+              contação de histórias e diálogos com mestres de ofício. Uma abordagem contínua e formativa.
+            </p>
           </div>
+
+          <div className="grid md:grid-cols-2 gap-12 mb-20 items-center">
+            <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 rounded-bl-full -mr-16 -mt-16 transition group-hover:bg-brand-primary/20"></div>
+              <h3 className="text-2xl font-bold mb-4 text-brand-secondary">Itinerário 1</h3>
+              <p className="text-gray-600 mb-6">
+                Enfatiza a <strong>educação escolar e patrimônio</strong>, promovendo cidadania, identidade e diversidade cultural,
+                conectando alunos com suas raízes.
+              </p>
+              <ul className="space-y-2 text-sm text-gray-500">
+                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-primary"></div>Oficinas Temáticas</li>
+                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-primary"></div>Projetos em Sala de Aula</li>
+              </ul>
+            </div>
+
+            <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden group">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-brand-accent/10 rounded-bl-full -mr-16 -mt-16 transition group-hover:bg-brand-accent/20"></div>
+              <h3 className="text-2xl font-bold mb-4 text-brand-secondary">Itinerário 2</h3>
+              <p className="text-gray-600 mb-6">
+                Foca na <strong>educação patrimonial além da sala de aula</strong>, valorizando a cultura em contextos mais amplos e práticos.
+              </p>
+              <ul className="space-y-2 text-sm text-gray-500">
+                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-accent"></div>Saídas Experimentais</li>
+                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-accent"></div>Curadoria de Exposições</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Evaluation Section */}
+          <div className="bg-brand-secondary text-white rounded-3xl p-8 md:p-12 relative overflow-hidden mb-20">
+            <div className="absolute top-0 left-0 w-full h-full bg-[url('https://www.transparenttextures.com/patterns/cubes.png')] opacity-5"></div>
+            <div className="relative z-10">
+              <h3 className="text-3xl font-bold mb-8 text-center">Sistema de Avaliação</h3>
+              <div className="grid md:grid-cols-3 gap-8">
+                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition">
+                  <div className="text-4xl mb-4">📝</div>
+                  <h4 className="font-bold text-xl mb-2">Avaliação Contínua</h4>
+                  <p className="text-sm text-gray-300">Acompanhamento do progresso dos participantes com feedback regular sobre o desenvolvimento.</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition">
+                  <div className="text-4xl mb-4">🤝</div>
+                  <h4 className="font-bold text-xl mb-2">Participação</h4>
+                  <p className="text-sm text-gray-300">A colaboração ativa e a troca de experiências são fundamentais para o sucesso coletivo.</p>
+                </div>
+                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-2xl border border-white/10 hover:bg-white/20 transition">
+                  <div className="text-4xl mb-4">🎨</div>
+                  <h4 className="font-bold text-xl mb-2">Produção</h4>
+                  <p className="text-sm text-gray-300">Criação de materiais e atividades práticas que apliquem o conhecimento de forma criativa.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Platform / AVA */}
+          <div className="grid md:grid-cols-2 gap-12 items-center">
+            <div>
+              <h3 className="text-3xl font-bold text-brand-secondary mb-6">Plataforma AVA e Suporte</h3>
+              <p className="text-gray-600 text-lg mb-6 leading-relaxed">
+                Utilizamos uma plataforma Moodle personalizada para oferecer uma experiência de aprendizado interativa, acessível e colaborativa.
+              </p>
+              <div className="space-y-4">
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-green-100 flex items-center justify-center text-green-600 font-bold shrink-0">01</div>
+                  <div>
+                    <h5 className="font-bold text-gray-800">Ambiente Personalizado</h5>
+                    <p className="text-gray-500 text-sm">Adaptado para atender às necessidades específicas do curso.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center text-blue-600 font-bold shrink-0">02</div>
+                  <div>
+                    <h5 className="font-bold text-gray-800">Interatividade</h5>
+                    <p className="text-gray-500 text-sm">Acesso a conteúdos ricos e ferramentas de colaboração online.</p>
+                  </div>
+                </div>
+                <div className="flex items-start gap-4">
+                  <div className="w-10 h-10 rounded-full bg-purple-100 flex items-center justify-center text-purple-600 font-bold shrink-0">03</div>
+                  <div>
+                    <h5 className="font-bold text-gray-800">Suporte Técnico</h5>
+                    <p className="text-gray-500 text-sm">Equipe dedicada para garantir uma experiência sem interrupções.</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="bg-gray-100 rounded-3xl p-8 flex items-center justify-center min-h-[400px]">
+              {/* Placeholder for AVA screenshot or graphic */}
+              <div className="relative w-full aspect-square">
+                <div className="absolute inset-0 bg-gradient-to-tr from-brand-secondary to-brand-primary rounded-2xl shadow-2xl transform rotate-3"></div>
+                <div className="absolute inset-0 bg-white rounded-2xl shadow-xl flex flex-col p-6 -rotate-3 transition hover:rotate-0 duration-500">
+                  <div className="h-8 bg-gray-100 rounded-lg w-1/3 mb-4"></div>
+                  <div className="flex-1 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 flex items-center justify-center">
+                    <span className="text-gray-400 font-medium">Interface do AVA</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
         </div>
       </section>
 
