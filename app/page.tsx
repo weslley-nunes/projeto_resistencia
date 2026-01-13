@@ -10,9 +10,15 @@ export default function LandingPage() {
     <div className="min-h-screen bg-brand-secondary text-white font-sans overflow-x-hidden">
       {/* Navbar */}
       <nav className="p-6 flex justify-between items-center max-w-7xl mx-auto">
-        <div className="flex items-center gap-2">
-          {/* Placeholder for Logo */}
-          <div className="w-10 h-10 bg-brand-primary rounded-full flex items-center justify-center font-bold text-brand-accent">PR</div>
+        <div className="flex items-center gap-3">
+          <div className="w-12 h-12 relative">
+            <Image
+              src="/logo.png"
+              alt="Logo Projeto Resistência"
+              fill
+              className="object-contain"
+            />
+          </div>
           <span className="text-xl font-bold tracking-tighter">Projeto Resistência</span>
         </div>
         <div>
