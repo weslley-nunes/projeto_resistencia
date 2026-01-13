@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { signIn } from 'next-auth/react';
-import { ArrowRight, Sparkles, Trophy, Users, LayoutDashboard } from 'lucide-react';
+import { ArrowRight, Sparkles, Trophy, Users, LayoutDashboard, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
 
 export default function LandingPage() {
@@ -38,8 +38,8 @@ export default function LandingPage() {
             <span>Educação Patrimonial Gamificada</span>
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-bold leading-tight">
-            Descubra a História <br />
+          <h1 className="text-4xl md:text-6xl font-bold leading-tight">
+            Descubra como proteger <br /> nosso patrimônio <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-brand-primary to-brand-accent">
               Jogando
             </span>
@@ -93,7 +93,7 @@ export default function LandingPage() {
             <motion.div
               animate={{ y: [0, -10, 0] }}
               transition={{ repeat: Infinity, duration: 4 }}
-              className="absolute -top-6 -right-6 bg-brand-secondary p-4 rounded-2xl border border-white/10 shadow-xl flex items-center gap-3"
+              className="absolute -top-6 -right-6 bg-brand-secondary p-4 rounded-2xl border border-white/10 shadow-xl flex items-center gap-3 z-20"
             >
               <div className="p-2 bg-yellow-500/20 rounded-lg text-yellow-500">
                 <LayoutDashboard size={24} />
@@ -311,6 +311,19 @@ export default function LandingPage() {
           <p className="text-sm mt-2">Arraias - TO</p>
         </div>
       </footer>
+      {/* Floating Support Button */}
+      <a
+        href="https://wa.me/5563981304652?text=Olá, gostaria de suporte sobre o Projeto Resistência."
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 bg-green-500 hover:bg-green-600 text-white p-4 rounded-full shadow-2xl z-50 transition-transform hover:scale-110 flex items-center gap-2 group"
+        title="Fale Conosco"
+      >
+        <MessageCircle size={24} />
+        <span className="max-w-0 overflow-hidden group-hover:max-w-xs transition-all duration-300 ease-in-out whitespace-nowrap">
+          Suporte
+        </span>
+      </a>
     </div>
   );
 }
