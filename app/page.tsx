@@ -120,7 +120,20 @@ export default function LandingPage() {
       {/* Acolhida / Video Section */}
       <section id="acolhida" className="py-20 bg-brand-secondary relative overflow-hidden">
         <div className="max-w-5xl mx-auto px-6 text-center">
-          <h2 className="text-3xl md:text-4xl font-bold mb-8">Acolhida</h2>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="mb-12"
+          >
+            <h2 className="text-3xl md:text-5xl font-bold mb-6 text-white leading-tight">
+              Como podemos transformar a educação?
+            </h2>
+            <p className="text-xl text-brand-accent italic">
+              "A partir da valorização da educação patrimonial para o empoderamento cultural"
+            </p>
+          </motion.div>
+
           <div className="aspect-video w-full bg-black/40 rounded-3xl border border-white/10 shadow-2xl flex items-center justify-center relative overflow-hidden group cursor-pointer">
             <div className="absolute inset-0 bg-brand-primary/20 group-hover:bg-brand-primary/10 transition"></div>
             <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 group-hover:scale-110 transition">
@@ -181,14 +194,28 @@ export default function LandingPage() {
             </div>
 
             {/* Card 4 - Context */}
-            <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition">
-              <div className="w-12 h-12 bg-red-100 text-brand-primary rounded-xl flex items-center justify-center mb-6">
-                <span className="font-bold">🎯</span>
+            <div className="bg-white p-8 rounded-3xl shadow-sm border border-gray-100 hover:shadow-md transition md:col-span-2">
+              <div className="flex flex-col md:flex-row gap-6 items-start">
+                <div className="w-16 h-16 bg-red-100 text-brand-primary rounded-xl flex items-center justify-center shrink-0">
+                  <span className="font-bold text-2xl">🎯</span>
+                </div>
+                <div>
+                  <h3 className="text-xl font-bold mb-3">Contexto e Propósito: Quadro Situacional</h3>
+                  <p className="text-gray-600 leading-relaxed text-sm mb-4">
+                    O curso nasce da necessidade de superar dificuldades conceituais e metodológicas no ensino do patrimônio cultural, muitas vezes limitado a uma visão monumental.
+                  </p>
+                  <ul className="space-y-2 text-sm text-gray-500">
+                    <li className="flex items-start gap-2">
+                      <span className="text-brand-primary mt-1">•</span>
+                      <span>Valorização da identidade e saberes das comunidades quilombolas, como <strong>Kalunga do Mimoso</strong> e <strong>Lagoa da Pedra</strong>.</span>
+                    </li>
+                    <li className="flex items-start gap-2">
+                      <span className="text-brand-primary mt-1">•</span>
+                      <span>Promoção da equidade e inclusão social, alinhada às Leis <strong>10.639/2003</strong> e <strong>11.645/2008</strong>.</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
-              <h3 className="text-xl font-bold mb-3">Contexto e Propósito</h3>
-              <p className="text-gray-600 leading-relaxed text-sm">
-                Valorização da cultura <strong>afrodescendente e quilombola</strong> no sudeste do Tocantins. Foco na educação patrimonial como ferramenta de transformação social.
-              </p>
             </div>
           </div>
         </div>
@@ -207,30 +234,78 @@ export default function LandingPage() {
           </div>
 
           <div className="grid md:grid-cols-2 gap-12 mb-20">
-            <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden group">
+            {/* Itinerary 1 */}
+            <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden group h-full">
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-primary/10 rounded-bl-full -mr-16 -mt-16 transition group-hover:bg-brand-primary/20"></div>
-              <h3 className="text-2xl font-bold mb-4 text-brand-secondary">Itinerário 1</h3>
-              <h4 className="text-brand-primary font-bold mb-4 text-sm uppercase tracking-wider">Educação Escolar e Patrimônio</h4>
-              <p className="text-gray-600 mb-6 text-sm leading-relaxed">
-                Trabalha conceitos de cidadania, identidade e diversidade cultural. Estimula professores a atuarem na perspectiva da preservação, transmissão e valorização do patrimônio cultural local/regional.
-              </p>
-              <ul className="space-y-2 text-sm text-gray-500">
-                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-primary"></div>O estudante como multiplicador</li>
-                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-primary"></div>Definições de patrimônio cultural</li>
-              </ul>
+              <div className="relative z-10">
+                <h3 className="text-3xl font-bold mb-2 text-brand-secondary">Itinerário 1</h3>
+                <h4 className="text-brand-primary font-bold mb-6 text-sm uppercase tracking-wider">Educação Escolar e Patrimônio</h4>
+
+                <p className="text-gray-600 mb-8 text-sm leading-relaxed italic border-l-4 border-brand-primary pl-4">
+                  "Promover a cidadania e a diversidade cultural através de métodos inovadores."
+                </p>
+
+                <div className="space-y-6">
+                  <div>
+                    <h5 className="font-bold text-gray-800 flex items-center gap-2 mb-2">
+                      <span className="w-8 h-8 rounded-lg bg-brand-primary/10 text-brand-primary flex items-center justify-center text-sm">01</span>
+                      Oficinas de Artes e Ofícios
+                    </h5>
+                    <p className="text-xs text-gray-500 pl-10">Ensinam habilidades artesanais, saberes e fazeres tradicionais com mestras e mestres da cultura local.</p>
+                  </div>
+                  <div>
+                    <h5 className="font-bold text-gray-800 flex items-center gap-2 mb-2">
+                      <span className="w-8 h-8 rounded-lg bg-brand-primary/10 text-brand-primary flex items-center justify-center text-sm">02</span>
+                      Contação de Histórias
+                    </h5>
+                    <p className="text-xs text-gray-500 pl-10">Mapeamento de histórias, brincadeiras e cantigas locais. Produção de podcasts e narrativas digitais.</p>
+                  </div>
+                  <div>
+                    <h5 className="font-bold text-gray-800 flex items-center gap-2 mb-2">
+                      <span className="w-8 h-8 rounded-lg bg-brand-primary/10 text-brand-primary flex items-center justify-center text-sm">03</span>
+                      Roteiros Culturais
+                    </h5>
+                    <p className="text-xs text-gray-500 pl-10">Aulas de campo interativas explorando locais de memória e arquitetura da cidade.</p>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden group">
+            {/* Itinerary 2 */}
+            <div className="bg-white p-8 rounded-3xl shadow-lg border border-gray-100 relative overflow-hidden group h-full">
               <div className="absolute top-0 right-0 w-32 h-32 bg-brand-accent/10 rounded-bl-full -mr-16 -mt-16 transition group-hover:bg-brand-accent/20"></div>
-              <h3 className="text-2xl font-bold mb-4 text-brand-secondary">Itinerário 2</h3>
-              <h4 className="text-brand-accent font-bold mb-4 text-sm uppercase tracking-wider">Além da Sala de Aula</h4>
-              <p className="text-gray-600 mb-6 text-sm leading-relaxed">
-                Expande a educação patrimonial para além dos muros da escola. Foca em educação museal, curadoria de exposições e festivais culturais.
-              </p>
-              <ul className="space-y-2 text-sm text-gray-500">
-                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-accent"></div>Elaboração de material didático</li>
-                <li className="flex items-center gap-2"><div className="w-2 h-2 rounded-full bg-brand-accent"></div>Integração Escola-Comunidade</li>
-              </ul>
+              <div className="relative z-10">
+                <h3 className="text-3xl font-bold mb-2 text-brand-secondary">Itinerário 2</h3>
+                <h4 className="text-brand-accent font-bold mb-6 text-sm uppercase tracking-wider">Além da Sala de Aula</h4>
+
+                <p className="text-gray-600 mb-8 text-sm leading-relaxed italic border-l-4 border-brand-accent pl-4">
+                  "Expandir a educação patrimonial para além dos muros da escola, integrando novos públicos."
+                </p>
+
+                <div className="space-y-6">
+                  <div className="bg-gray-50 p-4 rounded-2xl">
+                    <h5 className="font-bold text-gray-800 mb-2 text-sm">Metodologia de Projetos</h5>
+                    <p className="text-xs text-gray-500">
+                      Ações voltadas para a promoção do patrimônio material e imaterial. Integração entre professores e estudantes na identificação de problemas e co-criação de soluções culturais.
+                    </p>
+                  </div>
+
+                  <ul className="space-y-3 text-sm text-gray-600 mt-4">
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></div>
+                      <span><strong>Educação Museal:</strong> O patrimônio como vetor de pesquisa e comunicação.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></div>
+                      <span><strong>Festivais Temáticos:</strong> Celebração da culinária, música, dança e vestuário local.</span>
+                    </li>
+                    <li className="flex items-start gap-3">
+                      <div className="w-1.5 h-1.5 rounded-full bg-brand-accent mt-2 shrink-0"></div>
+                      <span><strong>Material Didático:</strong> Produção de livros, folhetos e canais digitais pelos próprios participantes.</span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
             </div>
           </div>
 
