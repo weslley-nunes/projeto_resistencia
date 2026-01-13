@@ -17,7 +17,12 @@ export const authOptions: NextAuthOptions = {
                 // @ts-ignore
                 session.user.id = user.id;
                 // @ts-ignore
-                session.user.role = user.role;
+                // Hardcode Admin for specific email
+                if (session.user.email === 'weslley.uca@gmail.com') {
+                    session.user.role = 'ADMIN';
+                } else {
+                    session.user.role = user.role;
+                }
                 // @ts-ignore
                 session.user.status = user.status;
                 // @ts-ignore

@@ -11,6 +11,8 @@ const sidebarItems = [
     { icon: Map, label: "Trilha", href: "/dashboard" },
     { icon: ShoppingBag, label: "Loja", href: "/dashboard/shop" },
     { icon: Users, label: "Perfil", href: "/dashboard/profile" },
+    // Admin Link (Checks role in component, but adding here for structure)
+    { icon: LayoutDashboard, label: "Gestão", href: "/admin", adminOnly: true },
 ];
 
 export default function Sidebar() {
@@ -50,7 +52,7 @@ export default function Sidebar() {
 
             {/* Navigation */}
             <nav className="flex-1 px-4 py-8 space-y-2">
-                {sidebarItems.map((item) => {
+                {sidebarItems.filter(item => !item.adminOnly || (session?.user as any)?.role === 'ADMIN').map((item) => {
                     const isActive = pathname === item.href;
                     return (
                         <Link
