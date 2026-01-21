@@ -254,6 +254,15 @@ export default function AdminDashboard() {
                                                     </button>
                                                 )}
 
+                                                <Link
+                                                    href={`/admin/users/${user.id}`}
+                                                    className="inline-flex items-center gap-1 bg-blue-100 text-blue-700 px-3 py-1.5 rounded-lg text-sm font-bold hover:bg-blue-200 transition shadow-sm"
+                                                    title="Editar/Ver Detalhes"
+                                                >
+                                                    <FileText size={14} />
+                                                    Ver Detalhes
+                                                </Link>
+
                                                 {/* Promote to Admin Button */}
                                                 {user.role !== 'ADMIN' && (
                                                     <button
