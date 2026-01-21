@@ -140,12 +140,17 @@ export default function LandingPage() {
             </p>
           </motion.div>
 
-          <div className="aspect-video w-full bg-black/40 rounded-3xl border border-white/10 shadow-2xl flex items-center justify-center relative overflow-hidden group cursor-pointer">
-            <div className="absolute inset-0 bg-brand-primary/20 group-hover:bg-brand-primary/10 transition"></div>
-            <div className="w-20 h-20 rounded-full bg-white/10 backdrop-blur-sm flex items-center justify-center border border-white/20 group-hover:scale-110 transition">
-              <div className="w-0 h-0 border-t-[15px] border-t-transparent border-l-[25px] border-l-white border-b-[15px] border-b-transparent ml-2"></div>
-            </div>
-            <p className="absolute bottom-6 text-white/50 text-sm">Vídeo de Apresentação (Em Breve)</p>
+          <div className="aspect-video w-full bg-black rounded-3xl border border-white/10 shadow-2xl overflow-hidden">
+            <iframe
+              width="100%"
+              height="100%"
+              src="https://www.youtube.com/embed/ipi9Qncj0MQ?si=e9vM7a0Qyqg7x8y_"
+              title="Apresentação Projeto Resistência"
+              frameBorder="0"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+              allowFullScreen
+              className="w-full h-full"
+            ></iframe>
           </div>
         </div>
       </section>
