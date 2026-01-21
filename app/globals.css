@@ -1,4 +1,5 @@
 @import "tailwindcss";
+@plugin "@tailwindcss/typography";
 
 :root {
   --background: #ffffff;
@@ -10,7 +11,7 @@
   --color-foreground: var(--foreground);
   --font-sans: var(--font-outfit);
   --font-mono: var(--font-geist-mono);
-  
+
   --color-brand-primary: #6a3c31;
   --color-brand-secondary: #1b2d34;
   --color-brand-accent: #F6E05E;
