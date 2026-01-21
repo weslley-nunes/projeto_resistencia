@@ -3,7 +3,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Download, CheckCircle, XCircle, Search, Shield, LogOut, ArrowLeft } from 'lucide-react';
+import { Download, CheckCircle, XCircle, Search, Shield, LogOut, ArrowLeft, FileText } from 'lucide-react';
 import Link from 'next/link';
 
 interface User {
@@ -15,6 +15,11 @@ interface User {
     school: string | null;
     city: string | null;
     image: string | null;
+    documentsUrl: string | null;
+    quotaDocumentsUrl: string | null;
+    pcdDocumentsUrl: string | null;
+    quotaType: string | null;
+    isPcd: boolean;
 }
 
 export default function AdminDashboard() {
@@ -180,6 +185,7 @@ export default function AdminDashboard() {
                                 <tr>
                                     <th className="px-6 py-4">Nome / Email</th>
                                     <th className="px-6 py-4">Cidade / Escola</th>
+                                    <th className="px-6 py-4">Documentos</th>
                                     <th className="px-6 py-4">Status</th>
                                     <th className="px-6 py-4">Role</th>
                                     <th className="px-6 py-4 text-right">Ações</th>
@@ -196,12 +202,34 @@ export default function AdminDashboard() {
                                                 <div>
                                                     <p className="font-bold text-gray-800">{user.name}</p>
                                                     <p className="text-xs text-gray-500">{user.email}</p>
+                                                    {user.isPcd && <span className="inline-block px-2 py-0.5 bg-purple-100 text-purple-700 text-[10px] font-bold rounded-full mt-1">PcD</span>}
+                                                    {user.quotaType && <span className="inline-block px-2 py-0.5 bg-blue-100 text-blue-700 text-[10px] font-bold rounded-full mt-1 ml-1">{user.quotaType}</span>}
                                                 </div>
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
                                             <p className="text-sm text-gray-800">{user.city || '-'}</p>
                                             <p className="text-xs text-gray-500">{user.school || '-'}</p>
+                                        </td>
+                                        <td className="px-6 py-4">
+                                            <div className="flex flex-wrap gap-2">
+                                                {user.documentsUrl && (
+                                                    <a href={user.documentsUrl} target="_blank" rel="noopener noreferrer" className="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 transition" title="Documentos Pessoais">
+                                                        <FileText size={16} />
+                                                    </a>
+                                                )}
+                                                {user.quotaDocumentsUrl && (
+                                                    <a href={user.quotaDocumentsUrl} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-50 hover:bg-blue-100 rounded-lg text-blue-600 transition" title="Declaração Cota">
+                                                        <FileText size={16} />
+                                                    </a>
+                                                )}
+                                                {user.pcdDocumentsUrl && (
+                                                    <a href={user.pcdDocumentsUrl} target="_blank" rel="noopener noreferrer" className="p-2 bg-purple-50 hover:bg-purple-100 rounded-lg text-purple-600 transition" title="Laudo PcD">
+                                                        <FileText size={16} />
+                                                    </a>
+                                                )}
+                                                {!user.documentsUrl && !user.quotaDocumentsUrl && !user.pcdDocumentsUrl && <span className="text-xs text-gray-400">-</span>}
+                                            </div>
                                         </td>
                                         <td className="px-6 py-4">
                                             <span className={`px-3 py-1 rounded-full text-xs font-bold ${user.status === 'APPROVED' ? 'bg-green-100 text-green-700' :
@@ -242,7 +270,7 @@ export default function AdminDashboard() {
                                 ))}
                                 {filteredUsers.length === 0 && (
                                     <tr>
-                                        <td colSpan={5} className="px-6 py-12 text-center text-gray-400">
+                                        <td colSpan={6} className="px-6 py-12 text-center text-gray-400">
                                             Nenhum usuário encontrado.
                                         </td>
                                     </tr>

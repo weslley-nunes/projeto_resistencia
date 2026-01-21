@@ -59,6 +59,13 @@ model User {
   xp            Int       @default(0)
   level         Int       @default(1)
   
+  // Documents & Special Status
+  documentsUrl       String?
+  quotaDocumentsUrl  String?
+  pcdDocumentsUrl    String?
+  quotaType          String? // INDIGENOUS, QUILOMBOLA
+  isPcd              Boolean   @default(false)
+  
   accounts      Account[]
   sessions      Session[]
 }
