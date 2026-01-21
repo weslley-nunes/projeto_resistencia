@@ -51,7 +51,10 @@ model User {
   name          String?
   email         String?   @unique
   emailVerified DateTime?
+  emailVerified DateTime?
   image         String?
+  username      String?   @unique
+  password      String?
   
   // Custom Fields
   role          String    @default("STUDENT") // ADMIN, TEACHER, TUTOR, STUDENT
