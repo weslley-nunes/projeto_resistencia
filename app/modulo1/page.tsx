@@ -11,6 +11,26 @@ export default function Modulo1Page() {
     const [activeNode, setActiveNode] = useState<MapNode | null>(null);
     const [completedNodes, setCompletedNodes] = useState<string[]>([]);
     const [educoins, setEducoins] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
+
+    // Fetch initial progress
+    React.useEffect(() => {
+        async function fetchProgress() {
+            try {
+                const res = await fetch('/api/progress?moduleId=modulo-1');
+                if (res.ok) {
+                    const data = await res.json();
+                    setCompletedNodes(data.completedNodes || []);
+                    setEducoins(data.educoins || 0);
+                }
+            } catch (error) {
+                console.error('Failed to load progress', error);
+            } finally {
+                setIsLoading(false);
+            }
+        }
+        fetchProgress();
+    }, []);
 
     const handleNodeClick = (node: MapNode) => {
         setActiveNode(node);
@@ -20,13 +40,32 @@ export default function Modulo1Page() {
         setActiveNode(null);
     };
 
-    const handleCompleteNode = () => {
+    const handleCompleteNode = async () => {
         if (activeNode && !completedNodes.includes(activeNode.id)) {
-            setCompletedNodes([...completedNodes, activeNode.id]);
+            // Optimistic update
+            setCompletedNodes(prev => [...prev, activeNode.id]);
             setEducoins(prev => prev + activeNode.educoinsReward);
-            // Here we would sync with the database
+
+            handleCloseModal();
+
+            // Persist to DB
+            try {
+                await fetch('/api/progress', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        moduleId: 'modulo-1',
+                        nodeId: activeNode.id,
+                        reward: activeNode.educoinsReward
+                    })
+                });
+            } catch (error) {
+                console.error('Failed to save progress', error);
+                // Rollback on error could be implemented here
+            }
+        } else {
+            handleCloseModal();
         }
-        handleCloseModal();
     };
 
     return (

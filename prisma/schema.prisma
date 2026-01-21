@@ -26,6 +26,18 @@ model Account {
   @@unique([provider, providerAccountId])
 }
 
+model UserProgress {
+  id          String   @id @default(cuid())
+  userId      String
+  moduleId    String
+  nodeId      String
+  completedAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, moduleId, nodeId])
+}
+
 model Session {
   id           String   @id @default(cuid())
   sessionToken String   @unique
@@ -55,14 +67,16 @@ model User {
   educationLevel String?
   trainingArea  String?
 
-  educoins      Int       @default(0)
+  // Gamification & Progress
+  educoins      Int            @default(0)
+  progress      UserProgress[]
   xp            Int       @default(0)
   level         Int       @default(1)
   
   // Documents & Special Status
   documentsUrl       String?
-  quotaDocumentsUrl  String?
-  pcdDocumentsUrl    String?
+  quotaDocumentsUrl  String? // URL for quota documents
+  pcdDocumentsUrl    String? // URL for PcD documents
   quotaType          String? // INDIGENOUS, QUILOMBOLA
   isPcd              Boolean   @default(false)
   
