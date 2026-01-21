@@ -2,7 +2,7 @@
 
 import { motion } from 'framer-motion';
 import { signIn } from 'next-auth/react';
-import { ArrowRight, Sparkles, Trophy, Users, LayoutDashboard, MessageCircle } from 'lucide-react';
+import { ArrowRight, Sparkles, Trophy, Users, LayoutDashboard, MessageCircle, ChevronDown } from 'lucide-react';
 import Image from 'next/image';
 import Link from 'next/link';
 
@@ -23,12 +23,22 @@ export default function LandingPage() {
           <span className="text-xl font-bold tracking-tighter">Projeto Resistência</span>
         </div>
         <div className="flex items-center gap-4">
-          <Link
-            href="/editais"
-            className="text-white/80 hover:text-brand-accent transition font-medium text-sm"
-          >
-            Editais
-          </Link>
+          {/* Menu Dropdown */}
+          <div className="relative group">
+            <button className="flex items-center gap-1 text-white/80 hover:text-brand-accent transition font-medium text-sm py-2">
+              Páginas
+              <ChevronDown size={14} />
+            </button>
+            <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden hidden group-hover:block z-50">
+              <Link
+                href="/editais"
+                className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-primary text-sm transition"
+              >
+                Editais e Documentos
+              </Link>
+              {/* Future links can go here */}
+            </div>
+          </div>
           <button
             onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
             className="px-6 py-2 rounded-full border border-white/20 hover:bg-white/10 transition backdrop-blur-sm"
