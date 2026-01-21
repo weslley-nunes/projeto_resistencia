@@ -26,17 +26,24 @@ export default function LandingPage() {
           {/* Menu Dropdown */}
           <div className="relative group">
             <button className="flex items-center gap-1 text-white/80 hover:text-brand-accent transition font-medium text-sm py-2">
-              Páginas
+              Editais
               <ChevronDown size={14} />
             </button>
-            <div className="absolute top-full right-0 mt-2 w-48 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden hidden group-hover:block z-50">
+            <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden hidden group-hover:block z-50">
+              <a
+                href="https://docs.uft.edu.br/s/MiB-rXkiQ1mBc3Z8Ra0d0g"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-primary text-sm transition border-b border-gray-50"
+              >
+                Edital de Abertura_001/2025
+              </a>
               <Link
                 href="/editais"
                 className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-primary text-sm transition"
               >
-                Editais e Documentos
+                Ver todos os documentos
               </Link>
-              {/* Future links can go here */}
             </div>
           </div>
           <button
