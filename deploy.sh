@@ -17,14 +17,10 @@ echo "👀 Verificando conteúdo do arquivo (Debug)..."
 pwd
 grep -C 2 "Editais" app/page.tsx || echo "❌ ALERTA: Texto 'Editais' NÃO ENCONTRADO no arquivo!"
 
-echo "📦 Instalando dependências..."
-npm install
-
-echo "🗄️ Atualizando Banco de Dados..."
-npx prisma db push --accept-data-loss
-
-echo "🔄 Gerando Cliente do Banco..."
-npx prisma generate
+# Gerar arquivo de versão para debug
+echo "Build Timestamp: $(date)" > public/version.txt
+git rev-parse HEAD >> public/version.txt
+echo "📄 Arquivo de versão gerado em public/version.txt"
 
 echo "🏗️ Construindo Aplicação..."
 # Limpar build anterior para evitar cache
@@ -34,8 +30,8 @@ rm -rf .next
 export NODE_OPTIONS="--max-old-space-size=4096"
 npm run build
 
-echo "🔄 Reiniciando Servidor..."
-pm2 describe resistencia
-pm2 restart resistencia
+echo "🔄 Reiniciando Servidor (Hard Reset)..."
+pm2 delete resistencia || true
+pm2 start npm --name "resistencia" -- start
 
 echo "✅ SUCESSO! O site foi atualizado."
