@@ -8,6 +8,21 @@ import Image from 'next/image';
 import Link from 'next/link';
 
 export default function LandingPage() {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const menuRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    function handleClickOutside(event: MouseEvent) {
+      if (menuRef.current && !menuRef.current.contains(event.target as Node)) {
+        setIsMenuOpen(false);
+      }
+    }
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, []);
+
   return (
     <div className="min-h-screen bg-brand-secondary text-white font-sans overflow-x-hidden">
       {/* Navbar */}
@@ -25,27 +40,35 @@ export default function LandingPage() {
         </div>
         <div className="flex items-center gap-4">
           {/* Menu Dropdown */}
-          <div className="relative group">
-            <button className="flex items-center gap-1 text-white/80 hover:text-brand-accent transition font-medium text-sm py-2">
+          <div className="relative" ref={menuRef}>
+            <button
+              onClick={() => setIsMenuOpen(!isMenuOpen)}
+              className="flex items-center gap-1 text-white/80 hover:text-brand-accent transition font-medium text-sm py-2"
+            >
               Editais
-              <ChevronDown size={14} />
+              <ChevronDown size={14} className={`transition-transform duration-200 ${isMenuOpen ? 'rotate-180' : ''}`} />
             </button>
-            <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden hidden group-hover:block z-50">
-              <a
-                href="https://docs.uft.edu.br/s/MiB-rXkiQ1mBc3Z8Ra0d0g"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-primary text-sm transition border-b border-gray-50"
-              >
-                Edital de Abertura_001/2025
-              </a>
-              <Link
-                href="/editais"
-                className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-primary text-sm transition"
-              >
-                Ver todos os documentos
-              </Link>
-            </div>
+
+            {isMenuOpen && (
+              <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-100">
+                <a
+                  href="https://docs.uft.edu.br/s/MiB-rXkiQ1mBc3Z8Ra0d0g"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-primary text-sm transition border-b border-gray-50"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Edital de Abertura_001/2025
+                </a>
+                <Link
+                  href="/editais"
+                  className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-primary text-sm transition"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Ver todos os documentos
+                </Link>
+              </div>
+            )}
           </div>
           <button
             onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
