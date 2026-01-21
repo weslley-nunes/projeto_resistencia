@@ -15,6 +15,14 @@ git pull
 
 echo "👀 Verificando conteúdo do arquivo (Debug)..."
 pwd
+ls -la .env
+if [ -f .env ]; then
+    echo "✅ .env encontrado."
+    grep "GOOGLE_CLIENT_ID" .env && echo "✅ GOOGLE_CLIENT_ID presente no .env" || echo "❌ GOOGLE_CLIENT_ID AUSENTE no .env"
+    grep "DATABASE_URL" .env && echo "✅ DATABASE_URL presente no .env" || echo "❌ DATABASE_URL AUSENTE no .env"
+else
+    echo "❌ ARQUIVO .ENV NÃO ENCONTRADO!"
+fi
 grep -C 2 "Editais" app/page.tsx || echo "❌ ALERTA: Texto 'Editais' NÃO ENCONTRADO no arquivo!"
 
 # Gerar arquivo de versão para debug
