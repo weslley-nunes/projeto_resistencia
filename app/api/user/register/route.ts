@@ -1,4 +1,9 @@
-// ... imports
+import { NextResponse } from 'next/server';
+import { getServerSession } from "next-auth/next";
+import { authOptions } from "@/lib/auth";
+import { prisma } from '@/lib/prisma';
+import { writeFile, mkdir } from 'fs/promises';
+import { join } from 'path';
 import nodemailer from 'nodemailer';
 
 // Helper to send email
