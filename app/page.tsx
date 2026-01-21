@@ -1,5 +1,6 @@
 'use client';
 
+import { useState, useRef, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { signIn } from 'next-auth/react';
 import { ArrowRight, Sparkles, Trophy, Users, LayoutDashboard, MessageCircle, ChevronDown } from 'lucide-react';
