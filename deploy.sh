@@ -7,7 +7,7 @@ echo "🚀 Iniciando Deploy Automático..."
 
 # Carregar variáveis de ambiente (NVM/Node)
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 echo "📥 Baixando atualizações..."
 git pull
@@ -27,6 +27,7 @@ export NODE_OPTIONS="--max-old-space-size=4096"
 npm run build
 
 echo "🔄 Reiniciando Servidor..."
+pm2 list
 pm2 restart resistencia
 
 echo "✅ SUCESSO! O site foi atualizado."
