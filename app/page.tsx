@@ -25,7 +25,7 @@ export default function LandingPage() {
         <div className="flex items-center gap-4">
           <Link
             href="/editais"
-            className="text-white/80 hover:text-brand-accent transition font-medium text-sm hidden md:block"
+            className="text-white/80 hover:text-brand-accent transition font-medium text-sm"
           >
             Editais
           </Link>
