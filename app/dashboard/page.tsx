@@ -1,10 +1,23 @@
+'use client';
+import { useSession } from 'next-auth/react';
+import Link from 'next/link';
+
 export default function DashboardPage() {
+    const { data: session } = useSession();
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">
                 <h1 className="text-3xl font-bold font-sans text-brand-secondary">Minha Jornada</h1>
-                <div className="px-4 py-2 bg-brand-accent/20 text-brand-secondary font-bold rounded-lg border border-brand-accent/50">
-                    Módulo 1: Introdução
+                <div className="flex gap-2">
+                    {/* @ts-ignore */}
+                    {session?.user?.role === 'ADMIN' && (
+                        <Link href="/admin" className="px-4 py-2 bg-brand-secondary text-white font-bold rounded-lg border border-white/20 hover:bg-brand-secondary/80 transition">
+                            Painel Admin
+                        </Link>
+                    )}
+                    <div className="px-4 py-2 bg-brand-accent/20 text-brand-secondary font-bold rounded-lg border border-brand-accent/50">
+                        Módulo 1: Introdução
+                    </div>
                 </div>
             </div>
 

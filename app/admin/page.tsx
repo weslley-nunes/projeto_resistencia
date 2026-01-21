@@ -142,7 +142,7 @@ export default function AdminDashboard() {
                             className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 font-bold shadow-lg shadow-green-600/20 transition"
                         >
                             <Download size={20} />
-                            Baixar Excel
+                            Baixar Inscrições (CSV)
                         </button>
                     </div>
                 </div>

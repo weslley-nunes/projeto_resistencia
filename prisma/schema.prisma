@@ -93,3 +93,20 @@ model VerificationToken {
 
   @@unique([identifier, token])
 }
+
+model Registration {
+  id             String   @id @default(cuid())
+  name           String
+  email          String   @unique
+  cpf            String   @unique
+  phone          String
+  city           String
+  school         String
+  jobTitle       String
+  teachingTime   String
+  educationLevel String
+  trainingArea   String
+  
+  status         String   @default("PENDING") // PENDING, EXPORTED
+  createdAt      DateTime @default(now())
+}

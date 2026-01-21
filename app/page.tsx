@@ -106,7 +106,7 @@ export default function LandingPage() {
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
-              onClick={() => signIn('google', { callbackUrl: '/inscricao' })}
+              onClick={() => window.location.href = '/inscricao'}
               className="px-8 py-4 rounded-full bg-brand-primary text-white font-bold text-lg hover:bg-brand-primary/90 transition shadow-lg shadow-brand-primary/25 flex items-center justify-center gap-2 group"
             >
               Inscreva-se Agora
