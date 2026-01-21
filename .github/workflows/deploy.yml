@@ -19,9 +19,9 @@ jobs:
             # Navegar até a pasta do projeto
             cd projeto_resistencia
             
-            # Garantir que estamos na branch correta e baixar atualizações
-            git checkout main
-            git pull origin main
+            # Garantir que estamos na branch correta e forçar atualização (sobrescrevendo locais)
+            git fetch origin
+            git reset --hard origin/main
             
             # Rodar o script de deploy existente
             # Torná-lo executável por precaução
