@@ -10,7 +10,12 @@ export NVM_DIR="$HOME/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 echo "📥 Baixando atualizações..."
+echo "📥 Baixando atualizações..."
 git pull
+
+echo "👀 Verificando conteúdo do arquivo (Debug)..."
+pwd
+grep -C 2 "Editais" app/page.tsx || echo "❌ ALERTA: Texto 'Editais' NÃO ENCONTRADO no arquivo!"
 
 echo "📦 Instalando dependências..."
 npm install
@@ -27,7 +32,7 @@ export NODE_OPTIONS="--max-old-space-size=4096"
 npm run build
 
 echo "🔄 Reiniciando Servidor..."
-pm2 list
+pm2 describe resistencia
 pm2 restart resistencia
 
 echo "✅ SUCESSO! O site foi atualizado."
