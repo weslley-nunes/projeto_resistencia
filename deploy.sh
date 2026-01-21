@@ -27,6 +27,9 @@ echo "🔄 Gerando Cliente do Banco..."
 npx prisma generate
 
 echo "🏗️ Construindo Aplicação..."
+# Limpar build anterior para evitar cache
+rm -rf .next
+
 # Aumentar memória para o build se necessário
 export NODE_OPTIONS="--max-old-space-size=4096"
 npm run build
