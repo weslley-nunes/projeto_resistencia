@@ -71,7 +71,7 @@ export default function LandingPage() {
             )}
           </div>
           <button
-            onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
+            onClick={() => window.location.href = '/login'}
             className="px-6 py-2 rounded-full border border-white/20 hover:bg-white/10 transition backdrop-blur-sm"
           >
             Entrar
