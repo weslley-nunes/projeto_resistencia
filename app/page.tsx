@@ -4,6 +4,7 @@ import { motion } from 'framer-motion';
 import { signIn } from 'next-auth/react';
 import { ArrowRight, Sparkles, Trophy, Users, LayoutDashboard, MessageCircle } from 'lucide-react';
 import Image from 'next/image';
+import Link from 'next/link';
 
 export default function LandingPage() {
   return (
@@ -21,7 +22,13 @@ export default function LandingPage() {
           </div>
           <span className="text-xl font-bold tracking-tighter">Projeto Resistência</span>
         </div>
-        <div>
+        <div className="flex items-center gap-4">
+          <Link
+            href="/editais"
+            className="text-white/80 hover:text-brand-accent transition font-medium text-sm hidden md:block"
+          >
+            Editais
+          </Link>
           <button
             onClick={() => signIn('google', { callbackUrl: '/dashboard' })}
             className="px-6 py-2 rounded-full border border-white/20 hover:bg-white/10 transition backdrop-blur-sm"
