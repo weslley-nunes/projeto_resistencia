@@ -5,18 +5,20 @@ import { AVATAR_CATALOG, CATEGORIES, AvatarItem } from '@/lib/avatarCatalog';
 import AvatarDisplay from './AvatarDisplay';
 import { Lock, Loader2, Save } from 'lucide-react';
 
+const DEFAULT_CONFIG = {
+    top: 'shortHairShortFlat',
+    hairColor: '4a312c',
+    clothing: 'shirtVNeck',
+    eyes: 'default',
+    eyebrows: 'default',
+    mouth: 'default',
+    skinColor: 'edb98a',
+    facialHair: 'blank',
+    accessories: 'blank'
+};
+
 export default function AvatarEditor() {
-    const [config, setConfig] = useState<any>({
-        top: 'shortHairShortFlat',
-        hairColor: '4a312c',
-        clothing: 'shirtVNeck',
-        eyes: 'default',
-        eyebrows: 'default',
-        mouth: 'default',
-        skinColor: 'edb98a',
-        facialHair: 'blank',
-        accessories: 'blank'
-    });
+    const [config, setConfig] = useState<any>(DEFAULT_CONFIG);
     const [level, setLevel] = useState(1);
     const [activeCategory, setActiveCategory] = useState('skinColor');
     const [styleFilter, setStyleFilter] = useState<'male' | 'female'>('male'); // Default to male
@@ -32,9 +34,16 @@ export default function AvatarEditor() {
             const res = await fetch('/api/user/avatar');
             const data = await res.json();
             if (data.config && Object.keys(data.config).length > 0) {
-                // Migrate old keys if necessary or just replace
-                setConfig(data.config);
-                setLevel(data.level);
+                // simple check for legacy config (adventurer style)
+                if (data.config.hair || !data.config.top) {
+                    console.log("Legacy avatar config detected, resetting to default Avataaars.");
+                    setConfig(DEFAULT_CONFIG);
+                    // Optionally save this new default immediately or let user save
+                } else {
+                    setConfig(data.config);
+                }
+
+                if (data.level) setLevel(data.level);
             }
         } catch (error) {
             console.error("Failed to load avatar", error);
