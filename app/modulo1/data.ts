@@ -30,219 +30,326 @@ export type QuizQuestion = {
     explanation: string;
 };
 
-// --- QUIZ BANK ---
+// --- QUIZ BANK (Aligned with the new content) ---
 export const quizQuestions: QuizQuestion[] = [
     {
         id: 'q1',
-        question: 'O que define nossa identidade cultural?',
-        options: ['Apenas nossa genética', 'As histórias, crenças e costumes que compartilhamos', 'O lugar onde nascemos apenas', 'Nossa classe econômica'],
+        question: 'Segundo Paulo Freire, como se define a relação docência-discência?',
+        options: [
+            'O professor detém todo o saber e o aluno é um recipiente vazio.',
+            'Quem ensina aprende ao ensinar e quem aprende ensina ao aprender.',
+            'Não há troca entre quem ensina e quem aprende.',
+            'A docência é superior à discência.'
+        ],
         correctAnswer: 1,
-        explanation: 'A identidade é construída socialmente através de memória, cultura e convivência.'
+        explanation: 'Freire defende que não há docência sem discência; ambos se educam, apesar das diferenças.'
     },
     {
         id: 'q2',
-        question: 'O que é Etnocentrismo?',
-        options: ['A valorização de todas as culturas', 'Julgar outras culturas pela régua da sua própria', 'Estudar etnias diferentes', 'O centro geográfico de um povo'],
-        correctAnswer: 1,
-        explanation: 'Etnocentrismo é a visão preconceituosa de considerar sua própria cultura como superior ou "normal".'
+        question: 'De acordo com Laraia (2009), qual a relação entre cultura e humanidade?',
+        options: [
+            'A cultura é o que nos guia na construção das ideias sobre o mundo.',
+            'A cultura é apenas para quem estuda artes.',
+            'Somos humanos apenas biologicamente, cultura é opcional.',
+            'Cada pessoa vive isolada em sua própria cultura individual.'
+        ],
+        correctAnswer: 0,
+        explanation: 'A cultura nos guia na construção de mundo; nosso grupo é formado pela nossa cultura.'
     },
     {
         id: 'q3',
-        question: 'Qual a importância do "Direito à Memória"?',
-        options: ['Lembrar senhas antigas', 'Evitar que erros históricos se repitam e valorizar identidades apagadas', 'Decorar livros de história', 'Nenhuma das anteriores'],
+        question: 'Sobre a Memória Coletiva (Halbwachs), é correto afirmar:',
+        options: [
+            'É apenas a soma das memórias individuais de cada pessoa.',
+            'É a memória de um povo sobre seu espaço, história e manifestações.',
+            'É uma memória que não influencia a identidade do grupo.',
+            'Só existe se estiver escrita em livros oficiais.'
+        ],
         correctAnswer: 1,
-        explanation: 'A memória preserva a identidade e serve de alerta para não repetirmos injustiças.'
+        explanation: 'A memória coletiva é a memória do grupo que ajuda a formar o Patrimônio e a identidade.'
     },
     {
         id: 'q4',
-        question: 'Sobre o Relativismo Cultural, é correto afirmar:',
-        options: ['Tudo é permitido', 'Nenhuma cultura é superior a outra, cada uma tem sua lógica', 'Devemos julgar costumes estranhos', 'Só existe uma cultura correta'],
-        correctAnswer: 1,
-        explanation: 'O relativismo cultural busca entender cada cultura a partir de seus próprios valores, sem hierarquia.'
+        question: 'O que caracteriza o Etnocentrismo Cultural?',
+        options: [
+            'Julgar outros grupos a partir dos valores da sua própria cultura como superiores.',
+            'Aceitar todas as diferenças culturais como válidas.',
+            'Estudar etnias sem fazer julgamentos de valor.',
+            'Acreditar que a sua cultura é inferior às outras.'
+        ],
+        correctAnswer: 0,
+        explanation: 'Etnocentrismo é a visão de mundo onde o nosso grupo é tomado como centro e "superior".'
     },
     {
         id: 'q5',
-        question: 'A filosofia Ubuntu significa:',
-        options: ['Eu sou porque nós somos', 'Cada um por si', 'A natureza é sagrada', 'O futuro é tecnológico'],
-        correctAnswer: 0,
-        explanation: 'Ubuntu é uma filosofia africana que prega a interdependência humana: existimos através dos outros.'
+        question: 'Qual o antídoto proposto pela antropologia (Franz Boas) contra o etnocentrismo?',
+        options: [
+            'Darwinismo Social',
+            'Colonialismo',
+            'Relativismo Cultural',
+            'Globalização'
+        ],
+        correctAnswer: 2,
+        explanation: 'O Relativismo Cultural propõe que cada cultura deve ser entendida dentro de seu próprio contexto.'
     },
     {
         id: 'q6',
-        question: 'Qual elemento NÃO é considerado parte da cultura?',
-        options: ['Culinária', 'Língua', 'Vestimenta', 'Instinto biológico de respirar'],
-        correctAnswer: 3,
-        explanation: 'Funções biológicas universais não são culturais. Cultura é tudo o que é aprendido e partilhado.'
+        question: 'A filosofia Ubuntu, "Eu sou porque nós somos", nos ensina que:',
+        options: [
+            'Devemos focar apenas no nosso sucesso individual.',
+            'Nossa existência está entrelaçada e dependemos da comunidade.',
+            'A identidade é formada isoladamente.',
+            'O passado não importa para quem somos.'
+        ],
+        correctAnswer: 1,
+        explanation: 'Ubuntu reconhece a interdependência humana e a construção coletiva do ser.'
     },
     {
         id: 'q7',
-        question: 'O que são narrativas mitológicas?',
-        options: ['Mentiras antigas', 'Histórias sagradas que explicam a origem do mundo e das coisas', 'Livros de ficção científica', 'Notícias de jornal'],
+        question: '"Um povo sem memória é um povo sem história". O que acontece com esse povo?',
+        options: [
+            'Vive mais feliz sem lembrar do passado.',
+            'Está fadado a cometer os mesmos erros do passado.',
+            'Cria uma nova história do zero.',
+            'Esquece apenas as partes ruins.'
+        ],
         correctAnswer: 1,
-        explanation: 'Mitos são narrativas simbólicas fundamentais para dar sentido à existência humana.'
+        explanation: 'A frase de Emília Viotti da Costa alerta para a repetição de erros históricos quando se perde a memória.'
     },
     {
         id: 'q8',
-        question: 'A cultura do Tocantins é influenciada por:',
-        options: ['Apenas imigrantes europeus', 'Indígenas, Quilombolas e migrantes de diversas regiões', 'Apenas pela cultura goiana', 'Não tem influência externa'],
+        question: 'No contexto do curso, o que a Educação Patrimonial propõe?',
+        options: [
+            'Ensinar apenas sobre prédios antigos.',
+            'Refletir sobre os diversos "mundos" dos alunos e sua complexidade cultural.',
+            'Decorar datas históricas.',
+            'Impor uma cultura única nas escolas.'
+        ],
         correctAnswer: 1,
-        explanation: 'O Tocantins é um encontro de águas e culturas: indígena, negra, nortista, nordestina e sulista.'
+        explanation: 'A Educação Patrimonial visa compreender nossa existência com toda a complexidade cultural envolvida.'
     }
 ];
 
-// --- LEARNING TRAIL NODES ---
+// --- LEARNING TRAIL NODES (Updated Content) ---
 export const mapNodes: MapNode[] = [
     {
         id: 'node-1',
-        title: 'Início: Narrativas Iniciais',
-        description: 'Comece sua jornada entendendo as narrativas que formam nossa história.',
-        x: 10, y: 80, type: 'start', educoinsReward: 10,
+        title: 'Narrativas Iniciais',
+        description: 'Meu maior Patrimônio é a minha Existência.',
+        x: 10, y: 80, type: 'start', educoinsReward: 50,
         slides: [
             {
                 type: 'cover',
                 title: 'Narrativas Iniciais',
-                content: 'Bem-vindo à jornada. Vamos descobrir como as histórias moldam quem somos.',
-                image: '/assets/cover_narratives.jpg' // Placeholder or generated asset
+                content: '"Meu maior Patrimônio é a minha Existência"',
+                image: '/assets/illustration_culture.png'
             },
             {
                 type: 'text',
-                title: 'O Poder das Histórias',
-                content: `Historicamente, a humanidade construiu **narrativas** para dar sentido à existência.\n\nDesde tempos imemoriais, olhamos para as estrelas e criamos mitos.`
+                title: 'A Busca pela Origem',
+                content: `Há muito tempo nós nos ocupamos em entender e explicar nossa existência.
+                
+Nessa curiosa busca, descobrimo-nos como seres capazes de **criar e recriar** nossos hábitos, crenças e territórios.
+
+A essas criações vividas e significadas dia após dia, damos o nome de **CULTURA**.`
+            },
+            {
+                type: 'quote',
+                title: 'Somos um Grupo',
+                content: `A cultura forma nosso grupo, ou melhor, faz de nós um grupo.
+                
+Cada grupo possui seu **Patrimônio Cultural**: o conjunto de saberes, fazeres, memórias e histórias valiosas para sua sobrevivência.`
             },
             {
                 type: 'image-text',
-                title: 'Tipos de Narrativa',
-                content: `- **Mitologias**: Deuses e heróis.\n- **Religiões**: Fé e crença.\n- **Ciência**: Método e prova.`,
-                image: 'https://images.unsplash.com/photo-1478726880482-9653a06fae63?q=80&w=2000&auto=format&fit=crop'
+                title: 'A Pedagogia de Freire',
+                content: `A Educação Patrimonial nos convida a ser mediadores desses "mundos". Lembre-se de Paulo Freire:
+                
+"Não há docência sem discência... Quem ensina aprende ao ensinar e quem aprende ensina ao aprender."`,
+                image: 'https://images.unsplash.com/photo-1544928147-79a774ccad2d?q=80&w=2000&auto=format&fit=crop'
             },
             {
                 type: 'activity',
-                title: 'Quiz Rápido',
-                content: 'Vamos ver se você pegou a ideia.',
+                title: 'Reflexão',
+                content: 'Sobre a frase de Freire "Quem ensina ensina alguma coisa a alguém":',
                 activity: {
-                    question: 'Qual dessas NÃO é uma forma de narrativa cultural?',
-                    options: ['Mito da Criação', 'Teoria do Big Bang', 'Um espirro', 'A Bíblia'],
-                    correctAnswer: 2,
-                    feedback: 'Exato! Um espirro é uma reação biológica, não uma construção cultural.'
+                    question: 'Como você enxerga o patrimônio cultural que seu aluno traz para a sala de aula?',
+                    options: [
+                        'Como algo menor que precisa ser corrigido.',
+                        'Como uma bagagem valiosa que deve dialogar com o ensino.',
+                        'Como algo irrelevante para o conteúdo.'
+                    ],
+                    correctAnswer: 1,
+                    feedback: 'Exato! O patrimônio e as memórias do aluno ajudam a construir sua identidade.'
                 }
             }
         ]
     },
     {
         id: 'node-2',
-        title: 'O Mundo da Cultura',
-        description: 'A cultura como lente para ver o mundo.',
-        x: 25, y: 65, type: 'lesson', educoinsReward: 15,
-        slides: [
-            {
-                type: 'cover',
-                title: 'O Mundo da Cultura',
-                content: 'Tudo o que fazemos é mediado pela cultura. Você está pronto para trocar de óculos?',
-            },
-            {
-                type: 'quote',
-                title: 'Reflexão',
-                content: 'A cultura funciona como uma lente. Se usarmos óculos azuis, o mundo será azul.'
-            },
-            {
-                type: 'text',
-                title: 'Você é um ser cultural',
-                content: `Não existe ser humano sem cultura.\n\n1. A língua que falamos\n2. A comida que amamos\n3. O jeito que vestimos\n\nTudo isso aprendemos socialmente.`
-            }
-        ]
-    },
-    {
-        id: 'node-3',
         title: 'Direito à Memória',
-        description: 'Por que lembrar é resistir?',
-        x: 40, y: 50, type: 'lesson', educoinsReward: 20,
+        description: 'Quem é capaz de roubar memórias?',
+        x: 25, y: 65, type: 'lesson', educoinsReward: 50,
         slides: [
             {
                 type: 'cover',
                 title: 'Direito à Memória',
-                content: 'O esquecimento é uma ferramenta de poder. Lembrar é um ato político.'
+                content: 'Mas quem é capaz de roubar memórias? A quem foi dado esse direito?',
+                image: '/assets/illustration_memory.png'
             },
             {
-                type: 'image-text',
-                title: 'O Apagamento',
-                content: 'Muitas vezes, a história oficial "esquece" propositalmente grupos marginalizados.\n\nOnde estão os heróis negros e indígenas nos nossos monumentos?',
-                image: 'https://images.unsplash.com/photo-1596707328607-4f6c5be5f704?q=80&w=2000&auto=format&fit=crop'
-            }
-        ]
-    },
-    {
-        id: 'node-4',
-        title: 'Desafio: Etnocentrismo',
-        description: 'O perigo de se achar o centro do mundo.',
-        x: 50, y: 30, type: 'challenge', educoinsReward: 25,
-        slides: [
+                type: 'text',
+                title: 'Memória e Cultura',
+                content: `Não se pode falar de cultura sem falar de memória.
+                
+Segundo **Halbwachs (2006)**:
+- **Memória Individual**: Lembranças pessoais.
+- **Memória Coletiva**: Memória do grupo, de um povo sobre sua história e manifestações.`
+            },
             {
                 type: 'text',
-                title: 'O que é Etnocentrismo?',
-                content: '**Etno** (povo) + **Centrismo** (centro).\n\nÉ achar que a sua cultura é a "normal" e a dos outros é "errada" ou "atrasada".'
+                title: 'Silenciamento',
+                content: `Nem todos os povos tiveram o "direito de existir" preservado.
+                
+Muitas memórias indígenas e africanas foram apagadas diariamente. Entender essa diversidade é uma **necessidade ética** para construirmos o respeito ao outro.`
             },
             {
                 type: 'activity',
-                title: 'Prática',
-                content: 'Identifique o comportamento etnocêntrico:',
+                title: 'Multiculturalismo',
+                content: 'Refletindo sobre a diversidade:',
                 activity: {
-                    question: 'Um turista diz: "Que comida nojenta, como eles conseguem comer isso?"',
-                    options: ['Isso é Etnocentrismo', 'Isso é Crítica Gastronômica', 'Isso é Relativismo'],
-                    correctAnswer: 0,
-                    feedback: 'Correto. Julgar a cultura do outro com base no seu gosto pessoal é etnocentrismo.'
+                    question: 'O multiculturalismo nos ensina que:',
+                    options: [
+                        'Devemos nos misturar até sermos todos iguais.',
+                        'Somos diversos, compostos por muitas culturas que merecem respeito.',
+                        'Apenas a cultura dominante importa.'
+                    ],
+                    correctAnswer: 1,
+                    feedback: 'Isso! O multiculturalismo valoriza que somos feitos de muitas culturas.'
                 }
             }
         ]
     },
     {
-        id: 'node-5',
-        title: 'Relativismo Cultural',
-        description: 'O antídoto para o preconceito.',
-        x: 65, y: 45, type: 'lesson', educoinsReward: 20,
+        id: 'node-3',
+        title: 'Desafio do Etnocentrismo',
+        description: 'A lente com que vemos o mundo.',
+        x: 40, y: 50, type: 'challenge', educoinsReward: 75,
         slides: [
             {
                 type: 'cover',
-                title: 'O Olhar Relativista',
-                content: 'Nenhuma cultura é superior a outra. Apenas diferente.'
+                title: 'O Etnocentrismo Cultural',
+                content: 'Uma prática que ocorre desde os primórdios da humanidade.',
+                image: '/assets/illustration_relativism.png'
             },
             {
                 type: 'text',
-                title: 'Como praticar?',
-                content: 'Para entender o outro, você precisa tentar ver o mundo **como ele vê**.\n\nPergunte: "Qual o sentido disso para eles?" ao invés de "Isso é certo ou errado?".'
+                title: 'O que é?',
+                content: `É a visão onde um grupo julga os demais a partir de seus próprios valores, considerando sua cultura superior.
+                
+Exemplo: "Nordestino é preguiçoso", "Índio não gosta de trabalhar".`
+            },
+            {
+                type: 'quote',
+                title: 'O Antídoto: Relativismo',
+                content: `Contrapondo o etnocentrismo, Franz Boas propõe o **Relativismo Cultural**.
+                
+Todas as culturas devem ser entendidas dentro de seu próprio contexto. Nenhuma é superior a outra.`
+            },
+            {
+                type: 'activity',
+                title: 'Identificando na Prática',
+                content: 'Qual atitude representa o Relativismo Cultural?',
+                activity: {
+                    question: 'Ao encontrar um hábito diferente do seu:',
+                    options: [
+                        'Rir e dizer que é estranho.',
+                        'Tentar entender o significado daquilo para aquele povo.',
+                        'Tentar ensinar o jeito "certo" de fazer.'
+                    ],
+                    correctAnswer: 1,
+                    feedback: 'Perfeito. Relativizar é olhar de dentro, com respeito.'
+                }
+            }
+        ]
+    },
+    {
+        id: 'node-4',
+        title: 'Identidade e Memória',
+        description: 'Tecer as redes do imaginário.',
+        x: 60, y: 40, type: 'lesson', educoinsReward: 60,
+        slides: [
+            {
+                type: 'image-text',
+                title: 'A Construção do Eu',
+                content: `A identidade passa pelo mundo das formas e subjetividades.
+                
+As sociedades ensinam o que pensam ser elas mesmas (seu **ethos**).`,
+                image: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=2000&auto=format&fit=crop'
+            },
+            {
+                type: 'text',
+                title: 'Memória como Resistência',
+                content: `"Atrás de cada artefato há uma pessoa... Descobrir quem eram é uma experiência humanizante." (Horta, 1991).
+                
+O direito à memória é o direito de existir. Povos marginalizados mantiveram suas memórias vivas na oralidade e na prática cultural.`
+            },
+            {
+                type: 'quote',
+                title: 'Emília Viotti da Costa',
+                content: `"Um povo sem memória é um povo sem história. E um povo sem história está fadado a cometer, no presente e no futuro, os mesmos erros do passado."`
+            }
+        ]
+    },
+    {
+        id: 'node-5',
+        title: 'Atividade: Eu sou porque somos',
+        description: 'Dinâmica de encerramento do módulo.',
+        x: 80, y: 40, type: 'lesson', educoinsReward: 100,
+        slides: [
+            {
+                type: 'cover',
+                title: 'Dinâmica: Eu sou porque somos',
+                content: 'Reflexão final sobre nossa interdependência.',
+                image: '/assets/illustration_ubuntu.png'
+            },
+            {
+                type: 'activity',
+                title: 'O que trago? O que levo?',
+                content: 'Participe desta reflexão mentalmente ou anote em seu diário:',
+                activity: {
+                    question: 'Se você tivesse que se apresentar agora para a roda, o que você diria?',
+                    options: [
+                        'Eu sou [Nome] e trago meu desejo de ensinar e aprender.',
+                        'Eu não trago nada.',
+                        'Eu só vim ouvir.'
+                    ],
+                    correctAnswer: 0,
+                    feedback: 'Ótimo! Reconhecer o que trazemos e o que esperamos levar é o primeiro passo da troca.'
+                }
+            },
+            {
+                type: 'text',
+                title: 'Atividade Reflexiva',
+                content: `Escreva (para si mesmo ou compartilhe depois) um texto narrativo a partir da frase:
+                
+"Um povo sem memória é um povo sem história..."
+                
+Como isso se aplica à realidade dos seus alunos no Tocantins?`
             }
         ]
     },
     {
         id: 'node-6',
-        title: 'Identidade e Memória',
-        description: 'Quem somos nós sem nossas lembranças?',
-        x: 80, y: 60, type: 'lesson', educoinsReward: 20,
-        slides: [
-            {
-                type: 'text',
-                title: 'Identidade Coletiva',
-                content: 'Ser brasileiro, ser tocantinense, ser quilombola.\n\nEssas identidades dependem de uma **memória compartilhada**.'
-            },
-            {
-                type: 'image-text',
-                title: 'Nossa História',
-                content: 'Preservar nossas festas, nossas lendas e nossos lugares sagrados é preservar quem somos.',
-                image: 'https://images.unsplash.com/photo-1506459225024-1428097a7e18?q=80&w=2000&auto=format&fit=crop'
-            }
-        ]
-    },
-    {
-        id: 'node-7',
-        title: 'Desafio Final: Prova do Módulo',
-        description: 'Teste seus conhecimentos e avance para a próxima fase.',
-        x: 90, y: 20, type: 'final', educoinsReward: 100,
+        title: 'Prova Final do Módulo',
+        description: 'Teste seus conhecimentos para avançar.',
+        x: 90, y: 20, type: 'final', educoinsReward: 200,
         slides: [
             {
                 type: 'cover',
-                title: 'Prova Final',
-                content: 'Você completou a trilha de aprendizado.\n\nAgora, vamos testar seus conhecimentos. Você precisa acertar pelo menos **50%** para passar.'
+                title: 'Avaliação Final',
+                content: 'Você chegou ao fim desta etapa.\n\nResponda ao questionário para validar seus conhecimentos e prosseguir.'
             }
-            // The actual quiz interaction is handled by the specialized component, not slide content
         ]
     }
 ];
