@@ -15,6 +15,7 @@ type GameState = {
     currentPhase: number;
     selectedAvatarId: string;
     avatars: Avatar[];
+    completedNodes: string[];
 
     // Actions
     addEducoins: (amount: number) => void;
@@ -22,6 +23,7 @@ type GameState = {
     unlockAvatar: (avatarId: string) => void;
     selectAvatar: (avatarId: string) => void;
     advancePhase: () => void;
+    completeNode: (nodeId: string) => void;
 };
 
 export const useGameStore = create<GameState>()(
@@ -38,6 +40,7 @@ export const useGameStore = create<GameState>()(
                 { id: 'hero-3', name: 'Guardião', color: 'bg-green-500', unlocked: false },
                 { id: 'hero-4', name: 'Explorador', color: 'bg-yellow-500', unlocked: false },
             ],
+            completedNodes: [],
 
             addEducoins: (amount) => set((state) => ({ educoins: state.educoins + amount })),
 
@@ -57,6 +60,11 @@ export const useGameStore = create<GameState>()(
             selectAvatar: (avatarId) => set(() => ({ selectedAvatarId: avatarId })),
 
             advancePhase: () => set((state) => ({ currentPhase: state.currentPhase + 1 })),
+
+            completeNode: (nodeId) => set((state) => {
+                if (state.completedNodes.includes(nodeId)) return state;
+                return { completedNodes: [...state.completedNodes, nodeId] };
+            }),
         }),
         {
             name: 'projeto-resistencia-storage',
