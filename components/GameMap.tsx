@@ -9,9 +9,10 @@ interface GameMapProps {
     nodes: MapNode[];
     onNodeClick: (node: MapNode) => void;
     completedNodes: string[];
+    backgroundImage?: string;
 }
 
-export default function GameMap({ nodes, onNodeClick, completedNodes }: GameMapProps) {
+export default function GameMap({ nodes, onNodeClick, completedNodes, backgroundImage = "/assets/map_background_tocantins.png" }: GameMapProps) {
     const getNodeStatus = (nodeId: string, index: number) => {
         if (completedNodes.includes(nodeId)) return 'completed';
         const previousNodeId = index > 0 ? nodes[index - 1].id : null;
@@ -43,7 +44,7 @@ export default function GameMap({ nodes, onNodeClick, completedNodes }: GameMapP
             {/* 1. Generated Background Image */}
             <div className="absolute inset-0">
                 <img
-                    src="/assets/map_background_tocantins.png"
+                    src={backgroundImage}
                     alt="Mapa do Cerrado com Elementos Culturais"
                     className="w-full h-full object-cover opacity-100"
                 />

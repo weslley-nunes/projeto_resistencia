@@ -193,6 +193,7 @@ export default function DashboardPage() {
                     nodes={currentNodes}
                     onNodeClick={handleNodeClick}
                     completedNodes={completedNodes}
+                    backgroundImage={currentModule === 'modulo1' ? '/assets/map_background_tocantins.png' : '/assets/map_background_tocantins_historical.png'}
                 />
             </div>
 
