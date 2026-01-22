@@ -8,7 +8,9 @@ import { Lock, Loader2, Save } from 'lucide-react';
 export default function AvatarEditor() {
     const [config, setConfig] = useState<any>({
         hair: 'short01',
+        hairColor: '0e0e0e',
         eyes: 'variant02',
+        eyebrows: 'variant02',
         mouth: 'variant01',
         skinColor: 'ecad80',
         glasses: 'none'
@@ -148,6 +150,7 @@ export default function AvatarEditor() {
                     {currentItems.map(item => {
                         const isLocked = level < item.requiredLevel;
                         const isSelected = config[item.type] === item.value;
+                        const isColorCategory = item.type === 'skinColor' || item.type === 'hairColor';
 
                         return (
                             <div
@@ -170,7 +173,17 @@ export default function AvatarEditor() {
                                     </>
                                 ) : (
                                     <>
-                                        <span className="text-sm font-medium text-gray-700">{item.label}</span>
+                                        {isColorCategory && item.color ? (
+                                            <div
+                                                className="w-12 h-12 rounded-full border-2 border-white shadow-sm mb-1"
+                                                style={{ backgroundColor: item.color }}
+                                            />
+                                        ) : (
+                                            <span className="text-sm font-medium text-gray-700">{item.label}</span>
+                                        )}
+
+                                        {!isColorCategory && <span className="text-xs text-gray-400 mt-1">{item.label}</span>}
+
                                         {/* Optional: Add rough detail text like "Azul" or "Longo" if label isn't enough */}
                                         {isSelected && <div className="absolute top-2 right-2 w-2 h-2 rounded-full bg-brand-primary shadow"></div>}
                                     </>

@@ -12,7 +12,9 @@ export async function GET(request: Request) {
             seed,
             // Map other known keys
             hair: searchParams.getAll('hair'),
+            hairColor: searchParams.getAll('hairColor'),
             eyes: searchParams.getAll('eyes'),
+            eyebrows: searchParams.getAll('eyebrows'),
             mouth: searchParams.getAll('mouth'),
             skinColor: searchParams.getAll('skinColor'),
             glasses: searchParams.getAll('glasses'),
