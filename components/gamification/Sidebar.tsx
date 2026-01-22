@@ -6,6 +6,8 @@ import { LayoutDashboard, ShoppingBag, Map, Users, LogOut, Settings } from "luci
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/lib/store";
+import AvatarDisplay from "@/components/AvatarDisplay";
+import { useState, useEffect } from "react";
 
 const sidebarItems = [
     { icon: Map, label: "Trilha", href: "/dashboard" },
@@ -19,6 +21,14 @@ export default function Sidebar() {
     const { data: session } = useSession();
     const { level, educoins } = useGameStore(); // Destructured level and educoins
     const pathname = usePathname();
+    const [avatarConfig, setAvatarConfig] = useState(null);
+
+    useEffect(() => {
+        // Fetch avatar config for sidebar
+        fetch('/api/user/avatar').then(res => res.json()).then(data => {
+            if (data.config) setAvatarConfig(data.config);
+        });
+    }, []);
 
     return (
         <aside className="fixed left-0 top-0 h-screen w-64 bg-brand-secondary text-white border-r border-white/10 flex flex-col z-50">
