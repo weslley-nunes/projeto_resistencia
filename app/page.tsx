@@ -450,16 +450,16 @@ export default function LandingPage() {
                 </div>
               </div>
             </div>
-            <div className="bg-gray-100 rounded-3xl p-8 flex items-center justify-center min-h-[400px]">
-              {/* Placeholder for AVA screenshot or graphic */}
-              <div className="relative w-full aspect-square">
-                <div className="absolute inset-0 bg-gradient-to-tr from-brand-secondary to-brand-primary rounded-2xl shadow-2xl transform rotate-3"></div>
-                <div className="absolute inset-0 bg-white rounded-2xl shadow-xl flex flex-col p-6 -rotate-3 transition hover:rotate-0 duration-500">
-                  <div className="h-8 bg-gray-100 rounded-lg w-1/3 mb-4"></div>
-                  <div className="flex-1 bg-gray-50 rounded-xl border-2 border-dashed border-gray-200 flex items-center justify-center">
-                    <span className="text-gray-400 font-medium">Interface do AVA</span>
-                  </div>
-                </div>
+            <div className="bg-gray-100 rounded-3xl p-8 flex items-center justify-center min-h-[400px] overflow-hidden relative">
+              {/* AVA Screenshot */}
+              <div className="relative w-full aspect-video transform hover:scale-105 transition duration-500 hover:rotate-1">
+                <div className="absolute inset-0 bg-brand-primary/20 blur-2xl transform rotate-6 scale-90"></div>
+                <Image
+                  src="/platform-preview.png"
+                  alt="Interface da Plataforma Projeto Resistência"
+                  fill
+                  className="object-cover rounded-2xl shadow-2xl border border-white/20 relative z-10"
+                />
               </div>
             </div>
           </div>
