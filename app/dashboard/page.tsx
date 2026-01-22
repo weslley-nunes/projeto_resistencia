@@ -1,9 +1,20 @@
 'use client';
 import { useSession } from 'next-auth/react';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
+import { useEffect } from 'react';
 
 export default function DashboardPage() {
     const { data: session } = useSession();
+    const router = useRouter();
+
+    useEffect(() => {
+        // @ts-ignore
+        if (session?.user?.role === 'ADMIN') {
+            router.push('/admin');
+        }
+    }, [session, router]);
+
     return (
         <div className="space-y-6">
             <div className="flex justify-between items-center">

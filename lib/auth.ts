@@ -45,25 +45,31 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt",
     },
     callbacks: {
-        async session({ session, user }) {
+        async jwt({ token, user }) {
+            if (user) {
+                token.id = user.id;
+                token.role = user.email === 'weslley.uca@gmail.com' ? 'ADMIN' : user.role;
+                token.status = user.status;
+                token.educoins = user.educoins;
+                token.level = user.level;
+                token.xp = user.xp;
+            }
+            return token;
+        },
+        async session({ session, token }) {
             if (session.user) {
                 // @ts-ignore
-                session.user.id = user.id;
+                session.user.id = token.id;
                 // @ts-ignore
-                // Hardcode Admin for specific email
-                if (session.user.email === 'weslley.uca@gmail.com') {
-                    session.user.role = 'ADMIN';
-                } else {
-                    session.user.role = user.role;
-                }
+                session.user.role = token.role;
                 // @ts-ignore
-                session.user.status = user.status;
+                session.user.status = token.status;
                 // @ts-ignore
-                session.user.educoins = user.educoins;
+                session.user.educoins = token.educoins;
                 // @ts-ignore
-                session.user.level = user.level;
+                session.user.level = token.level;
                 // @ts-ignore
-                session.user.xp = user.xp;
+                session.user.xp = token.xp;
             }
             return session;
         },
