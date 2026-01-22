@@ -59,7 +59,8 @@ model User {
   role          String    @default("STUDENT") // ADMIN, TEACHER, TUTOR, STUDENT
   status        String    @default("PENDING") // PENDING, APPROVED, REJECTED
   
-  // Registration Data
+  // Avatar Configuration
+  avatarConfig  String?   // JSON string storing the avatar configuration  // Registration Data
   cpf           String?   // @unique constraint removed for simplicity in dev, can add later
   phone         String?
   city          String?
