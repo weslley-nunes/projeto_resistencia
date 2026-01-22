@@ -13,13 +13,13 @@ export default function AvatarDisplay({ config, className, style, seed }: Avatar
     const baseUrl = 'https://api.dicebear.com/9.x/adventurer/svg';
     const params = new URLSearchParams();
 
-    // Use user ID or random string as seed
-    params.append('seed', seed || 'felix');
+    // Use user ID or random string as seed to keep base features consistent
+    const cleanSeed = (seed || 'felix').trim().replace(/ /g, '+');
+    params.append('seed', cleanSeed);
 
     // Add keys
     Object.keys(config).forEach(key => {
         if (config[key] && config[key] !== 'none' && config[key] !== 'default') {
-            // Handle arrays handling if complex, but simple strings work for adventurer
             params.append(key, config[key]);
         }
     });
@@ -31,7 +31,11 @@ export default function AvatarDisplay({ config, className, style, seed }: Avatar
             <img
                 src={avatarUrl}
                 alt="Avatar"
-                className="w-full h-full object-contain rounded-full"
+                className="w-full h-full object-contain rounded-full bg-white"
+                onError={(e) => {
+                    // console.error("Avatar load error", e);
+                    // e.currentTarget.style.opacity = '0.5'; 
+                }}
             />
         </div>
     );
