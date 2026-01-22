@@ -3,7 +3,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Download, CheckCircle, XCircle, Search, Shield, LogOut, ArrowLeft, FileText } from 'lucide-react';
+import { Download, CheckCircle, XCircle, Search, Shield, LogOut, ArrowLeft, FileText, Trash2, Filter } from 'lucide-react';
 import Link from 'next/link';
 
 interface User {
@@ -28,6 +28,10 @@ export default function AdminDashboard() {
     const [users, setUsers] = useState<User[]>([]);
     const [loading, setLoading] = useState(true);
     const [searchTerm, setSearchTerm] = useState('');
+
+    // Filters
+    const [cityFilter, setCityFilter] = useState('');
+    const [schoolFilter, setSchoolFilter] = useState('');
 
     useEffect(() => {
         if (status === 'unauthenticated') {
@@ -91,15 +95,45 @@ export default function AdminDashboard() {
         }
     };
 
+    const handleDelete = async (userId: string) => {
+        if (!confirm('ATENÇÃO: Deseja realmente excluir este usuário? Esta ação não pode ser desfeita.')) return;
+
+        try {
+            const res = await fetch('/api/admin/users', {
+                method: 'DELETE',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ userId }),
+            });
+
+            if (res.ok) {
+                setUsers(users.filter(u => u.id !== userId));
+            } else {
+                alert('Erro ao excluir usuário');
+            }
+        } catch (error) {
+            console.error('Failed to delete user', error);
+        }
+    };
+
     const handleExport = () => {
         window.location.href = '/api/admin/export';
     };
 
-    const filteredUsers = users.filter(user =>
-        user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.email?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        user.city?.toLowerCase().includes(searchTerm.toLowerCase())
-    );
+    // Filter Logic
+    const filteredUsers = users.filter(user => {
+        const matchesSearch =
+            user.name?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            user.email?.toLowerCase().includes(searchTerm.toLowerCase());
+
+        const matchesCity = cityFilter ? user.city === cityFilter : true;
+
+        const matchesSchool = schoolFilter ? user.school?.toLowerCase().includes(schoolFilter.toLowerCase()) : true;
+
+        return matchesSearch && matchesCity && matchesSchool;
+    });
+
+    // Unique Cities for Dropdown
+    const cities = Array.from(new Set(users.map(u => u.city).filter(Boolean)));
 
     if (loading) {
         return <div className="min-h-screen flex items-center justify-center bg-gray-50 text-brand-secondary">Carregando painel...</div>;
@@ -163,22 +197,51 @@ export default function AdminDashboard() {
                     </div>
                 </div>
 
-                {/* Users Table */}
-                <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
-                    <div className="p-6 border-b border-gray-100 flex flex-col md:flex-row justify-between items-center gap-4">
-                        <h2 className="text-xl font-bold text-gray-800">Cursistas Cadastrados</h2>
+                {/* Filters */}
+                <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm space-y-4 md:space-y-0 md:flex gap-4 items-end">
+                    <div className="flex-1">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Buscar</label>
                         <div className="relative">
                             <Search className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
                             <input
                                 type="text"
-                                placeholder="Buscar por nome, email ou cidade..."
+                                placeholder="Nome ou Email..."
                                 value={searchTerm}
                                 onChange={(e) => setSearchTerm(e.target.value)}
-                                className="pl-10 pr-4 py-2 rounded-lg border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50 w-full md:w-80"
+                                className="pl-10 pr-4 py-2 w-full rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50"
                             />
                         </div>
                     </div>
+                    <div className="w-full md:w-64">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Filtrar por Cidade</label>
+                        <select
+                            value={cityFilter}
+                            onChange={(e) => setCityFilter(e.target.value)}
+                            className="w-full px-4 py-2 rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50 appearance-none bg-white"
+                        >
+                            <option value="">Todas as Cidades</option>
+                            {cities.map(city => (
+                                <option key={city as string} value={city as string}>{city}</option>
+                            ))}
+                        </select>
+                    </div>
+                    <div className="w-full md:w-64">
+                        <label className="block text-sm font-medium text-gray-700 mb-1">Filtrar por Escola</label>
+                        <div className="relative">
+                            <Filter className="absolute left-3 top-1/2 -translate-y-1/2 text-gray-400" size={18} />
+                            <input
+                                type="text"
+                                placeholder="Nome da Escola..."
+                                value={schoolFilter}
+                                onChange={(e) => setSchoolFilter(e.target.value)}
+                                className="pl-10 pr-4 py-2 w-full rounded-xl border border-gray-200 focus:outline-none focus:ring-2 focus:ring-brand-primary/50"
+                            />
+                        </div>
+                    </div>
+                </div>
 
+                {/* Users Table */}
+                <div className="bg-white rounded-3xl border border-gray-100 shadow-sm overflow-hidden">
                     <div className="overflow-x-auto">
                         <table className="w-full text-left">
                             <thead className="bg-gray-50 text-gray-500 text-sm font-medium">
@@ -218,16 +281,6 @@ export default function AdminDashboard() {
                                                         <FileText size={16} />
                                                     </a>
                                                 )}
-                                                {user.quotaDocumentsUrl && (
-                                                    <a href={user.quotaDocumentsUrl} target="_blank" rel="noopener noreferrer" className="p-2 bg-blue-50 hover:bg-blue-100 rounded-lg text-blue-600 transition" title="Declaração Cota">
-                                                        <FileText size={16} />
-                                                    </a>
-                                                )}
-                                                {user.pcdDocumentsUrl && (
-                                                    <a href={user.pcdDocumentsUrl} target="_blank" rel="noopener noreferrer" className="p-2 bg-purple-50 hover:bg-purple-100 rounded-lg text-purple-600 transition" title="Laudo PcD">
-                                                        <FileText size={16} />
-                                                    </a>
-                                                )}
                                                 {!user.documentsUrl && !user.quotaDocumentsUrl && !user.pcdDocumentsUrl && <span className="text-xs text-gray-400">-</span>}
                                             </div>
                                         </td>
@@ -260,8 +313,18 @@ export default function AdminDashboard() {
                                                     title="Editar/Ver Detalhes"
                                                 >
                                                     <FileText size={14} />
-                                                    Ver Detalhes
                                                 </Link>
+
+                                                {/* Delete Button */}
+                                                {user.role !== 'ADMIN' && (
+                                                    <button
+                                                        onClick={() => handleDelete(user.id)}
+                                                        className="inline-flex items-center gap-1 bg-red-100 text-red-700 px-3 py-1.5 rounded-lg text-sm font-bold hover:bg-red-200 transition shadow-sm"
+                                                        title="Excluir Usuário"
+                                                    >
+                                                        <Trash2 size={14} />
+                                                    </button>
+                                                )}
 
                                                 {/* Promote to Admin Button */}
                                                 {user.role !== 'ADMIN' && (
