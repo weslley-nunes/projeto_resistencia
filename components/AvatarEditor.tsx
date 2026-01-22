@@ -66,7 +66,11 @@ export default function AvatarEditor() {
             <div className="flex flex-col items-center justify-center p-6 bg-blue-50/50 rounded-xl border border-blue-100 min-w-[250px]">
                 <h2 className="text-xl font-bold text-brand-secondary mb-4">Seu Visual</h2>
                 <div className="w-48 h-48 mb-6 relative">
-                    <AvatarDisplay config={config} className="w-full h-full" />
+                    {/* Pass a fixed seed (e.g., loaded from user ID if available, or just 'felix' for now) 
+                        to ensure skin color/mouth etc don't jump around randomly if not set. 
+                        In a real app we'd use the user's ID as seed. 
+                    */}
+                    <AvatarDisplay config={config} seed="user-avatar" className="w-full h-full" />
                 </div>
 
                 <button
