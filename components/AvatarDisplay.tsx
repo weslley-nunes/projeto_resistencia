@@ -9,16 +9,17 @@ export default function AvatarDisplay({ config, className, style, seed }: Avatar
     if (!config) return <div className="w-24 h-24 bg-gray-200 rounded-full animate-pulse" />;
 
     // Construct DiceBear URL
-    // e.g. https://api.dicebear.com/9.x/avataaars/svg?seed=Harper&top=longHair&accessories=glasses
-    const baseUrl = 'https://api.dicebear.com/9.x/avataaars/svg';
+    // Style: Adventurer (more reliable, simple params)
+    const baseUrl = 'https://api.dicebear.com/9.x/adventurer/svg';
     const params = new URLSearchParams();
 
-    // Use user ID or random string as seed to keep base features consistent if not specified
+    // Use user ID or random string as seed
     params.append('seed', seed || 'felix');
 
-    // Directly append keys from config since we synchronized catalog keys with DiceBear params
+    // Add keys
     Object.keys(config).forEach(key => {
-        if (config[key] && config[key] !== 'default' && config[key] !== 'blank') {
+        if (config[key] && config[key] !== 'none' && config[key] !== 'default') {
+            // Handle arrays handling if complex, but simple strings work for adventurer
             params.append(key, config[key]);
         }
     });

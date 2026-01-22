@@ -7,13 +7,11 @@ import { Lock, Loader2, Save } from 'lucide-react';
 
 export default function AvatarEditor() {
     const [config, setConfig] = useState<any>({
-        top: 'shortHairShortFlat',
-        clothing: 'blazerAndShirt',
-        accessories: 'blank',
-        eyes: 'default',
-        mouth: 'default',
-        skinColor: 'edb98a',
-        facialHair: 'blank'
+        hair: 'short01',
+        eyes: 'variant02',
+        mouth: 'variant01',
+        skinColor: 'ecad80',
+        glasses: 'none'
     });
     const [level, setLevel] = useState(1);
     const [activeCategory, setActiveCategory] = useState('skinColor');
