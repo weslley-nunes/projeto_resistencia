@@ -13,6 +13,9 @@ echo "📥 Baixando atualizações..."
 echo "📥 Baixando atualizações..."
 git pull
 
+echo "📦 Instalando dependências..."
+npm install
+
 echo "👀 Verificando conteúdo do arquivo (Debug)..."
 pwd
 ls -la .env
