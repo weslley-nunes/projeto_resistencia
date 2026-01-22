@@ -2,62 +2,80 @@ export type AvatarItem = {
     id: string;
     label: string;
     value: string;
-    type: 'topType' | 'accessoriesType' | 'hairColor' | 'facialHairType' | 'clotheType' | 'eyeType' | 'eyebrowType' | 'mouthType' | 'skinColor';
+    type: 'top' | 'accessories' | 'hairColor' | 'facialHair' | 'clothing' | 'eyes' | 'eyebrows' | 'mouth' | 'skinColor';
     requiredLevel: number;
+    gender?: 'male' | 'female' | 'unisex';
 };
 
 export const AVATAR_CATALOG: AvatarItem[] = [
-    // --- TOP (Hair/Hats) ---
-    { id: 'top1', label: 'Careca', value: 'NoHair', type: 'topType', requiredLevel: 1 },
-    { id: 'top2', label: 'Curto Padrão', value: 'ShortHairShortFlat', type: 'topType', requiredLevel: 1 },
-    { id: 'top3', label: 'Ondulado', value: 'ShortHairWave', type: 'topType', requiredLevel: 2 },
-    { id: 'top4', label: 'Comprido Liso', value: 'LongHairStraight', type: 'topType', requiredLevel: 3 },
-    { id: 'top5', label: 'Afro', value: 'LongHairCurly', type: 'topType', requiredLevel: 3 },
-    { id: 'top6', label: 'Coque', value: 'LongHairBun', type: 'topType', requiredLevel: 4 },
-    { id: 'top7', label: 'Chapéu de Inverno', value: 'WinterHat1', type: 'topType', requiredLevel: 5 },
-    { id: 'top8', label: 'Turbante', value: 'Turban', type: 'topType', requiredLevel: 8 },
-    { id: 'top9', label: 'Chapéu com Orelhas', value: 'WinterHat4', type: 'topType', requiredLevel: 15 },
+    // --- SKINS (Unisex) ---
+    { id: 'skin1', label: 'Pálida', value: 'f8d25c', type: 'skinColor', requiredLevel: 1, gender: 'unisex' },
+    { id: 'skin2', label: 'Clara', value: 'ffdbb4', type: 'skinColor', requiredLevel: 1, gender: 'unisex' },
+    { id: 'skin3', label: 'Bronzeada', value: 'edb98a', type: 'skinColor', requiredLevel: 1, gender: 'unisex' },
+    { id: 'skin4', label: 'Morena', value: 'd08b5b', type: 'skinColor', requiredLevel: 1, gender: 'unisex' },
+    { id: 'skin5', label: 'Negra', value: 'ae5d29', type: 'skinColor', requiredLevel: 1, gender: 'unisex' },
+    { id: 'skin6', label: 'Negra Escura', value: '614335', type: 'skinColor', requiredLevel: 1, gender: 'unisex' },
 
-    // --- ACCESSORIES ---
-    { id: 'acc1', label: 'Nenhum', value: 'Blank', type: 'accessoriesType', requiredLevel: 1 },
-    { id: 'acc2', label: 'Óculos Redondos', value: 'Round', type: 'accessoriesType', requiredLevel: 2 },
-    { id: 'acc3', label: 'Óculos de Grau', value: 'Prescription02', type: 'accessoriesType', requiredLevel: 3 },
-    { id: 'acc4', label: 'Óculos Escuros', value: 'Sunglasses', type: 'accessoriesType', requiredLevel: 10 },
-    { id: 'acc5', label: 'Wayfarers', value: 'Wayfarers', type: 'accessoriesType', requiredLevel: 12 },
+    // --- TOP (Hair/Hats) - MALE ---
+    { id: 'topM1', label: 'Careca', value: 'noHair', type: 'top', requiredLevel: 1, gender: 'male' },
+    { id: 'topM2', label: 'Curto Padrão', value: 'shortHairShortFlat', type: 'top', requiredLevel: 1, gender: 'male' },
+    { id: 'topM3', label: 'Curto Arrepiado', value: 'shortHairShortWaved', type: 'top', requiredLevel: 2, gender: 'male' },
+    { id: 'topM4', label: 'Topete', value: 'shortHairFrizzle', type: 'top', requiredLevel: 3, gender: 'male' },
+    { id: 'topM5', label: 'Afro Curto', value: 'shortHairDreads01', type: 'top', requiredLevel: 5, gender: 'male' },
 
-    // --- CLOTHES ---
-    { id: 'cloth1', label: 'Blazer e Camisa', value: 'BlazerShirt', type: 'clotheType', requiredLevel: 1 },
-    { id: 'cloth2', label: 'Suéter', value: 'BlazerSweater', type: 'clotheType', requiredLevel: 1 },
-    { id: 'cloth3', label: 'Camiseta Gola V', value: 'ShirtVNeck', type: 'clotheType', requiredLevel: 2 },
-    { id: 'cloth4', label: 'Camiseta', value: 'ShirtScoopNeck', type: 'clotheType', requiredLevel: 3 },
-    { id: 'cloth5', label: 'Moletom', value: 'Hoodie', type: 'clotheType', requiredLevel: 5 },
-    { id: 'cloth6', label: 'Macacão', value: 'Overall', type: 'clotheType', requiredLevel: 8 },
+    // --- TOP (Hair/Hats) - FEMALE ---
+    { id: 'topF1', label: 'Longo Liso', value: 'longHairStraight', type: 'top', requiredLevel: 1, gender: 'female' },
+    { id: 'topF2', label: 'Longo Ondulado', value: 'longHairBigHair', type: 'top', requiredLevel: 2, gender: 'female' },
+    { id: 'topF3', label: 'Bob Curto', value: 'longHairBob', type: 'top', requiredLevel: 1, gender: 'female' },
+    { id: 'topF4', label: 'Coque', value: 'longHairBun', type: 'top', requiredLevel: 4, gender: 'female' },
+    { id: 'topF5', label: 'Afro Longo', value: 'longHairCurly', type: 'top', requiredLevel: 5, gender: 'female' },
+    { id: 'topF6', label: 'Mio', value: 'longHairMiaWallace', type: 'top', requiredLevel: 8, gender: 'female' },
 
-    // --- EYES ---
-    { id: 'eye1', label: 'Padrão', value: 'Default', type: 'eyeType', requiredLevel: 1 },
-    { id: 'eye2', label: 'Feliz', value: 'Happy', type: 'eyeType', requiredLevel: 1 },
-    { id: 'eye3', label: 'Piscadinha', value: 'Wink', type: 'eyeType', requiredLevel: 3 },
-    { id: 'eye4', label: 'Corações', value: 'Hearts', type: 'eyeType', requiredLevel: 20 },
+    // --- TOP (Hats/Special) - UNISEX ---
+    { id: 'topU1', label: 'Touca de Inverno', value: 'winterHat1', type: 'top', requiredLevel: 5, gender: 'unisex' },
+    { id: 'topU2', label: 'Turbante', value: 'turban', type: 'top', requiredLevel: 8, gender: 'unisex' },
+    { id: 'topU3', label: 'Chapéu com Orelhas', value: 'winterHat04', type: 'top', requiredLevel: 15, gender: 'unisex' },
 
-    // --- MOUTH ---
-    { id: 'mouth1', label: 'Padrão', value: 'Default', type: 'mouthType', requiredLevel: 1 },
-    { id: 'mouth2', label: 'Sorriso', value: 'Smile', type: 'mouthType', requiredLevel: 1 },
-    { id: 'mouth3', label: 'Sério', value: 'Serious', type: 'mouthType', requiredLevel: 2 },
-    { id: 'mouth4', label: 'Língua pra Fora', value: 'Tongue', type: 'mouthType', requiredLevel: 5 },
+    // --- FACIAL HAIR (Male) ---
+    { id: 'beard1', label: 'Sem Barba', value: 'blank', type: 'facialHair', requiredLevel: 1, gender: 'male' },
+    { id: 'beard2', label: 'Barba Por Fazer', value: 'beardLight', type: 'facialHair', requiredLevel: 2, gender: 'male' },
+    { id: 'beard3', label: 'Barba Média', value: 'beardMedium', type: 'facialHair', requiredLevel: 5, gender: 'male' },
+    { id: 'beard4', label: 'Bigode', value: 'moustacheFancy', type: 'facialHair', requiredLevel: 8, gender: 'male' },
 
-    // --- SKIN COLOR ---
-    { id: 'skin1', label: 'Clara', value: 'Light', type: 'skinColor', requiredLevel: 1 },
-    { id: 'skin2', label: 'Parda', value: 'Brown', type: 'skinColor', requiredLevel: 1 },
-    { id: 'skin3', label: 'Negra', value: 'DarkBrown', type: 'skinColor', requiredLevel: 1 },
-    { id: 'skin4', label: 'Negra Escura', value: 'Black', type: 'skinColor', requiredLevel: 1 },
-    { id: 'skin5', label: 'Pálida', value: 'Pale', type: 'skinColor', requiredLevel: 1 },
+    // --- ACCESSORIES (Unisex) ---
+    { id: 'acc1', label: 'Nenhum', value: 'blank', type: 'accessories', requiredLevel: 1, gender: 'unisex' },
+    { id: 'acc2', label: 'Óculos Redondos', value: 'round', type: 'accessories', requiredLevel: 2, gender: 'unisex' },
+    { id: 'acc3', label: 'Óculos de Grau', value: 'prescription02', type: 'accessories', requiredLevel: 3, gender: 'unisex' },
+    { id: 'acc4', label: 'Óculos Escuros', value: 'sunglasses', type: 'accessories', requiredLevel: 10, gender: 'unisex' },
+    { id: 'acc5', label: 'Wayfarers', value: 'wayfarers', type: 'accessories', requiredLevel: 12, gender: 'unisex' },
+
+    // --- CLOTHES (Unisex) ---
+    { id: 'cloth1', label: 'Blazer e Camisa', value: 'blazerAndShirt', type: 'clothing', requiredLevel: 1, gender: 'unisex' },
+    { id: 'cloth2', label: 'Suéter', value: 'blazerAndSweater', type: 'clothing', requiredLevel: 1, gender: 'unisex' },
+    { id: 'cloth3', label: 'Camiseta Gola V', value: 'shirtVNeck', type: 'clothing', requiredLevel: 2, gender: 'unisex' },
+    { id: 'cloth4', label: 'Camiseta', value: 'shirtScoopNeck', type: 'clothing', requiredLevel: 3, gender: 'unisex' },
+    { id: 'cloth5', label: 'Moletom', value: 'hoodie', type: 'clothing', requiredLevel: 5, gender: 'unisex' },
+    { id: 'cloth6', label: 'Macacão', value: 'overall', type: 'clothing', requiredLevel: 8, gender: 'unisex' },
+
+    // --- EYES (Unisex) ---
+    { id: 'eye1', label: 'Padrão', value: 'default', type: 'eyes', requiredLevel: 1, gender: 'unisex' },
+    { id: 'eye2', label: 'Feliz', value: 'happy', type: 'eyes', requiredLevel: 1, gender: 'unisex' },
+    { id: 'eye3', label: 'Piscadinha', value: 'wink', type: 'eyes', requiredLevel: 3, gender: 'unisex' },
+    { id: 'eye4', label: 'Corações', value: 'hearts', type: 'eyes', requiredLevel: 20, gender: 'unisex' },
+
+    // --- MOUTH (Unisex) ---
+    { id: 'mouth1', label: 'Padrão', value: 'default', type: 'mouth', requiredLevel: 1, gender: 'unisex' },
+    { id: 'mouth2', label: 'Sorriso', value: 'smile', type: 'mouth', requiredLevel: 1, gender: 'unisex' },
+    { id: 'mouth3', label: 'Sério', value: 'serious', type: 'mouth', requiredLevel: 2, gender: 'unisex' },
+    { id: 'mouth4', label: 'Língua', value: 'tongue', type: 'mouth', requiredLevel: 5, gender: 'unisex' },
 ];
 
 export const CATEGORIES = [
-    { key: 'topType', label: 'Cabeça' },
-    { key: 'accessoriesType', label: 'Acessórios' },
-    { key: 'clotheType', label: 'Roupas' },
-    { key: 'eyeType', label: 'Olhos' },
-    { key: 'mouthType', label: 'Boca' },
     { key: 'skinColor', label: 'Pele' },
+    { key: 'top', label: 'Cabelo/Chapéu' },
+    { key: 'facialHair', label: 'Barba' },
+    { key: 'clothing', label: 'Roupa' },
+    { key: 'eyes', label: 'Olhos' },
+    { key: 'mouth', label: 'Boca' },
+    { key: 'accessories', label: 'Acessórios' },
 ];
