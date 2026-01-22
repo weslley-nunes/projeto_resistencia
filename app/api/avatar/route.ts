@@ -1,5 +1,5 @@
 import { createAvatar } from '@dicebear/core';
-import * as adventurer from '@dicebear/adventurer';
+import * as avataaars from '@dicebear/avataaars';
 import { NextResponse } from 'next/server';
 
 export async function GET(request: Request) {
@@ -7,17 +7,18 @@ export async function GET(request: Request) {
         const { searchParams } = new URL(request.url);
         const seed = searchParams.get('seed') || 'felix';
 
-        // Extract other styles from params
+        // Extract styles from params (Avataaars specific)
         const options: any = {
             seed,
-            // Map other known keys
-            hair: searchParams.getAll('hair'),
+            top: searchParams.getAll('top'),
+            accessories: searchParams.getAll('accessories'),
             hairColor: searchParams.getAll('hairColor'),
+            facialHair: searchParams.getAll('facialHair'),
+            clothing: searchParams.getAll('clothing'),
             eyes: searchParams.getAll('eyes'),
             eyebrows: searchParams.getAll('eyebrows'),
             mouth: searchParams.getAll('mouth'),
             skinColor: searchParams.getAll('skinColor'),
-            glasses: searchParams.getAll('glasses'),
         };
 
         // Clean up empty arrays
@@ -26,13 +27,12 @@ export async function GET(request: Request) {
                 if (options[key].length === 0) {
                     delete options[key];
                 } else if (options[key].length === 1) {
-                    // DiceBear often works with arrays for probabilities, but let's keep it clean
                     options[key] = [options[key][0]];
                 }
             }
         });
 
-        const avatar = createAvatar(adventurer, {
+        const avatar = createAvatar(avataaars, {
             ...options,
             size: 128,
         });

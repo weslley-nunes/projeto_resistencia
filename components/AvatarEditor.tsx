@@ -7,13 +7,15 @@ import { Lock, Loader2, Save } from 'lucide-react';
 
 export default function AvatarEditor() {
     const [config, setConfig] = useState<any>({
-        hair: 'short01',
-        hairColor: '0e0e0e',
-        eyes: 'variant02',
-        eyebrows: 'variant02',
-        mouth: 'variant01',
-        skinColor: 'ecad80',
-        glasses: 'none'
+        top: 'shortHairShortFlat',
+        hairColor: '4a312c',
+        clothing: 'shirtVNeck',
+        eyes: 'default',
+        eyebrows: 'default',
+        mouth: 'default',
+        skinColor: 'edb98a',
+        facialHair: 'blank',
+        accessories: 'blank'
     });
     const [level, setLevel] = useState(1);
     const [activeCategory, setActiveCategory] = useState('skinColor');
@@ -75,7 +77,10 @@ export default function AvatarEditor() {
         // If searching for Hair or Glasses, apply gender filter (some glasses might be gendered in catalog if we want)
         // If unisex item, always show.
         // If gender matches filter, show.
-        if (activeCategory === 'hair') {
+        // If searching for Tops or Facial Hair, apply gender filter
+        // If unisex item, always show.
+        // If gender matches filter, show.
+        if (activeCategory === 'top' || activeCategory === 'facialHair') {
             if (item.gender === 'unisex') return true;
             return item.gender === styleFilter;
         }
