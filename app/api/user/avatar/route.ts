@@ -13,25 +13,26 @@ export async function GET() {
     try {
         const user = await prisma.user.findUnique({
             where: { id: session.user.id },
-            select: { avatarConfig: true, level: true }
+            select: { avatarConfig: true, level: true, unlockedItems: true, educoins: true }
         });
 
         // Default config if none exists
         const DEFAULT_CONFIG = {
-            topType: 'ShortHairShortFlat',
-            accessoriesType: 'Blank',
-            hairColor: 'BrownDark',
-            facialHairType: 'Blank',
-            clotheType: 'BlazerShirt',
-            eyeType: 'Default',
-            eyebrowType: 'Default',
-            mouthType: 'Default',
-            skinColor: 'Light'
+            topType: 'shortHairShortFlat',
+            accessoriesType: 'blank',
+            hairColor: 'brown',
+            facialHairType: 'blank',
+            clotheType: 'blazerAndShirt',
+            eyeType: 'default',
+            eyebrowType: 'default',
+            mouthType: 'default',
+            skinColor: 'light'
         };
 
         const config = user?.avatarConfig ? JSON.parse(user.avatarConfig) : DEFAULT_CONFIG;
+        const unlockedItems = user?.unlockedItems ? JSON.parse(user.unlockedItems) : [];
 
-        return NextResponse.json({ config, level: user?.level || 1 });
+        return NextResponse.json({ config, level: user?.level || 1, unlockedItems, educoins: user?.educoins || 0 });
     } catch (error) {
         console.error("Error fetching avatar:", error);
         return NextResponse.json({ error: 'Internal Server Error' }, { status: 500 });

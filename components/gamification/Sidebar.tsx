@@ -35,9 +35,26 @@ export default function Sidebar() {
                     <Settings size={14} />
                 </Link>
                 <div className="flex items-center gap-3 mb-3">
-                    <div className="w-12 h-12 rounded-full bg-gray-600 overflow-hidden border-2 border-brand-accent">
-                        {/* Avatar Image would go here */}
-                        {session?.user?.image && <img src={session.user.image} alt="Avatar" className="w-full h-full object-cover" />}
+                    import AvatarDisplay from "@/components/AvatarDisplay";
+                    import {useState, useEffect} from "react";
+
+                    // ... inside the component
+                    const [avatarConfig, setAvatarConfig] = useState(null);
+
+    useEffect(() => {
+                        // Fetch avatar config for sidebar
+                        fetch('/api/user/avatar').then(res => res.json()).then(data => {
+                            if (data.config) setAvatarConfig(data.config);
+                        });
+    }, []);
+
+                    // ... render part
+                    <div className="w-12 h-12 rounded-full bg-white overflow-hidden border-2 border-brand-accent">
+                        {avatarConfig ? (
+                            <AvatarDisplay config={avatarConfig} seed={session?.user?.name || 'user'} className="w-full h-full" />
+                        ) : (
+                            session?.user?.image && <img src={session.user.image} alt="Avatar" className="w-full h-full object-cover" />
+                        )}
                     </div>
                     <div>
                         <p className="font-bold text-sm truncate max-w-[100px]">{session?.user?.name || "Visitante"}</p>

@@ -60,7 +60,8 @@ model User {
   status        String    @default("PENDING") // PENDING, APPROVED, REJECTED
   
   // Avatar Configuration
-  avatarConfig  String?   // JSON string storing the avatar configuration  // Registration Data
+  avatarConfig  String?   // JSON string storing the avatar configuration
+  unlockedItems String    @default("[]") // JSON string array of unlocked item IDs  // Registration Data
   cpf           String?   // @unique constraint removed for simplicity in dev, can add later
   phone         String?
   city          String?
