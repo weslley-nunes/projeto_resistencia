@@ -107,6 +107,9 @@ model Registration {
   educationLevel String
   trainingArea   String
   
+  quotaType      String?  // AMPLA, INDIGENA, QUILOMBOLA, PCD
+  fileUrl        String?  // Path to the uploaded PDF
+  
   status         String   @default("PENDING") // PENDING, EXPORTED
   createdAt      DateTime @default(now())
 }

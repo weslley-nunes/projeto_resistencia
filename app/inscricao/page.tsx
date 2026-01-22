@@ -16,7 +16,9 @@ export default function RegistrationPage() {
         jobTitle: '',
         teachingTime: '',
         educationLevel: '',
-        trainingArea: ''
+        trainingArea: '',
+        quotaType: 'AMPLA',
+        file: null as File | null
     });
 
     const [isLoading, setIsLoading] = useState(false);
@@ -27,16 +29,33 @@ export default function RegistrationPage() {
         setFormData({ ...formData, [e.target.name]: e.target.value });
     };
 
+    const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (e.target.files && e.target.files[0]) {
+            setFormData({ ...formData, file: e.target.files[0] });
+        }
+    };
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setError('');
 
+        if (!formData.file) {
+            setError('Por favor, anexe o arquivo PDF com a documentação.');
+            setIsLoading(false);
+            return;
+        }
+
         try {
+            const data = new FormData();
+            Object.entries(formData).forEach(([key, value]) => {
+                if (value) data.append(key, value);
+            });
+
             const res = await fetch('/api/registration', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(formData)
+                // Content-Type is set automatically with FormData
+                body: data
             });
 
             if (res.ok) {
@@ -121,16 +140,15 @@ export default function RegistrationPage() {
 
                         <div className="grid md:grid-cols-2 gap-6">
                             <div>
-                                <label className="block text-sm font-medium text-gray-700 mb-1">Cidade</label>
+                                <label className="block text-sm font-medium text-gray-700 mb-1">Cidade de Lotação</label>
                                 <select name="city" required onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-primary/50 outline-none">
                                     <option value="">Selecione...</option>
                                     <option value="Arraias">Arraias</option>
-                                    <option value="Aurora">Aurora</option>
+                                    <option value="Aurora do Tocantins">Aurora do Tocantins</option>
                                     <option value="Lavandeira">Lavandeira</option>
+                                    <option value="Paranã">Paranã</option>
                                     <option value="Combinado">Combinado</option>
                                     <option value="Novo Alegre">Novo Alegre</option>
-                                    <option value="Paranã">Paranã</option>
-                                    <option value="Outra">Outra</option>
                                 </select>
                             </div>
                             <div>
@@ -170,6 +188,47 @@ export default function RegistrationPage() {
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">Área de Formação</label>
                                 <input name="trainingArea" required onChange={handleChange} className="w-full px-4 py-3 rounded-xl border border-gray-200 focus:ring-2 focus:ring-brand-primary/50 outline-none" placeholder="Ex: História, Geografia..." />
+                            </div>
+                        </div>
+
+                        <div className="space-y-4 pt-4 border-t border-gray-100">
+                            <h3 className="font-semibold text-lg text-brand-secondary">Modalidade de Concorrência</h3>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Selecione a modalidade:</label>
+                                <div className="grid md:grid-cols-2 gap-3">
+                                    <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition ${formData.quotaType === 'AMPLA' ? 'border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary' : 'border-gray-200 hover:bg-gray-50'}`}>
+                                        <input type="radio" name="quotaType" value="AMPLA" checked={formData.quotaType === 'AMPLA'} onChange={handleChange} className="mr-3" />
+                                        <span>Ampla Concorrência</span>
+                                    </label>
+                                    <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition ${formData.quotaType === 'INDIGENA' ? 'border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary' : 'border-gray-200 hover:bg-gray-50'}`}>
+                                        <input type="radio" name="quotaType" value="INDIGENA" checked={formData.quotaType === 'INDIGENA'} onChange={handleChange} className="mr-3" />
+                                        <span>Cotas: Indígenas</span>
+                                    </label>
+                                    <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition ${formData.quotaType === 'QUILOMBOLA' ? 'border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary' : 'border-gray-200 hover:bg-gray-50'}`}>
+                                        <input type="radio" name="quotaType" value="QUILOMBOLA" checked={formData.quotaType === 'QUILOMBOLA'} onChange={handleChange} className="mr-3" />
+                                        <span>Cotas: Quilombolas</span>
+                                    </label>
+                                    <label className={`flex items-center p-3 border rounded-xl cursor-pointer transition ${formData.quotaType === 'PCD' ? 'border-brand-primary bg-brand-primary/5 ring-1 ring-brand-primary' : 'border-gray-200 hover:bg-gray-50'}`}>
+                                        <input type="radio" name="quotaType" value="PCD" checked={formData.quotaType === 'PCD'} onChange={handleChange} className="mr-3" />
+                                        <span>Pessoa com Deficiência (PcD)</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label className="block text-sm font-medium text-gray-700 mb-2">Anexar Documentação (PDF único)</label>
+                                <p className="text-xs text-gray-500 mb-2">
+                                    RG, CPF, Certidão Eleitoral, Comprovantes de Cotas/PcD (se aplicável), todos em um único PDF (máx 7MB).
+                                </p>
+                                <input
+                                    name="file"
+                                    type="file"
+                                    accept=".pdf"
+                                    required
+                                    onChange={handleFileChange}
+                                    className="w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-xl file:border-0 file:text-sm file:font-semibold file:bg-brand-primary/10 file:text-brand-primary hover:file:bg-brand-primary/20"
+                                />
                             </div>
                         </div>
 

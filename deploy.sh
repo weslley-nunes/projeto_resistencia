@@ -35,7 +35,13 @@ echo "🏗️ Construindo Aplicação..."
 rm -rf .next
 
 # Aumentar memória para o build se necessário
+# Aumentar memória para o build se necessário
 export NODE_OPTIONS="--max-old-space-size=4096"
+
+echo "🗄️ Atualizando Banco de Dados..."
+npx prisma generate
+npx prisma db push
+
 npm run build
 
 echo "🔄 Reiniciando Servidor (Hard Reset)..."
