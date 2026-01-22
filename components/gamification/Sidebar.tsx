@@ -11,7 +11,7 @@ import { useState, useEffect } from "react";
 
 const sidebarItems = [
     { icon: Map, label: "Trilha", href: "/dashboard" },
-    { icon: ShoppingBag, label: "Loja", href: "/dashboard/shop" },
+    { icon: ShoppingBag, label: "Loja", href: "/dashboard/loja" },
     { icon: Users, label: "Perfil", href: "/dashboard/profile" },
     // Admin Link (Checks role in component, but adding here for structure)
     { icon: LayoutDashboard, label: "Gestão", href: "/admin", adminOnly: true },
@@ -19,12 +19,11 @@ const sidebarItems = [
 
 export default function Sidebar() {
     const { data: session } = useSession();
-    const { level, educoins } = useGameStore(); // Destructured level and educoins
+    const { level, educoins } = useGameStore();
     const pathname = usePathname();
     const [avatarConfig, setAvatarConfig] = useState(null);
 
     useEffect(() => {
-        // Fetch avatar config for sidebar
         fetch('/api/user/avatar').then(res => res.json()).then(data => {
             if (data.config) setAvatarConfig(data.config);
         });
@@ -45,20 +44,6 @@ export default function Sidebar() {
                     <Settings size={14} />
                 </Link>
                 <div className="flex items-center gap-3 mb-3">
-                    import AvatarDisplay from "@/components/AvatarDisplay";
-                    import {useState, useEffect} from "react";
-
-                    // ... inside the component
-                    const [avatarConfig, setAvatarConfig] = useState(null);
-
-    useEffect(() => {
-                        // Fetch avatar config for sidebar
-                        fetch('/api/user/avatar').then(res => res.json()).then(data => {
-                            if (data.config) setAvatarConfig(data.config);
-                        });
-    }, []);
-
-                    // ... render part
                     <div className="w-12 h-12 rounded-full bg-white overflow-hidden border-2 border-brand-accent">
                         {avatarConfig ? (
                             <AvatarDisplay config={avatarConfig} seed={session?.user?.name || 'user'} className="w-full h-full" />
