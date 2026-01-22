@@ -4,11 +4,13 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import GameMap from '@/components/GameMap';
-import { mapNodes, MapNode, Slide, quizQuestions } from '@/app/modulo1/data';
+import { mapNodes as nodesM1, quizQuestions as quizM1 } from '@/app/modulo1/data';
+import { mapNodes as nodesM2, quizQuestions as quizM2 } from '@/app/modulo2/data';
 import { useGameStore } from '@/lib/store';
 import { motion, AnimatePresence } from 'framer-motion';
-import { ChevronRight, ChevronLeft, CheckCircle, X } from 'lucide-react';
+import { ChevronRight, ChevronLeft, CheckCircle, X, Lock, MapPin } from 'lucide-react';
 import QuizModal from '@/components/QuizModal';
+import { MapNode } from '@/app/modulo1/data'; // Importing type
 
 export default function DashboardPage() {
     const { data: session } = useSession();
@@ -28,6 +30,17 @@ export default function DashboardPage() {
     const addEducoins = useGameStore(state => state.addEducoins);
     const addXp = useGameStore(state => state.addXp);
 
+    // Module State
+    const [currentModule, setCurrentModule] = useState<'modulo1' | 'modulo2'>('modulo1');
+
+    // Derived Data based on current module
+    const currentNodes = currentModule === 'modulo1' ? nodesM1 : nodesM2;
+    const currentQuiz = currentModule === 'modulo1' ? quizM1 : quizM2;
+
+    // Check if Module 1 is complete to unlock Module 2
+    // Assuming 'node-final' is the id of the final node in Module 1
+    const isModule1Complete = completedNodes.includes('node-6'); // node-6 is the final quiz of module 1
+
     const [selectedNode, setSelectedNode] = useState<MapNode | null>(null);
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const [showQuiz, setShowQuiz] = useState(false);
@@ -35,7 +48,7 @@ export default function DashboardPage() {
     const handleNodeClick = (node: MapNode) => {
         if (node.type === 'final') {
             setShowQuiz(true);
-            setSelectedNode(node); // Keep track of node for completion
+            setSelectedNode(node);
         } else {
             setSelectedNode(node);
             setCurrentSlideIndex(0);
@@ -46,7 +59,6 @@ export default function DashboardPage() {
         if (selectedNode && currentSlideIndex < selectedNode.slides.length - 1) {
             setCurrentSlideIndex(prev => prev + 1);
         } else {
-            // End of lesson
             handleCompleteLesson();
         }
     };
@@ -77,7 +89,7 @@ export default function DashboardPage() {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({
-                    moduleId: 'modulo1',
+                    moduleId: currentModule,
                     score: Math.round(percentage),
                     passed
                 })
@@ -90,10 +102,13 @@ export default function DashboardPage() {
             if (!completedNodes.includes(selectedNode.id)) {
                 completeNode(selectedNode.id);
                 addEducoins(selectedNode.educoinsReward);
-                addXp(200); // Higher XP for quiz exam
+                addXp(200);
                 alert(`Parabéns! Você passou com ${percentage.toFixed(0)}%.`);
             }
             setSelectedNode(null);
+
+            // If finishing Module 1, user might want to go to Module 2 immediately, 
+            // but we let them navigate via the timeline.
         } else if (!passed) {
             alert(`Você atingiu ${percentage.toFixed(0)}%. Precisa de 50% para passar.`);
             setSelectedNode(null);
@@ -102,17 +117,72 @@ export default function DashboardPage() {
 
     return (
         <div className="space-y-6">
-            <div className="flex justify-between items-center">
-                <h1 className="text-3xl font-bold font-sans text-brand-secondary">Minha Jornada</h1>
-                <div className="flex gap-2">
-                    {/* @ts-ignore */}
-                    {session?.user?.role === 'ADMIN' && (
-                        <Link href="/admin" className="px-4 py-2 bg-brand-secondary text-white font-bold rounded-lg border border-white/20 hover:bg-brand-secondary/80 transition">
-                            Painel Admin
-                        </Link>
-                    )}
-                    <div className="px-4 py-2 bg-brand-accent/20 text-brand-secondary font-bold rounded-lg border border-brand-accent/50">
-                        Módulo 1: Introdução
+            <div className="flex flex-col gap-4">
+                <div className="flex justify-between items-center">
+                    <h1 className="text-3xl font-bold font-sans text-brand-secondary">Minha Jornada</h1>
+                    <div className="flex gap-2">
+                        {/* @ts-ignore */}
+                        {session?.user?.role === 'ADMIN' && (
+                            <Link href="/admin" className="px-4 py-2 bg-brand-secondary text-white font-bold rounded-lg border border-white/20 hover:bg-brand-secondary/80 transition">
+                                Painel Admin
+                            </Link>
+                        )}
+                        <div className="px-4 py-2 bg-brand-accent/20 text-brand-secondary font-bold rounded-lg border border-brand-accent/50">
+                            {currentModule === 'modulo1' ? 'Módulo 1: Introdução' : 'Módulo 2: Memória'}
+                        </div>
+                    </div>
+                </div>
+
+                {/* TIMELINE NAVIGATION */}
+                <div className="w-full bg-white p-4 rounded-2xl shadow-sm border border-gray-100 flex items-center gap-4 overflow-x-auto">
+                    {/* Module 1 Step */}
+                    <button
+                        onClick={() => setCurrentModule('modulo1')}
+                        className={`flex items-center gap-3 px-4 py-2 rounded-xl transition-all whitespace-nowrap
+                            ${currentModule === 'modulo1'
+                                ? 'bg-brand-primary text-white shadow-md scale-105'
+                                : 'bg-gray-50 text-gray-500 hover:bg-gray-100'}`}
+                    >
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm
+                            ${currentModule === 'modulo1' ? 'bg-white text-brand-primary' : 'bg-gray-200 text-gray-400'}`}>
+                            1
+                        </div>
+                        <div className="flex flex-col text-left">
+                            <span className="font-bold text-sm">Introdução e Identidade</span>
+                            <span className="text-[10px] opacity-80">Narrativas Iniciais</span>
+                        </div>
+                    </button>
+
+                    <div className="h-0.5 w-8 bg-gray-200"></div>
+
+                    {/* Module 2 Step */}
+                    <button
+                        onClick={() => isModule1Complete && setCurrentModule('modulo2')}
+                        disabled={!isModule1Complete}
+                        className={`flex items-center gap-3 px-4 py-2 rounded-xl transition-all whitespace-nowrap
+                            ${currentModule === 'modulo2'
+                                ? 'bg-brand-primary text-white shadow-md scale-105'
+                                : isModule1Complete
+                                    ? 'bg-gray-50 text-gray-600 hover:bg-gray-100 cursor-pointer'
+                                    : 'bg-gray-50 text-gray-300 cursor-not-allowed opacity-60'}`}
+                    >
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm
+                            ${currentModule === 'modulo2' ? 'bg-white text-brand-primary' : 'bg-gray-200 text-gray-400'}`}>
+                            {isModule1Complete ? '2' : <Lock size={14} />}
+                        </div>
+                        <div className="flex flex-col text-left">
+                            <span className="font-bold text-sm">Memória e Paisagem</span>
+                            <span className="text-[10px] opacity-80">{isModule1Complete ? 'Disponível' : 'Bloqueado'}</span>
+                        </div>
+                    </button>
+
+                    <div className="h-0.5 w-8 bg-gray-200"></div>
+
+                    {/* Future Modules... */}
+                    <div className="flex items-center gap-2 opacity-40">
+                        <div className="w-8 h-8 rounded-full bg-gray-100 border border-gray-200 flex items-center justify-center">
+                            <Lock size={14} className="text-gray-300" />
+                        </div>
                     </div>
                 </div>
             </div>
@@ -120,7 +190,7 @@ export default function DashboardPage() {
             {/* Interactive Map */}
             <div className="w-full">
                 <GameMap
-                    nodes={mapNodes}
+                    nodes={currentNodes}
                     onNodeClick={handleNodeClick}
                     completedNodes={completedNodes}
                 />
@@ -292,7 +362,7 @@ export default function DashboardPage() {
             {/* QUIZ MODAL */}
             {showQuiz && (
                 <QuizModal
-                    questions={quizQuestions}
+                    questions={currentQuiz}
                     onClose={() => setShowQuiz(false)}
                     onComplete={handleQuizComplete}
                 />
