@@ -171,6 +171,62 @@ export default function DashboardPage() {
                                         ))}
                                     </div>
 
+                                    {/* Agenda Display */}
+                                    {selectedNode.slides[currentSlideIndex].type === 'agenda' && selectedNode.slides[currentSlideIndex].agenda && (
+                                        <div className="bg-gray-50 p-6 rounded-2xl border border-gray-100 max-h-[400px] overflow-y-auto custom-scrollbar">
+                                            <div className="grid gap-3">
+                                                {selectedNode.slides[currentSlideIndex].agenda?.dates.map((item, idx) => (
+                                                    <div key={idx} className={`p-4 rounded-xl border flex items-center justify-between transition-all hover:shadow-md
+                                                        ${item.type === 'live'
+                                                            ? 'bg-blue-50 border-blue-100'
+                                                            : 'bg-green-50 border-green-100'
+                                                        }`}
+                                                    >
+                                                        <div className="flex items-center gap-4">
+                                                            <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-lg
+                                                                ${item.type === 'live' ? 'bg-blue-200 text-blue-700' : 'bg-green-200 text-green-700'}`}>
+                                                                {item.date.split('/')[0]}
+                                                            </div>
+                                                            <div>
+                                                                <p className="font-bold text-gray-800">{item.type === 'live' ? 'Aula Ao Vivo' : 'Plantão de Dúvidas'}</p>
+                                                                <p className="text-sm text-gray-500">{item.date} • 19:30h</p>
+                                                            </div>
+                                                        </div>
+
+                                                        {item.type === 'live' ? (
+                                                            item.link ? (
+                                                                <a href={item.link} target="_blank" rel="noopener noreferrer" className="p-2 bg-white rounded-full shadow hover:scale-110 transition" title="Entrar no Meet">
+                                                                    <img src="https://fonts.gstatic.com/s/i/productlogos/meet_2020q4/v6/web-96dp/logo_meet_2020q4_color_2x_web_96dp.png" alt="Google Meet" className="w-8 h-8" />
+                                                                </a>
+                                                            ) : (
+                                                                <span className="text-xs font-bold text-gray-400 bg-gray-100 px-2 py-1 rounded">Em breve</span>
+                                                            )
+                                                        ) : (
+                                                            <div className="p-2 bg-white rounded-full shadow text-green-600">
+                                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path></svg>
+                                                            </div>
+                                                        )}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                        </div>
+                                    )}
+
+                                    {/* Raw Text / Reference Material Display */}
+                                    {selectedNode.slides[currentSlideIndex].type === 'raw-text' && (
+                                        <div className="bg-white p-6 rounded-2xl border border-gray-200 max-h-[400px] overflow-y-auto custom-scrollbar shadow-inner">
+                                            <article className="prose prose-stone max-w-none text-sm md:text-base leading-relaxed">
+                                                <h3 className="flex items-center gap-2 text-brand-secondary border-b pb-2 mb-4">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" y1="13" x2="8" y2="13"></line><line x1="16" y1="17" x2="8" y2="17"></line><polyline points="10 9 9 9 8 9"></polyline></svg>
+                                                    Material de Leitura Fundamental
+                                                </h3>
+                                                {selectedNode.slides[currentSlideIndex].content.split('\n').map((line, i) => (
+                                                    <p key={i} className="mb-2 text-justify">{line}</p>
+                                                ))}
+                                            </article>
+                                        </div>
+                                    )}
+
                                     {/* Interactive Activity Display */}
                                     {selectedNode.slides[currentSlideIndex].activity && (
                                         <div className="bg-brand-secondary/5 p-6 rounded-2xl border border-brand-secondary/10">
