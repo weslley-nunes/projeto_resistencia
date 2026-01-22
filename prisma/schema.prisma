@@ -84,6 +84,8 @@ model User {
   
   accounts      Account[]
   sessions      Session[]
+  
+  quizResults   QuizResult[]
 }
 
 model VerificationToken {
@@ -112,4 +114,15 @@ model Registration {
   
   status         String   @default("PENDING") // PENDING, EXPORTED
   createdAt      DateTime @default(now())
+}
+
+model QuizResult {
+  id          String   @id @default(cuid())
+  userId      String
+  moduleId    String
+  score       Int      // Percentage 0-100
+  passed      Boolean
+  completedAt DateTime @default(now())
+  
+  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 }

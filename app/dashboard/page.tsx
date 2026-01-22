@@ -4,12 +4,14 @@ import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { useState, useEffect } from 'react';
 import GameMap from '@/components/GameMap';
-import { mapNodes, MapNode } from '@/app/modulo1/data';
+import { mapNodes, MapNode, Slide, quizQuestions } from '@/app/modulo1/data';
 import { useGameStore } from '@/lib/store';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
+import { ChevronRight, ChevronLeft, CheckCircle, X } from 'lucide-react';
+import QuizModal from '@/components/QuizModal';
 
 export default function DashboardPage() {
-    const { data: session, status } = useSession();
+    const { data: session } = useSession();
     const router = useRouter();
 
     // Redirect Admin
@@ -27,18 +29,73 @@ export default function DashboardPage() {
     const addXp = useGameStore(state => state.addXp);
 
     const [selectedNode, setSelectedNode] = useState<MapNode | null>(null);
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
+    const [showQuiz, setShowQuiz] = useState(false);
 
     const handleNodeClick = (node: MapNode) => {
-        setSelectedNode(node);
+        if (node.type === 'final') {
+            setShowQuiz(true);
+            setSelectedNode(node); // Keep track of node for completion
+        } else {
+            setSelectedNode(node);
+            setCurrentSlideIndex(0);
+        }
     };
 
-    const handleCompleteNode = () => {
+    const handleNextSlide = () => {
+        if (selectedNode && currentSlideIndex < selectedNode.slides.length - 1) {
+            setCurrentSlideIndex(prev => prev + 1);
+        } else {
+            // End of lesson
+            handleCompleteLesson();
+        }
+    };
+
+    const handlePrevSlide = () => {
+        if (currentSlideIndex > 0) {
+            setCurrentSlideIndex(prev => prev - 1);
+        }
+    };
+
+    const handleCompleteLesson = () => {
         if (selectedNode) {
             if (!completedNodes.includes(selectedNode.id)) {
                 completeNode(selectedNode.id);
                 addEducoins(selectedNode.educoinsReward);
-                addXp(100);
+                addXp(50);
             }
+            setSelectedNode(null);
+            setCurrentSlideIndex(0);
+        }
+    };
+
+    const handleQuizComplete = async (percentage: number, passed: boolean) => {
+        setShowQuiz(false);
+
+        try {
+            await fetch('/api/quiz/submit', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    moduleId: 'modulo1',
+                    score: Math.round(percentage),
+                    passed
+                })
+            });
+        } catch (error) {
+            console.error('Failed to save quiz result', error);
+        }
+
+        if (passed && selectedNode) {
+            if (!completedNodes.includes(selectedNode.id)) {
+                completeNode(selectedNode.id);
+                addEducoins(selectedNode.educoinsReward);
+                addXp(200); // Higher XP for quiz exam
+                alert(`Parabéns! Você passou com ${percentage.toFixed(0)}%.`);
+            }
+            setSelectedNode(null);
+        } else if (!passed) {
+            alert(`Você atingiu ${percentage.toFixed(0)}%. Precisa de 50% para passar.`);
             setSelectedNode(null);
         }
     };
@@ -69,69 +126,107 @@ export default function DashboardPage() {
                 />
             </div>
 
-            {/* Lesson Modal */}
-            {selectedNode && (
-                <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/60 backdrop-blur-sm">
-                    <motion.div
-                        initial={{ opacity: 0, scale: 0.9, y: 20 }}
-                        animate={{ opacity: 1, scale: 1, y: 0 }}
-                        className="bg-white rounded-3xl w-full max-w-2xl max-h-[85vh] overflow-hidden shadow-2xl flex flex-col"
-                    >
-                        {/* Modal Header */}
-                        <div className="bg-brand-secondary p-6 text-white flex justify-between items-start shrink-0">
-                            <div>
-                                <h2 className="text-2xl font-bold">{selectedNode.title}</h2>
-                                <p className="text-white/70 text-sm mt-1">{selectedNode.description}</p>
-                            </div>
+            {/* SLIDE VIEWER MODAL */}
+            <AnimatePresence>
+                {selectedNode && !showQuiz && (
+                    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/70 backdrop-blur-sm">
+                        <motion.div
+                            initial={{ opacity: 0, scale: 0.95 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            exit={{ opacity: 0, scale: 0.95 }}
+                            className="bg-white rounded-3xl w-full max-w-4xl h-[80vh] overflow-hidden shadow-2xl flex flex-col relative"
+                        >
+                            {/* Close Button */}
                             <button
                                 onClick={() => setSelectedNode(null)}
-                                className="p-2 hover:bg-white/10 rounded-full transition"
+                                className="absolute top-4 right-4 z-20 p-2 bg-black/10 hover:bg-black/20 rounded-full transition"
                             >
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="18" y1="6" x2="6" y2="18"></line><line x1="6" y1="6" x2="18" y2="18"></line></svg>
+                                <X size={24} />
                             </button>
-                        </div>
 
-                        {/* Modal Content */}
-                        <div className="p-8 overflow-y-auto grow custom-scrollbar">
-                            <article className="prose prose-stone lg:prose-lg max-w-none">
-                                {/* Simple Markdown Rendering */}
-                                {selectedNode.content.split('\n').map((line, i) => {
-                                    if (line.trim().startsWith('# ')) return <h1 key={i} className="text-3xl font-bold text-brand-secondary mb-4">{line.replace('# ', '')}</h1>;
-                                    if (line.trim().startsWith('## ')) return <h2 key={i} className="text-2xl font-bold text-gray-800 mt-6 mb-3">{line.replace('## ', '')}</h2>;
-                                    if (line.trim().startsWith('### ')) return <h3 key={i} className="text-xl font-bold text-gray-800 mt-4 mb-2">{line.replace('### ', '')}</h3>;
-                                    if (line.trim().startsWith('- ')) return <li key={i} className="ml-4 list-disc text-gray-600 mb-1">{line.replace('- ', '')}</li>;
-                                    if (line.trim().startsWith('> ')) return <blockquote key={i} className="border-l-4 border-brand-primary pl-4 italic text-gray-600 my-4 bg-gray-50 p-4 rounded-r">{line.replace('> ', '')}</blockquote>;
-                                    if (line.trim() === '') return <div key={i} className="h-4"></div>;
-                                    return <p key={i} className="mb-2 text-gray-600 leading-relaxed text-lg">{line}</p>;
-                                })}
-                            </article>
-                        </div>
-
-                        {/* Modal Footer */}
-                        <div className="p-6 border-t border-gray-100 bg-gray-50 flex justify-end gap-3 shrink-0">
-                            <button
-                                onClick={() => setSelectedNode(null)}
-                                className="px-6 py-3 text-gray-500 font-bold hover:bg-gray-200 rounded-xl transition"
-                            >
-                                Fechar
-                            </button>
-                            <button
-                                onClick={handleCompleteNode}
-                                className={`px-8 py-3 font-bold rounded-xl shadow-lg transition flex items-center gap-2 transform active:scale-95
-                                    ${completedNodes.includes(selectedNode.id)
-                                        ? 'bg-green-100 text-green-700 cursor-default'
-                                        : 'bg-brand-primary text-white hover:bg-brand-primary/90 hover:-translate-y-1'
-                                    }`}
-                            >
-                                {completedNodes.includes(selectedNode.id) ? (
-                                    <>Concluído <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><polyline points="20 6 9 17 4 12" /></svg></>
-                                ) : (
-                                    'Concluir Lição'
+                            {/* Slide Content */}
+                            <div className="relative w-full h-full flex">
+                                {selectedNode.slides[currentSlideIndex].image && (
+                                    <div className="w-1/2 h-full bg-gray-100 hidden md:block relative">
+                                        <img
+                                            src={selectedNode.slides[currentSlideIndex].image}
+                                            alt="Slide visual"
+                                            className="w-full h-full object-cover"
+                                        />
+                                        <div className="absolute inset-0 bg-gradient-to-r from-transparent to-white/10"></div>
+                                    </div>
                                 )}
-                            </button>
-                        </div>
-                    </motion.div>
-                </div>
+
+                                <div className={`${selectedNode.slides[currentSlideIndex].image ? 'w-full md:w-1/2' : 'w-full max-w-2xl mx-auto'} p-8 md:p-12 flex flex-col justify-center`}>
+                                    <span className="text-brand-accent font-bold tracking-widest text-sm mb-2 uppercase">
+                                        {selectedNode.slides[currentSlideIndex].type}
+                                    </span>
+                                    <h2 className="text-4xl font-bold text-brand-secondary mb-6 leading-tight">
+                                        {selectedNode.slides[currentSlideIndex].title}
+                                    </h2>
+
+                                    <div className="prose prose-lg text-gray-600 mb-8 leading-relaxed">
+                                        {selectedNode.slides[currentSlideIndex].content.split('\n').map((line, i) => (
+                                            <p key={i} className="mb-2">{line}</p>
+                                        ))}
+                                    </div>
+
+                                    {/* Interactive Activity Display */}
+                                    {selectedNode.slides[currentSlideIndex].activity && (
+                                        <div className="bg-brand-secondary/5 p-6 rounded-2xl border border-brand-secondary/10">
+                                            <p className="font-bold text-lg mb-4 text-brand-secondary">{selectedNode.slides[currentSlideIndex].activity?.question}</p>
+                                            <div className="space-y-2">
+                                                {selectedNode.slides[currentSlideIndex].activity?.options.map((opt, idx) => (
+                                                    <div key={idx} className="p-3 bg-white border border-gray-200 rounded-lg text-sm text-gray-600">
+                                                        {opt}
+                                                    </div>
+                                                ))}
+                                            </div>
+                                            <p className="mt-4 text-xs text-brand-primary italic">Interaja mentalmente ou discuta com colegas!</p>
+                                        </div>
+                                    )}
+                                </div>
+                            </div>
+
+                            {/* Navigation Footer */}
+                            <div className="absolute bottom-0 left-0 right-0 p-6 bg-white/90 backdrop-blur-md border-t border-gray-100 flex justify-between items-center">
+                                <button
+                                    onClick={handlePrevSlide}
+                                    disabled={currentSlideIndex === 0}
+                                    className="px-6 py-3 rounded-xl hover:bg-gray-100 disabled:opacity-30 disabled:cursor-not-allowed font-bold text-gray-500 flex items-center gap-2 transition"
+                                >
+                                    <ChevronLeft size={20} /> Anterior
+                                </button>
+
+                                <div className="flex gap-2">
+                                    {selectedNode.slides.map((_, idx) => (
+                                        <div
+                                            key={idx}
+                                            className={`h-2 rounded-full transition-all duration-300 ${idx === currentSlideIndex ? 'w-8 bg-brand-primary' : 'w-2 bg-gray-300'}`}
+                                        />
+                                    ))}
+                                </div>
+
+                                <button
+                                    onClick={handleNextSlide}
+                                    className="px-8 py-3 bg-brand-primary text-white rounded-xl shadow-lg hover:bg-brand-primary/90 font-bold flex items-center gap-2 transition transform active:scale-95"
+                                >
+                                    {currentSlideIndex === selectedNode.slides.length - 1 ? 'Concluir' : 'Próximo'}
+                                    {currentSlideIndex === selectedNode.slides.length - 1 ? <CheckCircle size={20} /> : <ChevronRight size={20} />}
+                                </button>
+                            </div>
+                        </motion.div>
+                    </div>
+                )}
+            </AnimatePresence>
+
+            {/* QUIZ MODAL */}
+            {showQuiz && (
+                <QuizModal
+                    questions={quizQuestions}
+                    onClose={() => setShowQuiz(false)}
+                    onComplete={handleQuizComplete}
+                />
             )}
         </div>
     );

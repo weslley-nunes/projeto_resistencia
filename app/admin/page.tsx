@@ -248,7 +248,7 @@ export default function AdminDashboard() {
                                 <tr>
                                     <th className="px-6 py-4">Nome / Email</th>
                                     <th className="px-6 py-4">Cidade / Escola</th>
-                                    <th className="px-6 py-4">Documentos</th>
+                                    <th className="px-6 py-4">Progresso / Provas</th>
                                     <th className="px-6 py-4">Status</th>
                                     <th className="px-6 py-4">Role</th>
                                     <th className="px-6 py-4 text-right">Ações</th>
@@ -275,13 +275,16 @@ export default function AdminDashboard() {
                                             <p className="text-xs text-gray-500">{user.school || '-'}</p>
                                         </td>
                                         <td className="px-6 py-4">
-                                            <div className="flex flex-wrap gap-2">
-                                                {user.documentsUrl && (
-                                                    <a href={user.documentsUrl} target="_blank" rel="noopener noreferrer" className="p-2 bg-gray-100 hover:bg-gray-200 rounded-lg text-gray-600 transition" title="Documentos Pessoais">
-                                                        <FileText size={16} />
-                                                    </a>
-                                                )}
-                                                {!user.documentsUrl && !user.quotaDocumentsUrl && !user.pcdDocumentsUrl && <span className="text-xs text-gray-400">-</span>}
+                                            <div className="flex flex-col gap-1">
+                                                <span className="text-xs text-gray-500">Módulo 1:</span>
+                                                {/* @ts-ignore */}
+                                                {user.quizResults?.find(q => q.moduleId === 'modulo1') ? (
+                                                    // @ts-ignore
+                                                    <span className={`text-xs font-bold ${user.quizResults.find(q => q.moduleId === 'modulo1').passed ? 'text-green-600' : 'text-red-500'}`}>
+                                                        {/* @ts-ignore */}
+                                                        {user.quizResults.find(q => q.moduleId === 'modulo1').score}% (Prova)
+                                                    </span>
+                                                ) : <span className="text-xs text-gray-400">Não realizado</span>}
                                             </div>
                                         </td>
                                         <td className="px-6 py-4">
