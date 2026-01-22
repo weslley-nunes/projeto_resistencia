@@ -70,10 +70,10 @@ export default function AvatarEditor() {
     const currentItems = AVATAR_CATALOG.filter(item => {
         if (item.type !== activeCategory) return false;
 
-        // If searching for Tops or Facial Hair, apply gender filter
+        // If searching for Hair or Glasses, apply gender filter (some glasses might be gendered in catalog if we want)
         // If unisex item, always show.
         // If gender matches filter, show.
-        if (activeCategory === 'top' || activeCategory === 'facialHair') {
+        if (activeCategory === 'hair') {
             if (item.gender === 'unisex') return true;
             return item.gender === styleFilter;
         }

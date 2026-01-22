@@ -18,15 +18,11 @@ export async function GET() {
 
         // Default config if none exists
         const DEFAULT_CONFIG = {
-            topType: 'shortHairShortFlat',
-            accessoriesType: 'blank',
-            hairColor: 'brown',
-            facialHairType: 'blank',
-            clotheType: 'blazerAndShirt',
-            eyeType: 'default',
-            eyebrowType: 'default',
-            mouthType: 'default',
-            skinColor: 'light'
+            hair: 'short01',
+            eyes: 'variant02',
+            mouth: 'variant01',
+            skinColor: 'ecad80',
+            glasses: 'none'
         };
 
         const config = user?.avatarConfig ? JSON.parse(user.avatarConfig) : DEFAULT_CONFIG;
