@@ -14,7 +14,7 @@ echo "📥 Baixando atualizações..."
 git pull
 
 echo "📦 Instalando dependências..."
-npm install
+npm install --legacy-peer-deps
 
 echo "👀 Verificando conteúdo do arquivo (Debug)..."
 pwd
