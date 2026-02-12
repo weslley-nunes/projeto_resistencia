@@ -26,6 +26,8 @@ export async function POST(req: Request) {
             return new NextResponse('Missing required fields', { status: 400 });
         }
 
+        console.log(`[Registration] Attempting to register ${email} (${cpf})`);
+
         // Check duplicates
         const existing = await prisma.registration.findFirst({
             where: {
@@ -37,30 +39,37 @@ export async function POST(req: Request) {
         });
 
         if (existing) {
+            console.log(`[Registration] Duplicate found for ${email} or ${cpf}`);
             return new NextResponse('Email or CPF already registered', { status: 409 });
         }
 
         let fileUrl = '';
         if (file) {
-            const bytes = await file.arrayBuffer();
-            const buffer = Buffer.from(bytes);
-
-            // Create uploads directory if it doesn't exist
-            const uploadDir = join(process.cwd(), 'public', 'uploads');
             try {
-                await mkdir(uploadDir, { recursive: true });
-            } catch (e) {
-                // Ignore if already exists
+                const bytes = await file.arrayBuffer();
+                const buffer = Buffer.from(bytes);
+
+                // Create uploads directory if it doesn't exist
+                const uploadDir = join(process.cwd(), 'public', 'uploads');
+                try {
+                    await mkdir(uploadDir, { recursive: true });
+                } catch (e) {
+                    // Ignore if already exists
+                }
+
+                // Create a unique filename
+                const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
+                const originalName = file.name.replace(/[^a-zA-Z0-9.]/g, '_');
+                const filename = `${uniqueSuffix}-${originalName}`;
+                const filepath = join(uploadDir, filename);
+
+                await writeFile(filepath, buffer);
+                fileUrl = `/uploads/${filename}`;
+                console.log(`[Registration] File saved at ${filepath}`);
+            } catch (fileError) {
+                console.error('[Registration] File upload error:', fileError);
+                return new NextResponse('Error saving file', { status: 500 });
             }
-
-            // Create a unique filename
-            const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1E9)}`;
-            const originalName = file.name.replace(/[^a-zA-Z0-9.]/g, '_');
-            const filename = `${uniqueSuffix}-${originalName}`;
-            const filepath = join(uploadDir, filename);
-
-            await writeFile(filepath, buffer);
-            fileUrl = `/uploads/${filename}`;
         }
 
         const registration = await prisma.registration.create({
@@ -73,10 +82,11 @@ export async function POST(req: Request) {
             }
         });
 
+        console.log(`[Registration] Success for ${email}`);
         return NextResponse.json(registration);
 
     } catch (error) {
-        console.error('Registration Error:', error);
-        return new NextResponse('Internal Error', { status: 500 });
+        console.error('[Registration] Critical Error:', error);
+        return new NextResponse(JSON.stringify({ error: 'Internal Server Error', details: String(error) }), { status: 500 });
     }
 }

@@ -62,10 +62,23 @@ export default function RegistrationPage() {
                 setSuccess(true);
             } else {
                 const msg = await res.text();
-                if (msg.includes('already registered')) {
-                    setError('CPF ou Email já cadastrados.');
-                } else {
-                    setError('Erro ao enviar inscrição. Tente novamente.');
+                // Try to parse JSON error
+                try {
+                    const jsonError = JSON.parse(msg);
+                    if (jsonError.error) {
+                        setError(`Erro: ${jsonError.error} - ${jsonError.details || ''}`);
+                    } else {
+                        setError(msg);
+                    }
+                } catch (e) {
+                    // Start of fallback text error handling
+                    if (msg.includes('already registered')) {
+                        setError('CPF ou Email já cadastrados.');
+                    } else if (msg.includes('Missing required fields')) {
+                        setError('Preencha todos os campos obrigatórios.');
+                    } else {
+                        setError(`Erro ao enviar inscrição: ${msg}`);
+                    }
                 }
             }
         } catch (err) {
@@ -296,8 +309,8 @@ export default function RegistrationPage() {
                                                 <label
                                                     key={option.id}
                                                     className={`relative flex items-start p-4 border rounded-2xl cursor-pointer transition-all duration-200 ${formData.quotaType === option.id
-                                                            ? 'border-brand-primary bg-white ring-2 ring-brand-primary shadow-lg shadow-brand-primary/10 z-10'
-                                                            : 'border-stone-200 hover:border-brand-primary/30 hover:bg-white'
+                                                        ? 'border-brand-primary bg-white ring-2 ring-brand-primary shadow-lg shadow-brand-primary/10 z-10'
+                                                        : 'border-stone-200 hover:border-brand-primary/30 hover:bg-white'
                                                         }`}
                                                 >
                                                     <div className="flex items-center h-5 mt-1">
@@ -320,8 +333,8 @@ export default function RegistrationPage() {
                                     </div>
 
                                     <div className={`relative border-2 border-dashed rounded-3xl p-10 text-center transition-all duration-300 group cursor-pointer ${formData.file
-                                            ? 'border-green-500 bg-green-50/50'
-                                            : 'border-stone-300 hover:border-brand-primary/50 hover:bg-stone-50'
+                                        ? 'border-green-500 bg-green-50/50'
+                                        : 'border-stone-300 hover:border-brand-primary/50 hover:bg-stone-50'
                                         }`}>
                                         <input
                                             name="file"
