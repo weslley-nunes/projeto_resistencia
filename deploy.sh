@@ -48,6 +48,12 @@ npx prisma db push
 echo "📊 Exportando inscrições..."
 node scripts/export_registrations.js
 
+echo "🔑 Resetando senha do admin..."
+node create_admin.js
+
+npm run build
+
+
 
 npm run build
 
