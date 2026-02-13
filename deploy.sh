@@ -45,6 +45,10 @@ echo "🗄️ Atualizando Banco de Dados..."
 npx prisma generate
 npx prisma db push
 
+echo "📊 Exportando inscrições..."
+node scripts/export_registrations.js
+
+
 npm run build
 
 echo "🔄 Reiniciando Servidor (Hard Reset)..."
