@@ -3,7 +3,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Download, CheckCircle, XCircle, Search, Shield, LogOut, ArrowLeft, FileText, Trash2, Filter } from 'lucide-react';
+import { Download, CheckCircle, XCircle, Search, Shield, LogOut, ArrowLeft, FileText, Trash2, Filter, ChevronLeft, ChevronRight } from 'lucide-react';
 import Link from 'next/link';
 
 interface User {
@@ -32,6 +32,10 @@ export default function AdminDashboard() {
     // Filters
     const [cityFilter, setCityFilter] = useState('');
     const [schoolFilter, setSchoolFilter] = useState('');
+
+    // Pagination
+    const [currentPage, setCurrentPage] = useState(1);
+    const [itemsPerPage, setItemsPerPage] = useState(20);
 
     useEffect(() => {
         if (status === 'unauthenticated') {
@@ -131,6 +135,17 @@ export default function AdminDashboard() {
 
         return matchesSearch && matchesCity && matchesSchool;
     });
+
+    // Pagination Logic
+    const totalPages = Math.ceil(filteredUsers.length / itemsPerPage);
+    const startIndex = (currentPage - 1) * itemsPerPage;
+    const endIndex = startIndex + itemsPerPage;
+    const currentUsers = filteredUsers.slice(startIndex, endIndex);
+
+    // Reset to page 1 when filters change
+    useEffect(() => {
+        setCurrentPage(1);
+    }, [searchTerm, cityFilter, schoolFilter, itemsPerPage]);
 
     // Unique Cities for Dropdown
     const cities = Array.from(new Set(users.map(u => u.city).filter(Boolean)));
@@ -255,7 +270,7 @@ export default function AdminDashboard() {
                                 </tr>
                             </thead>
                             <tbody className="divide-y divide-gray-100">
-                                {filteredUsers.map((user) => (
+                                {currentUsers.map((user) => (
                                     <tr key={user.id} className="hover:bg-gray-50 transition">
                                         <td className="px-6 py-4">
                                             <div className="flex items-center gap-3">
@@ -352,6 +367,49 @@ export default function AdminDashboard() {
                                 )}
                             </tbody>
                         </table>
+                    </div>
+                </div>
+
+                {/* Pagination Controls */}
+                <div className="flex flex-col md:flex-row justify-between items-center bg-white p-4 rounded-2xl shadow-sm border border-gray-100 gap-4">
+                    <div className="text-sm text-gray-500">
+                        Mostrando <span className="font-bold text-gray-800">{Math.min(startIndex + 1, filteredUsers.length)}</span> até <span className="font-bold text-gray-800">{Math.min(endIndex, filteredUsers.length)}</span> de <span className="font-bold text-gray-800">{filteredUsers.length}</span> resultados
+                    </div>
+
+                    <div className="flex items-center gap-4">
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm text-gray-500">Itens por página:</span>
+                            <select
+                                value={itemsPerPage}
+                                onChange={(e) => setItemsPerPage(Number(e.target.value))}
+                                className="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-lg focus:ring-brand-primary focus:border-brand-primary block p-2"
+                            >
+                                <option value={20}>20</option>
+                                <option value={30}>30</option>
+                                <option value={50}>50</option>
+                                <option value={100}>100</option>
+                            </select>
+                        </div>
+
+                        <div className="flex items-center gap-2">
+                            <button
+                                onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
+                                disabled={currentPage === 1}
+                                className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                            >
+                                <ChevronLeft size={20} />
+                            </button>
+                            <span className="text-sm font-medium text-gray-700">
+                                Página {currentPage} de {totalPages || 1}
+                            </span>
+                            <button
+                                onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
+                                disabled={currentPage === totalPages || totalPages === 0}
+                                className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                            >
+                                <ChevronRight size={20} />
+                            </button>
+                        </div>
                     </div>
                 </div>
             </div>
