@@ -395,19 +395,21 @@ export default function AdminDashboard() {
                             <button
                                 onClick={() => setCurrentPage(p => Math.max(1, p - 1))}
                                 disabled={currentPage === 1}
-                                className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                                className="flex items-center gap-1 px-4 py-2 rounded-lg bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed transition shadow-sm"
                             >
-                                <ChevronLeft size={20} />
+                                <ChevronLeft size={16} />
+                                Anterior
                             </button>
-                            <span className="text-sm font-medium text-gray-700">
+                            <span className="text-sm font-medium text-gray-700 px-2">
                                 Página {currentPage} de {totalPages || 1}
                             </span>
                             <button
                                 onClick={() => setCurrentPage(p => Math.min(totalPages, p + 1))}
                                 disabled={currentPage === totalPages || totalPages === 0}
-                                className="p-2 rounded-lg hover:bg-gray-100 disabled:opacity-50 disabled:cursor-not-allowed transition"
+                                className="flex items-center gap-1 px-4 py-2 rounded-lg bg-white border border-gray-200 hover:bg-gray-50 text-gray-700 font-medium disabled:opacity-50 disabled:cursor-not-allowed transition shadow-sm"
                             >
-                                <ChevronRight size={20} />
+                                Próxima
+                                <ChevronRight size={16} />
                             </button>
                         </div>
                     </div>
