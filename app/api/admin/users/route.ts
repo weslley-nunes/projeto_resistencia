@@ -153,12 +153,25 @@ export async function DELETE(request: Request) {
     try {
         const { userId } = await request.json();
 
-        await prisma.user.delete({
-            where: { id: userId },
-        });
-
-        return NextResponse.json({ message: 'User deleted successfully' });
+        // Try deleting user first
+        try {
+            await prisma.user.delete({
+                where: { id: userId },
+            });
+            return NextResponse.json({ message: 'User deleted successfully' });
+        } catch (e) {
+            // If user not found, try deleting registration
+            try {
+                await prisma.registration.delete({
+                    where: { id: userId },
+                });
+                return NextResponse.json({ message: 'Registration deleted successfully' });
+            } catch (regError) {
+                // If neither found
+                return NextResponse.json({ error: 'User/Registration not found' }, { status: 404 });
+            }
+        }
     } catch (error) {
-        return NextResponse.json({ error: 'Failed to delete user' }, { status: 500 });
+        return NextResponse.json({ error: 'Failed to delete' }, { status: 500 });
     }
 }
