@@ -27,7 +27,8 @@ export async function GET() {
                 image: true,
                 quotaType: true,
                 isPcd: true,
-                documentsUrl: true
+                documentsUrl: true,
+                quizResults: true // Include quiz results
             }
         });
 
@@ -54,6 +55,7 @@ export async function GET() {
             quotaType: reg.quotaType,
             isPcd: false, // Default
             documentsUrl: reg.fileUrl,
+            quizResults: [], // Empty array for registrations
             _isRegistration: true // Internal flag if needed
         }));
 

@@ -20,6 +20,11 @@ interface User {
     pcdDocumentsUrl: string | null;
     quotaType: string | null;
     isPcd: boolean;
+    quizResults?: {
+        moduleId: string;
+        score: number;
+        passed: boolean;
+    }[];
 }
 
 export default function AdminDashboard() {
