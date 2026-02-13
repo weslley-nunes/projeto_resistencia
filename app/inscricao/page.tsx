@@ -160,7 +160,7 @@ export default function RegistrationPage() {
                                             name="name"
                                             required
                                             onChange={handleChange}
-                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium"
+                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium text-stone-900"
                                             placeholder="Digite seu nome completo"
                                         />
                                     </div>
@@ -170,7 +170,7 @@ export default function RegistrationPage() {
                                             name="cpf"
                                             required
                                             onChange={handleChange}
-                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium"
+                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium text-stone-900"
                                             placeholder="000.000.000-00"
                                         />
                                     </div>
@@ -181,7 +181,7 @@ export default function RegistrationPage() {
                                             type="email"
                                             required
                                             onChange={handleChange}
-                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium"
+                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium text-stone-900"
                                             placeholder="seu@email.com"
                                         />
                                     </div>
@@ -191,7 +191,7 @@ export default function RegistrationPage() {
                                             name="phone"
                                             required
                                             onChange={handleChange}
-                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium"
+                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium text-stone-900"
                                             placeholder="(00) 00000-0000"
                                         />
                                     </div>
@@ -210,7 +210,7 @@ export default function RegistrationPage() {
                                     <div className="group">
                                         <label className="block text-sm font-semibold text-stone-600 mb-2 group-focus-within:text-brand-primary transition-colors">Cidade de Lotação</label>
                                         <div className="relative">
-                                            <select name="city" required onChange={handleChange} className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all appearance-none cursor-pointer font-medium text-stone-700">
+                                            <select name="city" required onChange={handleChange} className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all appearance-none cursor-pointer font-medium text-stone-900">
                                                 <option value="">Selecione sua cidade...</option>
                                                 <option value="Arraias">Arraias</option>
                                                 <option value="Aurora do Tocantins">Aurora do Tocantins</option>
@@ -230,7 +230,7 @@ export default function RegistrationPage() {
                                             name="school"
                                             required
                                             onChange={handleChange}
-                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium"
+                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium text-stone-900"
                                             placeholder="Nome da escola"
                                         />
                                     </div>
@@ -240,14 +240,14 @@ export default function RegistrationPage() {
                                             name="jobTitle"
                                             required
                                             onChange={handleChange}
-                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium"
+                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium text-stone-900"
                                             placeholder="Ex: Professor de História"
                                         />
                                     </div>
                                     <div className="group">
                                         <label className="block text-sm font-semibold text-stone-600 mb-2 group-focus-within:text-brand-primary transition-colors">Tempo de Docência</label>
                                         <div className="relative">
-                                            <select name="teachingTime" required onChange={handleChange} className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all appearance-none cursor-pointer font-medium text-stone-700">
+                                            <select name="teachingTime" required onChange={handleChange} className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all appearance-none cursor-pointer font-medium text-stone-900">
                                                 <option value="">Selecione...</option>
                                                 <option value="0-2">0 a 2 anos</option>
                                                 <option value="3-5">3 a 5 anos</option>
@@ -262,7 +262,7 @@ export default function RegistrationPage() {
                                     <div className="group">
                                         <label className="block text-sm font-semibold text-stone-600 mb-2 group-focus-within:text-brand-primary transition-colors">Nível de Escolaridade</label>
                                         <div className="relative">
-                                            <select name="educationLevel" required onChange={handleChange} className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all appearance-none cursor-pointer font-medium text-stone-700">
+                                            <select name="educationLevel" required onChange={handleChange} className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all appearance-none cursor-pointer font-medium text-stone-900">
                                                 <option value="">Selecione...</option>
                                                 <option value="Licenciatura">Licenciatura</option>
                                                 <option value="Especialização">Especialização</option>
@@ -280,7 +280,7 @@ export default function RegistrationPage() {
                                             name="trainingArea"
                                             required
                                             onChange={handleChange}
-                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium"
+                                            className="w-full px-5 py-4 rounded-2xl border border-stone-200 bg-stone-50 focus:bg-white focus:ring-[3px] focus:ring-brand-primary/10 focus:border-brand-primary outline-none transition-all placeholder:text-stone-400 font-medium text-stone-900"
                                             placeholder="Ex: História, Geografia..."
                                         />
                                     </div>
