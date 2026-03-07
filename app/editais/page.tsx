@@ -8,14 +8,29 @@ import Link from 'next/link';
 export default function EditaisPage() {
     const notices = [
         {
+            id: 3,
+            title: "Resultado Preliminar das Inscrições",
+            description: "Lista preliminar de inscrições homologadas do Processo Seletivo.",
+            date: "07/03/2026",
+            link: "https://docs.uft.edu.br/s/WPqVeJkZT2C3vNx61dKM2w",
+            isNew: true
+        },
+        {
+            id: 2,
+            title: "Prorrogação do Edital de Abertura nº 001/2025",
+            description: "Prorrogação do Processo Seletivo para ingresso no Curso de Aperfeiçoamento em Educação Patrimonial Gamificada.",
+            date: "07/03/2026",
+            link: "https://docs.uft.edu.br/s/kLtDp3RLQDK6ioFJOf61vw",
+            isNew: true
+        },
+        {
             id: 1,
             title: "Edital de Abertura nº 001/2025",
             description: "Processo seletivo para ingresso no Curso de Aperfeiçoamento em Educação Patrimonial Gamificada.",
             date: "21/01/2026",
             link: "https://docs.uft.edu.br/s/MiB-rXkiQ1mBc3Z8Ra0d0g",
-            isNew: true
-        },
-        // Future notices can be added here
+            isNew: false
+        }
     ];
 
     return (
