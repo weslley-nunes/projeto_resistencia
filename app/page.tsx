@@ -52,13 +52,31 @@ export default function LandingPage() {
             {isMenuOpen && (
               <div className="absolute top-full right-0 mt-2 w-64 bg-white rounded-xl shadow-xl border border-gray-100 overflow-hidden z-50 animate-in fade-in zoom-in-95 duration-100">
                 <a
+                  href="https://docs.uft.edu.br/s/WPqVeJkZT2C3vNx61dKM2w"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-primary text-sm transition border-b border-gray-50"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Resultado Preliminar das Inscrições
+                </a>
+                <a
+                  href="https://docs.uft.edu.br/s/kLtDp3RLQDK6ioFJOf61vw"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-primary text-sm transition border-b border-gray-50"
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  Prorrogação do Edital de Abertura nº 001/2025
+                </a>
+                <a
                   href="https://docs.uft.edu.br/s/MiB-rXkiQ1mBc3Z8Ra0d0g"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="block px-4 py-3 text-gray-700 hover:bg-gray-50 hover:text-brand-primary text-sm transition border-b border-gray-50"
                   onClick={() => setIsMenuOpen(false)}
                 >
-                  Edital de Abertura_001/2025
+                  Edital de Abertura nº 001/2025
                 </a>
                 <Link
                   href="/editais"
