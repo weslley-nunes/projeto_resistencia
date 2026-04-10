@@ -172,17 +172,16 @@ export const mapNodes: MapNode[] = [
             {
                 type: 'agenda',
                 title: 'Cronograma Módulo 1',
-                content: 'Encontros via Google Meet todas as quartas-feiras, 19:30h.',
+                content: 'Encontros de live e plantão de dúvidas conforme nosso cronograma oficial.',
                 agenda: {
                     dates: [
-                        { date: '21/01/2026', type: 'live', link: 'https://meet.google.com/exemplo' },
-                        { date: '28/01/2026', type: 'qa' }, // Plantão
-                        { date: '04/02/2026', type: 'live' },
-                        { date: '11/02/2026', type: 'qa' },
-                        { date: '18/02/2026', type: 'live' },
-                        { date: '25/02/2026', type: 'qa' },
-                        { date: '04/03/2026', type: 'live' },
-                        { date: '11/03/2026', type: 'qa' },
+                        { date: '26/03/2026', type: 'live' },
+                        { date: '09/04/2026', type: 'live' },
+                        { date: '23/04/2026', type: 'live' },
+                        { date: '07/05/2026', type: 'live' },
+                        { date: '21/05/2026', type: 'live' },
+                        { date: '03/06/2026', type: 'live' },
+                        { date: '18/06/2026', type: 'live' },
                     ]
                 }
             },
