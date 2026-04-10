@@ -20,3 +20,14 @@ declare module "next-auth" {
         xp: number;
     }
 }
+
+declare module "next-auth/jwt" {
+    interface JWT {
+        id: string;
+        role: string;
+        status: string;
+        educoins: number;
+        level: number;
+        xp: number;
+    }
+}

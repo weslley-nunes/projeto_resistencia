@@ -45,7 +45,8 @@ export const authOptions: NextAuthOptions = {
         strategy: "jwt",
     },
     callbacks: {
-        async jwt({ token, user }) {
+        async jwt({ token, user, trigger, session }) {
+            // Initial sign in
             if (user) {
                 token.id = user.id;
                 token.role = user.email === 'weslley.uca@gmail.com' ? 'ADMIN' : user.role;
@@ -53,6 +54,26 @@ export const authOptions: NextAuthOptions = {
                 token.educoins = user.educoins;
                 token.level = user.level;
                 token.xp = user.xp;
+            }
+
+            // Always fetch fresh data from DB to ensure role/status are up to date
+            // This fixes the issue where an admin might be redirected to dashboard if session is stale
+            if (token.id) {
+                try {
+                    const freshUser = await prisma.user.findUnique({
+                        where: { id: token.id as string }
+                    });
+
+                    if (freshUser) {
+                        token.role = freshUser.email === 'weslley.uca@gmail.com' ? 'ADMIN' : freshUser.role;
+                        token.status = freshUser.status;
+                        token.educoins = freshUser.educoins;
+                        token.level = freshUser.level;
+                        token.xp = freshUser.xp;
+                    }
+                } catch (error) {
+                    console.error("Error refreshing user data in JWT callback:", error);
+                }
             }
             return token;
         },

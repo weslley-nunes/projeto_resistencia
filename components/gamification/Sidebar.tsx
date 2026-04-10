@@ -2,16 +2,13 @@
 
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import { LayoutDashboard, ShoppingBag, Map, Users, LogOut, Settings } from "lucide-react";
+import { LayoutDashboard, Map, Users, LogOut, Settings } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/lib/store";
-import AvatarDisplay from "@/components/AvatarDisplay";
-import { useState, useEffect } from "react";
 
 const sidebarItems = [
     { icon: Map, label: "Trilha", href: "/dashboard" },
-    { icon: ShoppingBag, label: "Loja", href: "/dashboard/loja" },
     { icon: Users, label: "Perfil", href: "/dashboard/profile" },
     // Admin Link (Checks role in component, but adding here for structure)
     { icon: LayoutDashboard, label: "Gestão", href: "/admin", adminOnly: true },
@@ -21,13 +18,6 @@ export default function Sidebar() {
     const { data: session } = useSession();
     const { level, educoins } = useGameStore();
     const pathname = usePathname();
-    const [avatarConfig, setAvatarConfig] = useState(null);
-
-    useEffect(() => {
-        fetch('/api/user/avatar').then(res => res.json()).then(data => {
-            if (data.config) setAvatarConfig(data.config);
-        });
-    }, []);
 
     return (
         <aside className="fixed left-0 top-0 h-screen w-64 bg-brand-secondary text-white border-r border-white/10 flex flex-col z-50">
@@ -44,11 +34,13 @@ export default function Sidebar() {
                     <Settings size={14} />
                 </Link>
                 <div className="flex items-center gap-3 mb-3">
-                    <div className="w-12 h-12 rounded-full bg-white overflow-hidden border-2 border-brand-accent">
-                        {avatarConfig ? (
-                            <AvatarDisplay config={avatarConfig} seed={session?.user?.name || 'user'} className="w-full h-full" />
+                    <div className="w-12 h-12 rounded-full bg-white overflow-hidden border-2 border-brand-accent flex items-center justify-center">
+                        {session?.user?.image ? (
+                            <img src={session.user.image} alt="Avatar do usuário" className="w-full h-full object-cover" />
                         ) : (
-                            session?.user?.image && <img src={session.user.image} alt="Avatar" className="w-full h-full object-cover" />
+                            <div className="w-full h-full bg-gray-300 flex items-center justify-center text-gray-500 font-bold">
+                                {(session?.user?.name || "U")[0].toUpperCase()}
+                            </div>
                         )}
                     </div>
                     <div>

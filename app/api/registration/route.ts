@@ -4,6 +4,29 @@ import { writeFile } from 'fs/promises';
 import { join } from 'path';
 import { mkdir } from 'fs/promises';
 
+// Helper to execute Prisma operations with retry logic
+async function executeWithRetry<T>(operation: () => Promise<T>, retries = 3, delay = 500): Promise<T> {
+    for (let i = 0; i < retries; i++) {
+        try {
+            return await operation();
+        } catch (error: any) {
+            // Check for SQLite busy/locked errors or generic Prisma errors that might be transient
+            if (
+                error?.code === 'P2028' || // Transaction API error
+                error?.message?.includes('database is locked') ||
+                error?.message?.includes('SQLITE_BUSY')
+            ) {
+                if (i === retries - 1) throw error; // Rethrow if last attempt
+                console.warn(`[Registration] Database locked, retrying (${i + 1}/${retries})...`);
+                await new Promise(resolve => setTimeout(resolve, delay * (i + 1))); // Exponential backoff-ash
+            } else {
+                throw error; // Rethrow other errors immediately
+            }
+        }
+    }
+    throw new Error('Unreachable');
+}
+
 export async function POST(req: Request) {
     try {
         const formData = await req.formData();
@@ -28,14 +51,16 @@ export async function POST(req: Request) {
 
         console.log(`[Registration] Attempting to register ${email} (${cpf})`);
 
-        // Check duplicates
-        const existing = await prisma.registration.findFirst({
-            where: {
-                OR: [
-                    { email },
-                    { cpf }
-                ]
-            }
+        // Check duplicates with retry
+        const existing = await executeWithRetry(async () => {
+            return prisma.registration.findFirst({
+                where: {
+                    OR: [
+                        { email },
+                        { cpf }
+                    ]
+                }
+            });
         });
 
         if (existing) {
@@ -72,21 +97,30 @@ export async function POST(req: Request) {
             }
         }
 
-        const registration = await prisma.registration.create({
-            data: {
-                name, email, cpf, phone, city,
-                school, jobTitle, teachingTime,
-                educationLevel, trainingArea,
-                quotaType,
-                fileUrl
-            }
+        // Create registration with retry
+        const registration = await executeWithRetry(async () => {
+            return prisma.registration.create({
+                data: {
+                    name, email, cpf, phone, city,
+                    school, jobTitle, teachingTime,
+                    educationLevel, trainingArea,
+                    quotaType,
+                    fileUrl
+                }
+            });
         });
 
         console.log(`[Registration] Success for ${email}`);
         return NextResponse.json(registration);
 
-    } catch (error) {
+    } catch (error: any) {
         console.error('[Registration] Critical Error:', error);
+
+        // If it's still a locking error after retries, return 503
+        if (error?.message?.includes('database is locked') || error?.message?.includes('SQLITE_BUSY')) {
+            return new NextResponse('Service busy, please try again in a few moments.', { status: 503 });
+        }
+
         return new NextResponse(JSON.stringify({ error: 'Internal Server Error', details: String(error) }), { status: 500 });
     }
 }
