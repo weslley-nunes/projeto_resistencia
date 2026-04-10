@@ -2,13 +2,14 @@
 
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
-import { LayoutDashboard, Map, Users, LogOut, Settings } from "lucide-react";
+import { LayoutDashboard, Map, Users, LogOut, Settings, Video } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/lib/store";
 
 const sidebarItems = [
     { icon: Map, label: "Trilha", href: "/dashboard" },
+    { icon: Video, label: "Aulas", href: "/dashboard/aulas" },
     { icon: Users, label: "Perfil", href: "/dashboard/profile" },
     // Admin Link (Checks role in component, but adding here for structure)
     { icon: LayoutDashboard, label: "Gestão", href: "/admin", adminOnly: true },
