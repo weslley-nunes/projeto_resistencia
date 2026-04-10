@@ -4,7 +4,7 @@ import { PlayCircle, Calendar, Users, BookOpen, Clock, AlertCircle } from 'lucid
 import { useState } from 'react';
 
 const MODULO1 = [
-    { date: "26/03", theme: "Aula Inaugural: Apresentação do curso e do AVA", qa: "---", host: "WESLEY MUNIZ", practice: "Familiarização com a plataforma" },
+    { date: "26/03", theme: "Aula Inaugural: Apresentação do curso e do AVA", qa: "---", host: "WESLEY MUNIZ", practice: "Familiarização com a plataforma", videoUrl: "https://youtu.be/YsXhn3DVBP8" },
     { date: "09/04", theme: "Direito à memória", qa: "Quinta-feira, 19h", host: "Cristiane Loriza Dantas PUC-Goiás", practice: "Levantamento de memórias locais" },
     { date: "23/04", theme: "Memória e Paisagem", qa: "Quinta-feira, 19h", host: "Marianne Salun UNIFESP", practice: "Registro fotográfico de paisagens culturais" },
     { date: "07/05", theme: "Educação patrimonial no contexto regional", qa: "Quinta-feira, 19h", host: "Bianka Cristina Dias Alves UEG/PARFOR", practice: "Pesquisa sobre patrimônio local" },
@@ -86,10 +86,15 @@ export default function AulasPage() {
                                     </td>
                                     <td className="p-4 align-top">
                                         <div className="font-bold text-gray-800 text-base leading-tight mb-3 group-hover:text-brand-primary transition-colors">{item.theme}</div>
-                                        {/* Aulas Gravadas Placeholder Button */}
-                                        <button className="flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50 hover:text-gray-700 transition disabled:opacity-50" disabled>
-                                            <PlayCircle size={14} /> Gravação em breve
-                                        </button>
+                                        {(item as any).videoUrl ? (
+                                            <a href={(item as any).videoUrl} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-1.5 text-xs font-bold py-1.5 px-3 rounded-full bg-brand-primary text-white hover:bg-brand-primary/90 transition shadow-sm hover:shadow">
+                                                <PlayCircle size={14} /> Assistir Gravação
+                                            </a>
+                                        ) : (
+                                            <button className="flex items-center gap-1.5 text-xs font-semibold py-1.5 px-3 rounded-full border border-gray-200 text-gray-500 hover:bg-gray-50 hover:text-gray-700 transition disabled:opacity-50" disabled>
+                                                <PlayCircle size={14} /> Gravação em breve
+                                            </button>
+                                        )}
                                     </td>
                                     <td className="p-4 align-top text-sm">
                                         {item.qa !== "---" ? (
