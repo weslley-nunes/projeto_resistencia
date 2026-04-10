@@ -15,6 +15,7 @@ const nextConfig = {
   typescript: {
     ignoreBuildErrors: true,
   },
+  turbopack: {},
   // Fix for remote patterns warning
   images: {
     remotePatterns: [

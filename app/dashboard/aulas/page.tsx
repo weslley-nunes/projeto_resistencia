@@ -46,13 +46,13 @@ export default function AulasPage() {
             <div className="flex gap-2 p-1 bg-gray-100/50 rounded-2xl w-full max-w-md mx-auto relative z-10 p-1">
                 <button 
                     onClick={() => setActiveTab('mod1')}
-                    className={\`flex-1 py-3 px-4 rounded-xl font-bold transition-all text-sm \${activeTab === 'mod1' ? 'bg-white text-brand-secondary shadow-md' : 'text-gray-500 hover:text-brand-secondary hover:bg-gray-200/50'}\`}
+                    className={`flex-1 py-3 px-4 rounded-xl font-bold transition-all text-sm ${activeTab === 'mod1' ? 'bg-white text-brand-secondary shadow-md' : 'text-gray-500 hover:text-brand-secondary hover:bg-gray-200/50'}`}
                 >
                     Módulo 1
                 </button>
                 <button 
                     onClick={() => setActiveTab('mod2')}
-                    className={\`flex-1 py-3 px-4 rounded-xl font-bold transition-all text-sm \${activeTab === 'mod2' ? 'bg-white text-brand-secondary shadow-md' : 'text-gray-500 hover:text-brand-secondary hover:bg-gray-200/50'}\`}
+                    className={`flex-1 py-3 px-4 rounded-xl font-bold transition-all text-sm ${activeTab === 'mod2' ? 'bg-white text-brand-secondary shadow-md' : 'text-gray-500 hover:text-brand-secondary hover:bg-gray-200/50'}`}
                 >
                     Módulo 2
                 </button>
