@@ -40,7 +40,7 @@ export default function DashboardPage() {
 
     // Check if Module 1 is complete to unlock Module 2
     // Assuming 'node-final' is the id of the final node in Module 1
-    const isModule1Complete = completedNodes.includes('node-6'); // node-6 is the final quiz of module 1
+    const isModule1Complete = completedNodes.includes('etapa1-final'); // Final node of Etapa 01
 
     const [selectedNode, setSelectedNode] = useState<MapNode | null>(null);
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -129,7 +129,7 @@ export default function DashboardPage() {
                             </Link>
                         )}
                         <div className="px-4 py-2 bg-brand-accent/20 text-brand-secondary font-bold rounded-lg border border-brand-accent/50">
-                            {currentModule === 'modulo1' ? 'Etapa 1: Introdução' : 'Etapa 2: Memória'}
+                            {currentModule === 'modulo1' ? 'Etapa 01: Direito à Memória' : 'Etapa 02: Memória e Paisagem'}
                         </div>
                     </div>
                 </div>
@@ -149,8 +149,8 @@ export default function DashboardPage() {
                             1
                         </div>
                         <div className="flex flex-col text-left">
-                            <span className="font-bold text-sm">Introdução e Identidade</span>
-                            <span className="text-[10px] opacity-80">Narrativas Iniciais</span>
+                            <span className="font-bold text-sm">Etapa 01</span>
+                            <span className="text-[10px] opacity-80">Direito à Memória</span>
                         </div>
                     </button>
 
@@ -172,7 +172,7 @@ export default function DashboardPage() {
                             {isModule1Complete ? '2' : <Lock size={14} />}
                         </div>
                         <div className="flex flex-col text-left">
-                            <span className="font-bold text-sm">Memória e Paisagem</span>
+                            <span className="font-bold text-sm">Etapa 02</span>
                             <span className="text-[10px] opacity-80">{isModule1Complete ? 'Disponível' : 'Bloqueado'}</span>
                         </div>
                     </button>
@@ -194,7 +194,7 @@ export default function DashboardPage() {
                     nodes={currentNodes}
                     onNodeClick={handleNodeClick}
                     completedNodes={completedNodes}
-                    backgroundImage={currentModule === 'modulo1' ? '/assets/map_background_tocantins.png' : '/assets/map_background_tocantins_historical.png'}
+                    backgroundImage={currentModule === 'modulo1' ? '/assets/map_background_culture_education.png' : '/assets/map_background_tocantins_historical.png'}
                 />
             </div>
 

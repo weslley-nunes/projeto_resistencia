@@ -1,20 +1,23 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import GameMap from '@/components/GameMap';
-import { mapNodes, MapNode } from './data';
+import { mapNodes, MapNode, Slide, quizQuestions } from './data';
 import { motion, AnimatePresence } from 'framer-motion';
-import { X, BookOpen, User, Coins } from 'lucide-react';
-import ReactMarkdown from 'react-markdown'; // Assuming we might want to use this or simple dangerouslySetInnerHTML
+import { X, BookOpen, User, Coins, ChevronLeft, ChevronRight, Check, Play, FileText, HelpCircle } from 'lucide-react';
+import ActivitySubmissionForm from '@/components/ActivitySubmissionForm';
+import QuizModal from '@/components/QuizModal';
 
 export default function Modulo1Page() {
     const [activeNode, setActiveNode] = useState<MapNode | null>(null);
+    const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
     const [completedNodes, setCompletedNodes] = useState<string[]>([]);
     const [educoins, setEducoins] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
+    const [showQuiz, setShowQuiz] = useState(false);
 
     // Fetch initial progress
-    React.useEffect(() => {
+    useEffect(() => {
         async function fetchProgress() {
             try {
                 const res = await fetch('/api/progress?moduleId=modulo-1');
@@ -34,10 +37,24 @@ export default function Modulo1Page() {
 
     const handleNodeClick = (node: MapNode) => {
         setActiveNode(node);
+        setCurrentSlideIndex(0);
     };
 
     const handleCloseModal = () => {
         setActiveNode(null);
+        setCurrentSlideIndex(0);
+    };
+
+    const nextSlide = () => {
+        if (activeNode && currentSlideIndex < activeNode.slides.length - 1) {
+            setCurrentSlideIndex(prev => prev + 1);
+        }
+    };
+
+    const prevSlide = () => {
+        if (currentSlideIndex > 0) {
+            setCurrentSlideIndex(prev => prev - 1);
+        }
     };
 
     const handleCompleteNode = async () => {
@@ -45,8 +62,6 @@ export default function Modulo1Page() {
             // Optimistic update
             setCompletedNodes(prev => [...prev, activeNode.id]);
             setEducoins(prev => prev + activeNode.educoinsReward);
-
-            handleCloseModal();
 
             // Persist to DB
             try {
@@ -63,18 +78,118 @@ export default function Modulo1Page() {
                 console.error('Failed to save progress', error);
                 // Rollback on error could be implemented here
             }
-        } else {
-            handleCloseModal();
+        }
+        handleCloseModal();
+    };
+
+    const renderSlide = (slide: Slide) => {
+        switch (slide.type) {
+            case 'cover':
+                return (
+                    <div className="flex flex-col items-center text-center">
+                        {slide.image && (
+                            <img src={slide.image} alt={slide.title} className="w-full h-48 object-cover rounded-xl mb-6 shadow-md" />
+                        )}
+                        <h2 className="text-3xl font-bold text-amber-800 mb-4">{slide.title}</h2>
+                        <p className="text-lg text-stone-600 leading-relaxed whitespace-pre-line">{slide.content}</p>
+                    </div>
+                );
+            case 'text':
+                return (
+                    <div className="prose prose-stone max-w-none">
+                        <h2 className="text-2xl font-bold text-amber-700 mb-4">{slide.title}</h2>
+                        <div className="text-stone-700 text-lg leading-relaxed whitespace-pre-line">
+                            {slide.content}
+                        </div>
+                    </div>
+                );
+            case 'quote':
+                return (
+                    <div className="flex flex-col items-center justify-center h-full py-10">
+                        <blockquote className="border-l-4 border-amber-500 pl-6 italic text-2xl text-stone-700 bg-amber-50 p-8 rounded-r-xl shadow-sm">
+                            "{slide.content}"
+                        </blockquote>
+                        <h3 className="mt-4 text-amber-800 font-bold">— {slide.title}</h3>
+                    </div>
+                );
+            case 'video':
+                const getYoutubeId = (url: string) => {
+                    const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
+                    const match = url.match(regExp);
+                    return (match && match[2].length === 11) ? match[2] : null;
+                };
+                const videoId = slide.videoUrl ? getYoutubeId(slide.videoUrl) : null;
+                
+                return (
+                    <div className="flex flex-col h-full uppercase">
+                         <h2 className="text-2xl font-bold text-amber-700 mb-4 flex items-center gap-2">
+                            <Play size={24} className="fill-amber-700" /> {slide.title}
+                        </h2>
+                        {videoId ? (
+                            <div className="aspect-video w-full rounded-xl overflow-hidden shadow-2xl border-4 border-stone-200">
+                                <iframe
+                                    className="w-full h-full"
+                                    src={`https://www.youtube.com/embed/${videoId}`}
+                                    title="YouTube video player"
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                    allowFullScreen
+                                ></iframe>
+                            </div>
+                        ) : (
+                            <div className="bg-stone-200 aspect-video rounded-xl flex items-center justify-center text-stone-500">
+                                Vídeo não disponível
+                            </div>
+                        )}
+                        <p className="mt-4 text-stone-600">{slide.content}</p>
+                    </div>
+                );
+            case 'activity':
+                if (slide.activity?.type === 'quiz') {
+                    return (
+                        <div className="flex flex-col items-center justify-center py-10 text-center">
+                            <HelpCircle size={64} className="text-amber-500 mb-4" />
+                            <h2 className="text-3xl font-bold text-stone-800 mb-4">{slide.title}</h2>
+                            <p className="text-stone-600 mb-8 max-w-md">{slide.content}</p>
+                            <button 
+                                onClick={() => setShowQuiz(true)}
+                                className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-4 rounded-2xl font-bold shadow-xl transform active:scale-95 transition-all text-xl"
+                            >
+                                Iniciar Quiz
+                            </button>
+                        </div>
+                    );
+                }
+                return (
+                    <div className="flex flex-col h-full">
+                        <h2 className="text-2xl font-bold text-amber-700 mb-2 flex items-center gap-2">
+                             <FileText size={24} /> {slide.title}
+                        </h2>
+                        <p className="text-stone-600 mb-6">{slide.content}</p>
+                        
+                        <div className="bg-stone-50 p-6 rounded-2xl border-2 border-dashed border-stone-200">
+                            <h3 className="text-lg font-bold text-stone-800 mb-4">{slide.activity?.question}</h3>
+                            <ActivitySubmissionForm 
+                                type={slide.activity?.type as 'open-text' | 'file-upload'} 
+                                nodeId={activeNode?.id || ''} 
+                                moduleId="modulo-1" 
+                            />
+                        </div>
+                    </div>
+                );
+            default:
+                return <div>Slide em construção</div>;
         }
     };
 
+    if (isLoading) return <div className="min-h-screen bg-stone-900 flex items-center justify-center text-white">Carregando mapa...</div>;
+
     return (
-        <div className="min-h-screen bg-stone-900 text-stone-100 font-sans selection:bg-amber-500 selection:text-white">
+        <div className="min-h-screen bg-stone-900 text-stone-100 font-sans selection:bg-amber-500 selection:text-white overflow-hidden">
             {/* Header / HUD */}
             <header className="fixed top-0 left-0 right-0 z-40 bg-stone-900/90 backdrop-blur-md border-b border-stone-800 h-16 flex items-center justify-between px-6 shadow-lg">
                 <div className="flex items-center gap-2">
                     <h1 className="text-xl font-bold bg-gradient-to-r from-amber-400 to-orange-500 bg-clip-text text-transparent">
-                        Módulo I: Trilha da Memória
+                        Etapa 01: Direito à Memória
                     </h1>
                 </div>
 
@@ -84,18 +199,18 @@ export default function Modulo1Page() {
                         <span className="font-mono font-bold text-amber-400">{educoins}</span>
                     </div>
 
-                    <div className="w-32 h-2.5 bg-stone-800 rounded-full overflow-hidden border border-stone-700">
+                    <div className="w-40 h-3 bg-stone-800 rounded-full overflow-hidden border border-stone-700 hidden md:block">
                         <div
                             className="h-full bg-gradient-to-r from-emerald-500 to-green-400 transition-all duration-500"
-                            style={{ width: `${(completedNodes.length / mapNodes.length) * 100}%` }}
+                            style={{ width: `${(completedNodes.length / (mapNodes.length - 1)) * 100}%` }}
                         />
                     </div>
                 </div>
             </header>
 
             {/* Main Map Area */}
-            <main className="pt-24 pb-10 px-4 max-w-6xl mx-auto flex flex-col items-center justify-center min-h-[calc(100vh-64px)]">
-                <div className="w-full max-w-5xl">
+            <main className="pt-24 pb-10 px-4 h-screen flex flex-col items-center justify-center">
+                <div className="w-full max-w-5xl h-full flex items-center justify-center">
                     <GameMap
                         nodes={mapNodes}
                         onNodeClick={handleNodeClick}
@@ -104,74 +219,110 @@ export default function Modulo1Page() {
                 </div>
             </main>
 
-            {/* Lesson Modal */}
+            {/* Lesson Modal (Slide-based) */}
             <AnimatePresence>
                 {activeNode && (
                     <div className="fixed inset-0 z-50 flex items-center justify-center px-4 sm:px-0">
-                        {/* Backdrop */}
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             onClick={handleCloseModal}
-                            className="absolute inset-0 bg-black/80 backdrop-blur-sm"
+                            className="absolute inset-0 bg-black/85 backdrop-blur-sm"
                         />
 
-                        {/* Modal Content */}
                         <motion.div
                             layoutId={`node-${activeNode.id}`}
-                            initial={{ opacity: 0, scale: 0.9, y: 20 }}
+                            initial={{ opacity: 0, scale: 0.9, y: 30 }}
                             animate={{ opacity: 1, scale: 1, y: 0 }}
-                            exit={{ opacity: 0, scale: 0.95, y: 20 }}
-                            className="relative w-full max-w-2xl bg-stone-100 text-stone-900 rounded-2xl overflow-hidden shadow-2xl max-h-[85vh] flex flex-col"
+                            exit={{ opacity: 0, scale: 0.95, y: 30 }}
+                            className="relative w-full max-w-3xl bg-white text-stone-900 rounded-3xl overflow-hidden shadow-2xl flex flex-col h-[85vh] max-h-[800px]"
                         >
                             {/* Modal Header */}
-                            <div className="bg-amber-500 text-white p-6 flex justify-between items-start">
+                            <div className="bg-stone-50 border-b border-stone-100 p-6 flex justify-between items-center">
                                 <div>
-                                    <span className="text-xs font-bold uppercase tracking-wider bg-black/20 px-2 py-1 rounded mb-2 inline-block">
-                                        {activeNode.type === 'start' ? 'Início' : activeNode.type === 'final' ? 'Desafio Final' : 'Lição'}
-                                    </span>
-                                    <h2 className="text-3xl font-bold leading-tight">{activeNode.title}</h2>
-                                    <p className="opacity-90 mt-1">{activeNode.description}</p>
+                                    <h2 className="text-xl font-bold text-stone-800">{activeNode.title}</h2>
+                                    <p className="text-stone-500 text-sm">{activeNode.description}</p>
                                 </div>
                                 <button
                                     onClick={handleCloseModal}
-                                    className="p-2 hover:bg-white/20 rounded-full transition"
+                                    className="p-2 hover:bg-stone-200 rounded-full transition text-stone-400"
                                 >
                                     <X size={24} />
                                 </button>
                             </div>
 
-                            {/* Modal Body (Scrollable) */}
-                            <div className="p-8 overflow-y-auto custom-scrollbar flex-1">
-                                <div className="prose prose-stone max-w-none prose-headings:text-amber-700 prose-a:text-amber-600 prose-blockquote:border-l-amber-500">
-                                    {/* Simple rendering for now - ideally use ReactMarkdown */}
-                                    <div dangerouslySetInnerHTML={{ __html: activeNode.description.replace(/\n/g, '<br/>').replace(/# (.*)/g, '<h1 class="text-2xl font-bold mb-4">$1</h1>').replace(/## (.*)/g, '<h2 class="text-xl font-bold mt-6 mb-3">$1</h2>').replace(/> "(.*)"/g, '<blockquote class="border-l-4 border-amber-500 pl-4 italic text-gray-600 my-4">$1</blockquote>') }} />
-                                </div>
+                            {/* Slide Progress */}
+                            <div className="w-full bg-stone-100 h-1.5 flex gap-1 px-1">
+                                {activeNode.slides.map((_, i) => (
+                                    <div 
+                                        key={i} 
+                                        className={`h-full flex-1 rounded-full transition-all duration-500 ${i <= currentSlideIndex ? 'bg-amber-500' : 'bg-stone-200'}`} 
+                                    />
+                                ))}
                             </div>
 
-                            {/* Modal Footer */}
-                            <div className="p-6 bg-stone-200 border-t border-stone-300 flex justify-between items-center">
-                                <div className="flex items-center gap-2 text-stone-600">
-                                    <Coins size={18} className="text-amber-600" />
-                                    <span className="font-semibold">+ {activeNode.educoinsReward} Educoins</span>
-                                </div>
+                            {/* Modal Body - Slide Renderer */}
+                            <div className="p-8 overflow-y-auto custom-scrollbar flex-1 flex flex-col">
+                                <AnimatePresence mode="wait">
+                                    <motion.div
+                                        key={currentSlideIndex}
+                                        initial={{ opacity: 0, x: 20 }}
+                                        animate={{ opacity: 1, x: 0 }}
+                                        exit={{ opacity: 0, x: -20 }}
+                                        transition={{ duration: 0.3 }}
+                                        className="flex-1"
+                                    >
+                                        {renderSlide(activeNode.slides[currentSlideIndex])}
+                                    </motion.div>
+                                </AnimatePresence>
+                            </div>
 
+                            {/* Modal Footer (Navigation) */}
+                            <div className="p-6 bg-stone-50 border-t border-stone-100 flex justify-between items-center">
                                 <button
-                                    onClick={handleCompleteNode}
-                                    className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl font-bold shadow-lg transform active:scale-95 transition-all flex items-center gap-2"
+                                    onClick={prevSlide}
+                                    disabled={currentSlideIndex === 0}
+                                    className="flex items-center gap-2 font-bold text-stone-400 hover:text-stone-600 disabled:opacity-0 transition-all"
                                 >
-                                    {completedNodes.includes(activeNode.id) ? 'Revisado' : 'Concluir & Resgatar'}
-                                    <Check size={20} />
+                                    <ChevronLeft size={24} /> Anterior
                                 </button>
+
+                                {currentSlideIndex === activeNode.slides.length - 1 ? (
+                                    <button
+                                        onClick={handleCompleteNode}
+                                        className="bg-emerald-600 hover:bg-emerald-700 text-white px-8 py-3 rounded-xl font-bold shadow-lg transform active:scale-95 transition-all flex items-center gap-2"
+                                    >
+                                        {completedNodes.includes(activeNode.id) ? 'Lição Concluída' : 'Concluir & Continuar'}
+                                        <Check size={20} />
+                                    </button>
+                                ) : (
+                                    <button
+                                        onClick={nextSlide}
+                                        className="bg-amber-500 hover:bg-amber-600 text-white px-8 py-3 rounded-xl font-bold shadow-lg transform active:scale-95 transition-all flex items-center gap-2"
+                                    >
+                                        Próximo <ChevronRight size={20} />
+                                    </button>
+                                )}
                             </div>
                         </motion.div>
                     </div>
                 )}
             </AnimatePresence>
+
+            {/* Quiz Modal Overlay */}
+            {showQuiz && (
+                <QuizModal 
+                    questions={quizQuestions} 
+                    onClose={() => setShowQuiz(false)} 
+                    onComplete={(score, passed) => {
+                        setShowQuiz(false);
+                        if (passed) {
+                            handleCompleteNode();
+                        }
+                    }}
+                />
+            )}
         </div>
     );
 }
-
-// Importing Check icon separately since it was used in button above
-import { Check } from 'lucide-react';
