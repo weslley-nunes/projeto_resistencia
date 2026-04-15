@@ -5,7 +5,7 @@ import { useState } from 'react';
 
 const MODULO1 = [
     { date: "26/03", theme: "Aula Inaugural: Apresentação do curso e do AVA", qa: "---", host: "WESLEY MUNIZ", practice: "Familiarização com a plataforma", videoUrl: "https://youtu.be/YsXhn3DVBP8" },
-    { date: "09/04", theme: "Direito à memória", qa: "Quinta-feira, 19h", host: "Cristiane Loriza Dantas PUC-Goiás", practice: "Levantamento de memórias locais" },
+    { date: "09/04", theme: "Direito à memória", qa: "Quinta-feira, 19h", host: "Cristiane Loriza Dantas PUC-Goiás", practice: "Levantamento de memórias locais", videoUrl: "https://youtu.be/RxLDTQeF5Rg" },
     { date: "23/04", theme: "Memória e Paisagem", qa: "Quinta-feira, 19h", host: "Marianne Salun UNIFESP", practice: "Registro fotográfico de paisagens culturais" },
     { date: "07/05", theme: "Educação patrimonial no contexto regional", qa: "Quinta-feira, 19h", host: "Bianka Cristina Dias Alves UEG/PARFOR", practice: "Pesquisa sobre patrimônio local" },
     { date: "21/05", theme: "Participação da comunidade na gestão do patrimônio", qa: "Quinta-feira, 19h", host: "Paulo Campos UFMG", practice: "Entrevista com liderança local" },
