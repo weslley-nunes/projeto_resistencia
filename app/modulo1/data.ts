@@ -175,13 +175,13 @@ export const mapNodes: MapNode[] = [
                 content: 'Encontros de live e plantão de dúvidas conforme nosso cronograma oficial.',
                 agenda: {
                     dates: [
-                        { date: '26/03/2026', type: 'live' },
-                        { date: '09/04/2026', type: 'live' },
-                        { date: '23/04/2026', type: 'live' },
-                        { date: '07/05/2026', type: 'live' },
-                        { date: '21/05/2026', type: 'live' },
-                        { date: '03/06/2026', type: 'live' },
-                        { date: '18/06/2026', type: 'live' },
+                        { date: '26/03/2026', type: 'live', link: 'https://meet.google.com/' },
+                        { date: '09/04/2026', type: 'live', link: 'https://meet.google.com/' },
+                        { date: '23/04/2026', type: 'live', link: 'https://meet.google.com/' },
+                        { date: '07/05/2026', type: 'live', link: 'https://meet.google.com/' },
+                        { date: '21/05/2026', type: 'live', link: 'https://meet.google.com/' },
+                        { date: '03/06/2026', type: 'live', link: 'https://meet.google.com/' },
+                        { date: '18/06/2026', type: 'live', link: 'https://meet.google.com/' },
                     ]
                 }
             },
