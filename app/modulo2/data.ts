@@ -69,8 +69,8 @@ export const mapNodes: MapNode[] = [
                 content: 'Encontros e lives de consolidação.',
                 agenda: {
                     dates: [
-                        { date: '02/07/2026', type: 'live', link: 'https://meet.google.com/' },
-                        { date: '16/07/2026', type: 'live', link: 'https://meet.google.com/' }
+                        { date: '02/07/2026', type: 'live', link: 'https://meet.google.com/hps-okye-rvx' },
+                        { date: '16/07/2026', type: 'live', link: 'https://meet.google.com/hps-okye-rvx' }
                     ]
                 }
             }
