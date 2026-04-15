@@ -4,10 +4,11 @@ export type Slide = {
     content: string; // Markdown supported
     image?: string;
     activity?: {
+        type?: 'quiz' | 'open-text' | 'file-upload' | 'forum';
         question: string;
-        options: string[];
-        correctAnswer: number;
-        feedback: string;
+        options?: string[];
+        correctAnswer?: number;
+        feedback?: string;
     };
     agenda?: {
         dates: { date: string; type: 'live' | 'qa'; link?: string }[];
@@ -159,7 +160,7 @@ A construção das identidades passa por aí, pelo mundo das formas e das subje
 export const mapNodes: MapNode[] = [
     {
         id: 'node-info',
-        title: 'Agenda & Materiais',
+        title: 'Agenda & Materiais (Etapa 1)',
         description: 'Datas das aulas ao vivo, plantões de dúvidas e material completo.',
         x: 5, y: 90, type: 'info', educoinsReward: 0,
         slides: [
@@ -167,11 +168,11 @@ export const mapNodes: MapNode[] = [
                 type: 'cover',
                 title: 'Agenda do Curso',
                 content: 'Confira as datas das aulas síncronas e plantões de dúvidas.',
-                image: '/assets/illustration_culture.png' // Utilizing existing asset as placeholder for consistent style
+                image: '/assets/illustration_culture.png'
             },
             {
                 type: 'agenda',
-                title: 'Cronograma Módulo 1',
+                title: 'Cronograma Etapa 1',
                 content: 'Encontros de live e plantão de dúvidas conforme nosso cronograma oficial.',
                 agenda: {
                     dates: [
@@ -181,7 +182,7 @@ export const mapNodes: MapNode[] = [
                         { date: '07/05/2026', type: 'live', link: 'https://meet.google.com/' },
                         { date: '21/05/2026', type: 'live', link: 'https://meet.google.com/' },
                         { date: '03/06/2026', type: 'live', link: 'https://meet.google.com/' },
-                        { date: '18/06/2026', type: 'live', link: 'https://meet.google.com/' },
+                        { date: '18/06/2026', type: 'live', link: 'https://meet.google.com/' }
                     ]
                 }
             },
@@ -194,216 +195,176 @@ export const mapNodes: MapNode[] = [
     },
     {
         id: 'node-1',
-        title: 'Narrativas Iniciais',
-        description: 'Meu maior Patrimônio é a minha Existência.',
-        x: 18, y: 82, type: 'start', educoinsReward: 50,
+        title: 'Tópico 1 - Direito à Memória',
+        description: 'Construindo o repertório e identidade',
+        x: 20, y: 80, type: 'lesson', educoinsReward: 50,
         slides: [
             {
                 type: 'cover',
-                title: 'Narrativas Iniciais',
-                content: '"Meu maior Patrimônio é a minha Existência"',
-                image: '/assets/illustration_culture.png'
-            },
-            {
-                type: 'text',
-                title: 'A Busca pela Origem',
-                content: `Há muito tempo nós nos ocupamos em entender e explicar nossa existência.
-                
-Nessa curiosa busca, descobrimo-nos como seres capazes de **criar e recriar** nossos hábitos, crenças e territórios.
-
-A essas criações vividas e significadas dia após dia, damos o nome de **CULTURA**.`
-            },
-            {
-                type: 'quote',
-                title: 'Somos um Grupo',
-                content: `A cultura forma nosso grupo, ou melhor, faz de nós um grupo.
-                
-Cada grupo possui seu **Patrimônio Cultural**: o conjunto de saberes, fazeres, memórias e histórias valiosas para sua sobrevivência.`
-            },
-            {
-                type: 'image-text',
-                title: 'A Pedagogia de Freire',
-                content: `A Educação Patrimonial nos convida a ser mediadores desses "mundos". Lembre-se de Paulo Freire:
-                
-"Não há docência sem discência... Quem ensina aprende ao ensinar e quem aprende ensina ao aprender."`,
-                image: 'https://images.unsplash.com/photo-1544928147-79a774ccad2d?q=80&w=2000&auto=format&fit=crop'
+                title: 'Quem sou eu?',
+                content: 'Refletir sobre quem sou é o ponto de partida desta atividade.\n\nMemória, identidade e pertencimento.',
+                image: '/assets/quilombola_heritage_1776281094378.png'
             },
             {
                 type: 'activity',
-                title: 'Reflexão',
-                content: 'Sobre a frase de Freire "Quem ensina ensina alguma coisa a alguém":',
+                title: 'Atividade Reflexiva',
+                content: 'Responda abaixo:',
                 activity: {
-                    question: 'Como você enxerga o patrimônio cultural que seu aluno traz para a sala de aula?',
-                    options: [
-                        'Como algo menor que precisa ser corrigido.',
-                        'Como uma bagagem valiosa que deve dialogar com o ensino.',
-                        'Como algo irrelevante para o conteúdo.'
-                    ],
-                    correctAnswer: 1,
-                    feedback: 'Exato! O patrimônio e as memórias do aluno ajudam a construir sua identidade.'
+                    type: 'open-text',
+                    question: 'Quem sou eu? Qual sua origem familiar, o que gosta de fazer, que valores guiam a sua vida?'
+                }
+            },
+            {
+                type: 'activity',
+                title: 'Cartografia da Memória',
+                content: 'Produto prático:',
+                activity: {
+                    type: 'file-upload',
+                    question: 'Anexe a foto ou documento da sua Cartografia da Memória.'
                 }
             }
         ]
     },
     {
         id: 'node-2',
-        title: 'Direito à Memória',
-        description: 'Quem é capaz de roubar memórias?',
-        x: 30, y: 70, type: 'lesson', educoinsReward: 50,
+        title: 'Tópico 2 - Memória e Paisagem',
+        description: 'Toda paisagem conta uma história',
+        x: 35, y: 70, type: 'lesson', educoinsReward: 50,
         slides: [
             {
                 type: 'cover',
-                title: 'Direito à Memória',
-                content: 'Mas quem é capaz de roubar memórias? A quem foi dado esse direito?',
-                image: '/assets/illustration_memory.png'
-            },
-            {
-                type: 'text',
-                title: 'Memória e Cultura',
-                content: `Não se pode falar de cultura sem falar de memória.
-                
-Segundo **Halbwachs (2006)**:
-- **Memória Individual**: Lembranças pessoais.
-- **Memória Coletiva**: Memória do grupo, de um povo sobre sua história e manifestações.`
-            },
-            {
-                type: 'text',
-                title: 'Silenciamento',
-                content: `Nem todos os povos tiveram o "direito de existir" preservado.
-                
-Muitas memórias indígenas e africanas foram apagadas diariamente. Entender essa diversidade é uma **necessidade ética** para construirmos o respeito ao outro.`
+                title: 'Paisagem como Memória',
+                content: 'Muitas vezes, a nossa percepção não se aterá ao simples fato visual. Mas estará fundamentada no afeto e na memória.',
+                image: '/assets/jalapao_landscape_1776281072150.png'
             },
             {
                 type: 'activity',
-                title: 'Multiculturalismo',
-                content: 'Refletindo sobre a diversidade:',
+                title: 'Oficina de memória',
+                content: '',
                 activity: {
-                    question: 'O multiculturalismo nos ensina que:',
-                    options: [
-                        'Devemos nos misturar até sermos todos iguais.',
-                        'Somos diversos, compostos por muitas culturas que merecem respeito.',
-                        'Apenas a cultura dominante importa.'
-                    ],
-                    correctAnswer: 1,
-                    feedback: 'Isso! O multiculturalismo valoriza que somos feitos de muitas culturas.'
+                    type: 'open-text',
+                    question: 'Descreva a rua que você mora? Como é a vizinhança? Quais saberes há nela?'
                 }
             }
         ]
     },
     {
         id: 'node-3',
-        title: 'Desafio do Etnocentrismo',
-        description: 'A lente com que vemos o mundo.',
-        x: 45, y: 55, type: 'challenge', educoinsReward: 75,
+        title: 'Tópico 3 - Contexto Regional',
+        description: 'Educação patrimonial no contexto regional',
+        x: 50, y: 65, type: 'lesson', educoinsReward: 50,
         slides: [
             {
                 type: 'cover',
-                title: 'O Etnocentrismo Cultural',
-                content: 'Uma prática que ocorre desde os primórdios da humanidade.',
-                image: '/assets/illustration_relativism.png'
-            },
-            {
-                type: 'text',
-                title: 'O que é?',
-                content: `É a visão onde um grupo julga os demais a partir de seus próprios valores, considerando sua cultura superior.
-                
-Exemplo: "Nordestino é preguiçoso", "Índio não gosta de trabalhar".`
-            },
-            {
-                type: 'quote',
-                title: 'O Antídoto: Relativismo',
-                content: `Contrapondo o etnocentrismo, Franz Boas propõe o **Relativismo Cultural**.
-                
-Todas as culturas devem ser entendidas dentro de seu próprio contexto. Nenhuma é superior a outra.`
+                title: 'Contexto Regional',
+                content: 'Mapear o patrimônio regional é essencial para o sentimento coletivo de preservação.',
+                image: '/assets/festa_divino_1776281053453.png'
             },
             {
                 type: 'activity',
-                title: 'Identificando na Prática',
-                content: 'Qual atitude representa o Relativismo Cultural?',
+                title: 'Mapeamento do Patrimônio',
+                content: '',
                 activity: {
-                    question: 'Ao encontrar um hábito diferente do seu:',
-                    options: [
-                        'Rir e dizer que é estranho.',
-                        'Tentar entender o significado daquilo para aquele povo.',
-                        'Tentar ensinar o jeito "certo" de fazer.'
-                    ],
-                    correctAnswer: 1,
-                    feedback: 'Perfeito. Relativizar é olhar de dentro, com respeito.'
+                    type: 'file-upload',
+                    question: 'Anexe o Mapeamento do Patrimônio Regional da sua comunidade.'
                 }
             }
         ]
     },
     {
         id: 'node-4',
-        title: 'Identidade e Memória',
-        description: 'Tecer as redes do imaginário.',
-        x: 65, y: 45, type: 'lesson', educoinsReward: 60,
+        title: 'Tópico 4 - Gestão do Patrimônio',
+        description: 'Participação da comunidade',
+        x: 65, y: 55, type: 'lesson', educoinsReward: 50,
         slides: [
             {
-                type: 'image-text',
-                title: 'A Construção do Eu',
-                content: `A identidade passa pelo mundo das formas e subjetividades.
-                
-As sociedades ensinam o que pensam ser elas mesmas (seu **ethos**).`,
-                image: 'https://images.unsplash.com/photo-1531206715517-5c0ba140b2b8?q=80&w=2000&auto=format&fit=crop'
-            },
-            {
                 type: 'text',
-                title: 'Memória como Resistência',
-                content: `"Atrás de cada artefato há uma pessoa... Descobrir quem eram é uma experiência humanizante." (Horta, 1991).
-                
-O direito à memória é o direito de existir. Povos marginalizados mantiveram suas memórias vivas na oralidade e na prática cultural.`
+                title: 'Comunidade na Gestão',
+                content: 'Não há preservação de cima para baixo. A comunidade deve gerenciar o seu patrimônio.'
             },
             {
-                type: 'quote',
-                title: 'Emília Viotti da Costa',
-                content: `"Um povo sem memória é um povo sem história. E um povo sem história está fadado a cometer, no presente e no futuro, os mesmos erros do passado."`
+                type: 'activity',
+                title: 'Atividade Reflexiva',
+                content: '',
+                activity: {
+                    type: 'open-text',
+                    question: 'Como a sua comunidade tem participado ativamente da preservação dos bens e costumes?'
+                }
             }
         ]
     },
     {
         id: 'node-5',
-        title: 'Atividade: Eu sou porque somos',
-        description: 'Dinâmica de encerramento do módulo.',
-        x: 85, y: 40, type: 'lesson', educoinsReward: 100,
+        title: 'Tópico 5 - Saberes Tradicionais',
+        description: 'Diversidade e Patrimônio',
+        x: 80, y: 45, type: 'lesson', educoinsReward: 50,
         slides: [
             {
                 type: 'cover',
-                title: 'Dinâmica: Eu sou porque somos',
-                content: 'Reflexão final sobre nossa interdependência.',
-                image: '/assets/illustration_ubuntu.png'
+                title: 'Saberes e Fazeres',
+                content: 'Mapear os saberes que não estão escritos em livros, mas passados de geração em geração.',
+                image: '/assets/capim_dourado_1776281024209.png'
             },
             {
                 type: 'activity',
-                title: 'O que trago? O que levo?',
-                content: 'Participe desta reflexão mentalmente ou anote em seu diário:',
+                title: 'Mapeamento de Saberes',
+                content: '',
                 activity: {
-                    question: 'Se você tivesse que se apresentar agora para a roda, o que você diria?',
-                    options: [
-                        'Eu sou [Nome] e trago meu desejo de ensinar e aprender.',
-                        'Eu não trago nada.',
-                        'Eu só vim ouvir.'
-                    ],
-                    correctAnswer: 0,
-                    feedback: 'Ótimo! Reconhecer o que trazemos e o que esperamos levar é o primeiro passo da troca.'
+                    type: 'file-upload',
+                    question: 'Anexe o seu Mapeamento dos Saberes e Fazeres tradicionais.'
                 }
-            },
-            {
-                type: 'text',
-                title: 'Atividade Reflexiva',
-                content: `Escreva (para si mesmo ou compartilhe depois) um texto narrativo a partir da frase:
-                
-"Um povo sem memória é um povo sem história..."
-                
-Como isso se aplica à realidade dos seus alunos no Tocantins?`
             }
         ]
     },
     {
         id: 'node-6',
-        title: 'Prova Final do Módulo',
+        title: 'Tópico 6 - Lugares e Objetos',
+        description: 'A materialidade que te compõe',
+        x: 75, y: 30, type: 'lesson', educoinsReward: 50,
+        slides: [
+            {
+                type: 'text',
+                title: 'A materialidade',
+                content: 'Nossa cultura nos permite dar novos significados a coisas simples que passam a ser nossos lugares e objetos afetivos.'
+            },
+            {
+                type: 'activity',
+                title: 'Qual a materialidade que te compõe?',
+                content: '',
+                activity: {
+                    type: 'open-text',
+                    question: 'Descreva os objetos e lugares mais marcantes para sua essência ao longo da sua vida.'
+                }
+            }
+        ]
+    },
+    {
+        id: 'node-7',
+        title: 'Tópico 7 e 8 - Oficinas Práticas',
+        description: 'Consolidação e encerramento prático',
+        x: 55, y: 20, type: 'lesson', educoinsReward: 50,
+        slides: [
+            {
+                type: 'text',
+                title: 'Oficinas e Conclusões',
+                content: 'Chegamos às oficinas práticas da Etapa 1. É hora de compilar nossas memórias em algo concreto para nossa escola.'
+            },
+            {
+                type: 'activity',
+                title: 'Entrega Final das Oficinas',
+                content: '',
+                activity: {
+                    type: 'file-upload',
+                    question: 'Anexe aqui qualquer material, roteiro de plano de aula ou documento gerado nas oficinas práticas da Etapa 1.'
+                }
+            }
+        ]
+    },
+    {
+        id: 'node-final',
+        title: 'Prova Final da Etapa 1',
         description: 'Teste seus conhecimentos para avançar.',
-        x: 90, y: 20, type: 'final', educoinsReward: 200,
+        x: 40, y: 15, type: 'final', educoinsReward: 200,
         slides: [
             {
                 type: 'cover',

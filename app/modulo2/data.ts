@@ -4,10 +4,11 @@ export type Slide = {
     content: string; // Markdown supported
     image?: string;
     activity?: {
+        type?: 'quiz' | 'open-text' | 'file-upload' | 'forum';
         question: string;
-        options: string[];
-        correctAnswer: number;
-        feedback: string;
+        options?: string[];
+        correctAnswer?: number;
+        feedback?: string;
     };
     agenda?: {
         dates: { date: string; type: 'live' | 'qa'; link?: string }[];
@@ -33,274 +34,222 @@ export type QuizQuestion = {
     explanation: string;
 };
 
-// --- QUIZ BANK MÓDULO 2 ---
+// --- QUIZ BANK ---
 export const quizQuestions: QuizQuestion[] = [
     {
         id: 'q1',
-        question: 'Segundo o texto, o que são "paisagens culturais"?',
+        question: 'O que defende a educação patrimonial contemporânea?',
         options: [
-            'Apenas parques naturais preservados pelo governo.',
-            'Lugares de memória onde interagem elementos materiais, simbólicos e funcionais.',
-            'Fotos antigas de paisagens naturais.',
-            'Locais sem intervenção humana.'
+            'O foco deve ser exclusivo em monumentos históricos e obras de arte europeias.',
+            'As memórias e identidades de todos os grupos sociais importam, sendo essenciais para a cidadania.',
+            'O patrimônio deve ser mantido distante da comunidade para preservação física.'
         ],
         correctAnswer: 1,
-        explanation: 'Paisagens culturais são lugares de memória constituídos pela interação entre nossas identidades, história e o espaço.'
-    },
-    {
-        id: 'q2',
-        question: 'Qual a relação entre objetos e memória descrita no texto?',
-        options: [
-            'Objetos são apenas coisas materiais sem valor sentimental.',
-            'Objetos servem apenas para decoração.',
-            'Objetos agem como suportes da memória, gatilhos para lembranças e identidades.',
-            'Devemos descartar objetos antigos para não viver no passado.'
-        ],
-        correctAnswer: 2,
-        explanation: 'O texto descreve objetos como "suportes da memória" que formam relicários de nossas lembranças.'
-    },
-    {
-        id: 'q3',
-        question: 'Segundo Adélia Prado (citada no texto), "O que a memória ama..."',
-        options: [
-            '...se perde no tempo.',
-            '...fica eterno.',
-            '...vira história oficial.',
-            '...é esquecido.'
-        ],
-        correctAnswer: 1,
-        explanation: 'A frase completa é: "O que a memória ama fica eterno". A memória eterniza momentos contra a passagem do tempo.'
-    },
-    {
-        id: 'q4',
-        question: 'Para o IPHAN, a paisagem cultural:',
-        options: [
-            'Não é considerada patrimônio.',
-            'É equiparada ao patrimônio histórico e artístico nacional desde 1937.',
-            'Só é válida se for urbana.',
-            'Deve ser modificada para o progresso.'
-        ],
-        correctAnswer: 1,
-        explanation: 'O decreto nº 25 de 1937 equipara a paisagem ao patrimônio histórico e artístico nacional.'
-    },
-    {
-        id: 'q5',
-        question: 'Onde se localizam os "paraísos secretos" citados por Saint-Exupéry?',
-        options: [
-            'Em ilhas desertas.',
-            'Nas paisagens interiores de cada um de nós.',
-            'Nos mapas oficiais.',
-            'Nos museus.'
-        ],
-        correctAnswer: 1,
-        explanation: 'Saint-Exupéry fala de uma "paisagem interior com planícies invioláveis e paraísos secretos".'
+        explanation: 'A educação patrimonial contemporânea valoriza a diversidade e atua na formação cidadã.'
     }
 ];
 
-// --- RAW ACADEMIC TEXT ---
-const fullAcademicText = `
-2. Memória e Paisagem
-
-“Em cada um de nós há um segredo, uma paisagem interior com planícies invioláveis, vales de silêncio e paraísos secretos” (Antoine de Saint Exupéry).
-
-Iniciamos esse tópico com essa citação poética sobre nossas paisagens interiores, para assim nos aprofundarmos um pouco mais no conceito de memória e na sua importância para formações como a proposta neste curso. O patrimônio que habita nossas memórias ganha vida no nosso cotidiano por meio de nossos saberes, dizeres viveres, e nos lugares que elegemos como espaço de memória. Chamamos isso de paisagens culturais, lugares de memórias e é sobre esses aspectos que nos debruçaremos nas próximas páginas.
-
-Atividade/dinâmica: Oficina de memória; objetos que falam. Convide a turma a levar para sala de aula um objeto que remeta a uma lembrança. Depois em roda cada uma apresentará seu objeto e partilhará a lembrança que ele remete. Ao final ele escolherá uma frase que sintetize sua memória que deve ser registrada em um pedaço de papel cortado em círculo. Todos os círculos são colados em um mural, e eles devem ser interligados com fios de barbante como uma grande teia.
-
-Sugerimos que, no decorrer da leitura das próximas páginas, você retome alguns pontos das narrativas anteriores, fazendo uma costura de ideias entre memória e identidade. Costura essa que irá nos ajudar a compreender melhor o que são Patrimônio Cultural e Educação Patrimonial. Sugerimos também que, durante a leitura, você faça um exercício de invocar da sua memória, imagens e vivências, lembranças individuais e dos grupos ao quais você pertence, sempre no intuito de compreender que nós somos nosso maior patrimônio. Sabemos que as nossas memórias são permeadas de nossas histórias e sedimentam nosso patrimônio cultual, sabemos que são feitas de lembranças que podem ser individuais ou coletivas. Que elas podem ficar por vezes adormecidas e se despertarem mediante um cheiro, um objeto, uma voz, uma lembrança, mas também um lugar, uma paisagem. A memória, como tudo o que está relacionado à cultura, não é estanque, é relacional e está sujeita a ser ressignificada. Mas, ressignificada ou não, ela é responsável pela eleição e manutenção do patrimônio cultural dos grupos, e a forma como esses grupos se relacionam com seu patrimônio cultural diz muito sobre sua identidade. Assim, há sempre um despertar nostálgico quando entramos em contato com alguns objetos e lugares.
-Os objetos são por vezes suportes de nossa memória, uma flor guardada dentro de um livro, uma boneca de infância, uma miniatura de um lugar que visitamos, o cheiro de café passado cedinho, um lago, uma praça que frequentávamos durante a mocidade, um casarão que gostávamos de ficar em frente a ele, olhando detalhe por detalhe, aquela praça onde ocorreu uma manifestação que marcou a história (e a memória) da nossa cidade, a maneira como o avô falava, as histórias dele, o álbum de fotografias que guardam nossas lembranças, uma velha caixa de lata que guarda nossos tesouros como um relicário de nossas memórias. São esses objetos, esses espaços, e essas narrativas que formam os suportes da memória (SIMONI e SOUZA, 2017).
-Vivemos em coletividade, nos relacionamos uns com os outros, participamos de festas, temos espaços físicos e paisagens que são considerados símbolos da nossa cidade, nosso país ou nossa sociedade. Independente da nossa crença participamos de alguns ritos que fazem parte da nossa identidade e da identidade de nossa comunidade, conhecemos objetos que são característicos de uma região, ou de um povo, que são carregados de significados. Esses objetos também compõem nossas memórias e dão sentido à nossa existência, compondo nosso patrimônio cultural. 
-Os lugares de memória não são formados apenas por um espaço geográfico, mas por toda a subjetividade que os compõem, como as manifestações culturais, as edificações ali construídas e a história de quem as construiu. Eles se constituem a partir da interação desses elementos, e neles, a memória e a história interagem com as nossas identidades.
-Os lugares de memória são lugares nos três sentidos da palavra: material, simbólico e funcional, precisam ser dotados, pelo grupo, de algum significado, serem objeto de um ritual ou terem uma significação simbólica para que sejam considerados lugar de memória. Esses três aspectos (material, funcional e simbólico), sempre estão presentes nos lugares de memória. Os lugares de memória são, então, lugares mistos, constituídos pela nossa memória e pela memória coletiva do nosso grupo, lugares que fazem parte da nossa identidade, lugares com os quais nos identificamos, que fazem parte da nossa história e da história do nosso povo. Continuando no raciocínio de que a memória é constituída por múltiplos elementos, e que esses elementos se relacionam, oferecendo informações para as nossas memórias e constituindo nossas identidades, vamos conversar um pouco sobre as relações entre a memória e as paisagens e o patrimônio cultural. 
-Sabemos que a melhor maneira de se preservar o patrimônio cultural é conhecendo-o, tomando consciência do seu valor simbólico, afetivo e de pertencimento. Este é o primeiro passo a ser dado para a proteção efetiva de um patrimônio. Um segundo seria a sensibilização por meio de medidas educativas que reconheçam seu valor histórico e cultural, e que, por tudo isso, deve ser preservado como herança cultural para as gerações futuras por entender que o mesmo é um testemunho do passado da humanidade para nós. Partindo dessa premissa, onde entram as paisagens? Bem, os territórios e paisagens, por constituírem-se como “lugares” simbólicos, devem ser preservados não somente no que se refere à questão relacionada à preservação física, mas também devem ser preservadas as lembranças dos acontecimentos, eventos, histórias individuais e coletivas, as memórias, as várias formas de sociabilidade construídas, pensadas a partir do território e da paisagem. 
-A relação entre a paisagem e o Patrimônio Cultural constitui um caso especial no contexto das paisagens culturais, onde o IPHAN - Instituto do Patrimônio Histórico e Artístico Nacional, com base em legislação específica, assegura a proteção e preservação desse patrimônio, reconhecendo o seu valor histórico e cultural para a localidade, até para a humanidade. A paisagem é considerada como patrimônio cultural desde o decreto n° 25, de 30 de novembro de 1937, que a equipara ao patrimônio histórico e artístico nacional, tornando os monumentos naturais como jardins, parques naturais bem como as paisagens ocupadas pelos grupos sociais, paisagem urbana, passíveis de tombamento, a fim de conservar e proteger. Já no entendimento da UNESCO (Organização das Nações Unidas para a Educação, a Ciência e a Cultura), a paisagem cultural tem sido considerada como um bem patrimonial desde 1972 (FIGUEIREDO, 2008). 
-Porém, em uma leitura a partir da antropologia cultural, da arqueologia e da história por meio do viés da memória, a paisagem cultural é entendida como sendo parte do Patrimônio Cultural. Patrimônio Cultural é o conjunto de bens materiais móveis e imóveis, manifestações e expressões culturais investidas de valores simbólicos revelados como relíquias e riquezas de um grupo social (TAMAZO, 2007). 
-Nessa variada gama de bens culturais e patrimoniais de natureza material, a paisagem é um deles por trazer inscrita sobre si, numa espécie de fotografia, as crenças, os valores, os saberes e fazeres de um grupo que a transforma de simples paisagem natural em paisagem cultural com valor inestimável, por estarem na base de suas vidas e habitarem suas memórias.
-
-Vamos refletir juntos.
-“O que a memória ama fica eterno” (Adélia Prado)
-
- 
-Ela chorava pela eternidade que vivia dentro dela e que eu, na minha meninice, era incapaz de compreender. O tempo passou e hoje me emociono diante das mesmas coisas, tocada por pequenos milagres do cotidiano.
-É que a memória é contrária ao tempo. Enquanto o tempo leva a vida embora como vento, a memória traz de volta o que realmente importa, eternizando momentos. Crianças têm o tempo a seu favor e a memória ainda é muito recente. Para elas, um filme é só um filme; uma melodia, só uma melodia. Ignoram o quanto a infância é impregnada de eternidade.
-Diante do tempo envelhecemos, nossos filhos crescem, muita gente parte. Porém, para a memória ainda somos jovens, atletas, amantes insaciáveis. Nossos filhos são crianças, nossos amigos estão perto, nossos pais ainda vivem.
-Quanto mais vivemos, mais eternidades criamos dentro da gente. Quando nos damos conta, nossos baús secretos – porque a memória é dada a segredos estão recheados daquilo que amamos, do que deixou saudade, do que doeu além da conta, do que permaneceu além do tempo.
-A capacidade de se emocionar vem daí: quando nossos compartimentos são escancarados de alguma maneira. Um dia você liga o rádio do carro e toca uma música qualquer, ninguém nota, mas aquela música já fez parte de você – foi o fundo musical de um amor, ou a trilha sonora de uma fossa – e mesmo que tenham se passado anos, sua memória afetiva não obedece a calendários, não caminha com as estações; alguma parte de você volta no tempo e lembra aquela pessoa, aquele momento, àquela época...
-Amigos verdadeiros têm a capacidade de se eternizar dentro da gente. É comum ver amigos da juventude se reencontrando depois de anos – já adultos ou até idosos – e voltando a se comportar como adolescentes bobos e imaturos. Encontros de turma são especiais por isso, resgatam as pessoas que fomos, garotos cheios de alegria, engraçadinhos, capazes de atitudes infantis e debilóides, como éramos há 20 ou 30 anos. Descobrimos que o tempo não passa para a memória. Ela eterniza amigos, brincadeiras, apelidos... mesmo que por fora restem cabelos brancos, artroses e rugas.
-A memória não permite que sejamos adultos perto de nossos pais. Nem eles percebem que crescemos. Seremos sempre "as crianças", não importa se já temos 30, 40 ou 50 anos. Prá eles a lembrança da casa cheia, das brigas entre irmãos, das estórias contadas ao cair da noite... ainda são muito recentes, pois a memória amou, e aquilo se eternizou.
-Por isso é tão difícil despedir-se de um amor ou alguém especial que por algum motivo deixou de fazer parte de nossas vidas. Dizem que o tempo cura tudo, mas não é simples assim. Ele acalma os sentidos, apara as arestas, coloca um band-aid na dor. Mas aquilo que amamos tem vocação para emergir das profundezas, romper os cadeados e assombrar de vez em quando. Somos a soma de nossos afetos, e aquilo que amamos pode ser facilmente reativado por novos gatilhos: somos traídos pelo enredo de um filme, uma música antiga, um lugar especial.
-Do mesmo modo, somos memórias vivas na vida de nossos filhos, cônjuges, ex-amores, amigos, irmãos. E mesmo que o tempo nos leve daqui, seremos eternamente lembrados por aqueles que um dia nos amaram.”
-`;
-
-// --- LEARNING TRAIL NODES MÓDULO 2 ---
+// --- LEARNING TRAIL NODES (Updated for Etapa 2) ---
 export const mapNodes: MapNode[] = [
     {
-        id: 'node-info-m2',
-        title: 'Texto Completo M2',
-        description: 'Todo o conteúdo do Módulo 2 para leitura.',
-        x: 10, y: 80, type: 'info', educoinsReward: 0,
+        id: 'node-info',
+        title: 'Agenda & Materiais (Etapa 2)',
+        description: 'Datas das aulas ao vivo, plantões e arquivos pertinentes.',
+        x: 10, y: 85, type: 'info', educoinsReward: 0,
         slides: [
             {
                 type: 'cover',
-                title: 'Módulo 2: Memória e Paisagem',
-                content: 'Explore as paisagens interiores e os lugares de memória.',
-                image: '/assets/illustration_inner.png'
+                title: 'Agenda Etapa 2',
+                content: 'Módulo 2 - Educação patrimonial para além da sala de aula',
+                image: '/assets/illustration_culture.png'
             },
             {
-                type: 'raw-text',
-                title: 'Material Completo',
-                content: fullAcademicText
-            }
-        ]
-    },
-    {
-        id: 'node-1-m2',
-        title: 'Paisagens Interiores',
-        description: 'O segredo que habita em cada um de nós.',
-        x: 25, y: 70, type: 'start', educoinsReward: 50,
-        slides: [
-            {
-                type: 'cover',
-                title: 'Paisagens Interiores',
-                content: '"Em cada um de nós há um segredo, uma paisagem interior..."',
-                image: '/assets/illustration_inner.png'
-            },
-            {
-                type: 'text',
-                title: 'Antoine de Saint-Exupéry',
-                content: `"...com planícies invioláveis, vales de silêncio e paraísos secretos."
-                
-Nosso cotidiano é preenchido peos saberes e fazeres que ganham vida nos lugares que elegemos como **espaço de memória**.`
-            },
-            {
-                type: 'activity',
-                title: 'Reflexão',
-                content: 'Sobre sua própria paisagem interna:',
-                activity: {
-                    question: 'Qual lugar da sua cidade desperta em você uma memória afetiva imediata ("uma paisagem interior")?',
-                    options: [
-                        'Qualquer shopping center novo.',
-                        'Uma praça, uma casa antiga ou um rio que frequentei na infância.',
-                        'Apenas lugares que vejo na TV.'
-                    ],
-                    correctAnswer: 1,
-                    feedback: 'Exato! Esses lugares carregados de afeto formam nossas "paisagens culturais".'
+                type: 'agenda',
+                title: 'Cronograma Etapa 2',
+                content: 'Encontros e lives de consolidação.',
+                agenda: {
+                    dates: [
+                        { date: '02/07/2026', type: 'live', link: 'https://meet.google.com/' },
+                        { date: '16/07/2026', type: 'live', link: 'https://meet.google.com/' }
+                    ]
                 }
             }
         ]
     },
     {
-        id: 'node-2-m2',
-        title: 'Objetos que Falam',
-        description: 'Suportes da memória e relicários de lembranças.',
-        x: 40, y: 55, type: 'lesson', educoinsReward: 50,
+        id: 'node-1',
+        title: 'Tópico 1 - Arte-educação e patrimônio',
+        description: '“Só há um meio eficaz de assegurar a defesa permanente do patrimônio..."',
+        x: 25, y: 85, type: 'lesson', educoinsReward: 50,
         slides: [
             {
-                type: 'cover',
-                title: 'Oficina de Memória',
-                content: 'Objetos são suportes da memória, gatilhos para lembranças.',
-                image: '/assets/illustration_objects.png'
-            },
-            {
-                type: 'image-text',
-                title: 'Relicários de Memórias',
-                content: `Uma flor no livro, uma boneca, uma velha caixa de lata...
-                
-"São esses objetos, esses espaços e essas narrativas que formam os suportes da memória." (Simoni e Souza, 2017).`,
-                image: '/assets/illustration_objects.png'
+                type: 'text',
+                title: 'Arte-educação e Patrimônio',
+                content: 'A educação patrimonial constitui um campo estratégico para a valorização da diversidade cultural, da memória social e dos saberes ancestrais... Patrimônio e diversidade são dimensões indissociáveis.'
             },
             {
                 type: 'activity',
-                title: 'Dinâmica da Teia',
-                content: 'Imagine uma sala de aula onde cada pessoa traz um objeto:',
+                title: 'Patrimônio Vivo na Prática Escolar',
+                content: 'Objetivo: Articular educação patrimonial, diversidade cultural e práticas pedagógicas no cotidiano.',
                 activity: {
-                    question: 'Qual o objetivo de interligar as memórias com fios de barbante nesta proposta pedagógica?',
-                    options: [
-                        'Apenas para decorar a sala.',
-                        'Para mostrar que nossas memórias individuais formam uma teia coletiva.',
-                        'Para prender os alunos nas cadeiras.'
-                    ],
-                    correctAnswer: 1,
-                    feedback: 'Isso! A teia simboliza como nossas identidades individuais constroem o grupo.'
+                    type: 'file-upload',
+                    question: 'Anexe o Produto Final: Seu "Projeto de Educação Patrimonial" para aplicação escolar ou comunitária (PDF ou Documento).'
                 }
             }
         ]
     },
     {
-        id: 'node-3-m2',
-        title: 'O Tempo e a Eternidade',
-        description: 'Aquilo que a memória ama, fica eterno.',
-        x: 60, y: 45, type: 'challenge', educoinsReward: 75,
+        id: 'node-2',
+        title: 'Tópico 2: Educação Museal e Curadoria',
+        description: 'Os espaços culturais como ambientes educativos.',
+        x: 40, y: 75, type: 'lesson', educoinsReward: 50,
         slides: [
             {
-                type: 'cover',
-                title: 'Tempo vs Memória',
-                content: '"Enquanto o tempo leva a vida embora como vento, a memória traz de volta o que realmente importa."',
-                image: '/assets/illustration_time_memory.png'
-            },
-            {
-                type: 'quote',
-                title: 'Adélia Prado',
-                content: `"O que a memória ama fica eterno."`
-            },
-            {
                 type: 'text',
-                title: 'A Memória Afetiva',
-                content: `A memória não obedece a calendários.
-                
-Amigos da juventude se reencontram e voltam a ser adolescentes. Para a memória, nossos pais são sempre nossos pais e nós sempre "as crianças".`
+                title: 'Curadoria e Educação Museal',
+                content: 'O conceito de museu desloca-se de uma instituição centrada no objeto para uma instituição centrada nas pessoas, memórias e territórios. O que é curar o que nos cura?'
             },
             {
                 type: 'activity',
-                title: 'Sentimento',
-                content: 'Sobre a passagem do tempo:',
+                title: 'Oficina: Curar o que nos cura',
+                content: 'Propõe-se criar uma miniexposição estruturando respostas de curadoria compartilhada.',
                 activity: {
-                    question: 'Por que é difícil se despedir de algo que amamos?',
-                    options: [
-                        'Porque somos teimosos.',
-                        'Porque aquilo que amamos tem vocação para emergir das profundezas da memória e se eternizar.',
-                        'Porque o tempo cura tudo instantaneamente.'
-                    ],
-                    correctAnswer: 1,
-                    feedback: 'Perfeito. A memória eterniza o afeto.'
+                    type: 'open-text',
+                    question: '1) Qual história queremos contar? 2) Que sujeitos foram silenciados? 3) Que imagens representam essa narrativa? 4) Para quem? 5) Que aprendizado provoca?'
+                }
+            },
+            {
+                type: 'activity',
+                title: 'Envio da Miniexposição',
+                content: '',
+                activity: {
+                    type: 'file-upload',
+                    question: 'Faça upload do seu Cartaz Curatorial ou registro fotográfico da maquete simbólica.'
                 }
             }
         ]
     },
     {
-        id: 'node-4-m2',
-        title: 'Lugares de Memória',
-        description: 'Material, Simbólico e Funcional.',
-        x: 80, y: 35, type: 'lesson', educoinsReward: 60,
+        id: 'node-3',
+        title: 'Tópico 3: Inventários participativos',
+        description: 'Identificação e valorização construída coletivamente.',
+        x: 55, y: 60, type: 'lesson', educoinsReward: 50,
         slides: [
             {
                 type: 'text',
-                title: 'Os 3 Sentidos',
-                content: `Para ser um **Lugar de Memória**, um espaço precisa ser:
-                
-1.  **Material**: Existir fisicamente.
-2.  **Simbólico**: Ter significado para o grupo.
-3.  **Funcional**: Ser objeto de ritual ou uso.`
+                title: 'Afinal o que é um inventário participativo?',
+                content: 'É uma metodologia de registro... com a participação ativa das comunidades detentoras dos saberes, práticas e referências culturais inventariadas.'
             },
             {
-                type: 'text',
-                title: 'Patrimônio',
-                content: `Desde 1937 (Decreto nº 25), a paisagem é equiparada ao patrimônio histórico no Brasil.
-                
-Preservar a paisagem é preservar as memórias e formas de sociabilidade nela inscritas.`
+                type: 'activity',
+                title: 'Inventário Participativo',
+                content: 'Aplicação prática: Inventário de Saberes Quilombolas, Indígenas ou de Território.',
+                activity: {
+                    type: 'file-upload',
+                    question: 'Envie aqui os Produtos do Inventário: Gravações, Imagens, Mapas de Território ou Cadernos de Memória.'
+                }
             }
         ]
     },
     {
-        id: 'node-final-m2',
-        title: 'Avaliação Módulo 2',
-        description: 'Teste seus conhecimentos sobre Memória e Paisagem.',
-        x: 90, y: 20, type: 'final', educoinsReward: 200,
+        id: 'node-4',
+        title: 'Tópico 4: Educação patrimonial e tecnologias',
+        description: 'Pluralidade cultural em mídias digitais.',
+        x: 75, y: 55, type: 'lesson', educoinsReward: 60,
+        slides: [
+            {
+                type: 'text',
+                title: 'A Tecnologia como Mediação',
+                content: 'Quando articulada às tecnologias, a Educação Patrimonial potencializa ainda mais sua função social e pedagógica. Deixa de ser apenas uma ferramenta instrumental.'
+            },
+            {
+                type: 'activity',
+                title: 'Vozes da Memória (Podcast)',
+                content: 'Escolha um bem cultural imaterial e produza um episódio curto (áudio ou roteiro).',
+                activity: {
+                    type: 'open-text',
+                    question: 'Se você publicou seu Podcast (ex: Spotify, Anchor), cole o link aqui. Se preferir, digite o seu roteiro base:'
+                }
+            }
+        ]
+    },
+    {
+        id: 'node-5',
+        title: 'Tópico 5: Patrimônio e Turismo',
+        description: 'Turismo, identidade e respeito mútuo.',
+        x: 85, y: 35, type: 'lesson', educoinsReward: 50,
+        slides: [
+            {
+                type: 'text',
+                title: 'Educação Patrimonial e Turística',
+                content: 'O turismo deve deixar de ser apenas um vetor econômico para se tornar espaço de aprendizagem mútua e intercultural, de forma crítica e ética.'
+            },
+            {
+                type: 'activity',
+                title: 'Cartografia Patrimonial',
+                content: 'O que é patrimônio para você e como ele aparece nas práticas turísticas do seu território?',
+                activity: {
+                    type: 'file-upload',
+                    question: 'Envie a foto ou documento da Cartografia Patrimonial identificando bens materiais e imateriais.'
+                }
+            }
+        ]
+    },
+    {
+        id: 'node-6',
+        title: 'Tópico 6 e 7: Festivais e Curadoria F.',
+        description: 'O festival como narrativa e curadoria do evento.',
+        x: 65, y: 25, type: 'lesson', educoinsReward: 50,
+        slides: [
+            {
+                type: 'text',
+                title: 'Curadoria Plural e Eventos',
+                content: 'A concepção ética de eventos culturais deve estruturar-se em eixos narrativos para evitar a dispersão. O Festival Temático aproxima a cultura da educação.'
+            },
+            {
+                type: 'activity',
+                title: 'Estruturação',
+                content: 'Delineando o Festival Temático.',
+                activity: {
+                    type: 'open-text',
+                    question: 'Defina o tema estruturante e a dimensão pedagógica do seu Festival Cultural Temático:'
+                }
+            }
+        ]
+    },
+    {
+        id: 'node-7',
+        title: 'Tópico 8: Elaboração de Material',
+        description: 'Material didático como fundamento político.',
+        x: 45, y: 20, type: 'lesson', educoinsReward: 50,
+        slides: [
+            {
+                type: 'text',
+                title: 'Material e Sistematização',
+                content: 'O material didático organiza a visão de mundo que está sendo compartilhada. Em um curso com quilombolas e tradicionais ele deve ser decolonial.'
+            },
+            {
+                type: 'activity',
+                title: 'Reflexão Final',
+                content: 'O desafio da justiça cognitiva.',
+                activity: {
+                    type: 'open-text',
+                    question: 'Como o seu material didático se propõe a ser instrumento de justiça cognitiva?'
+                }
+            }
+        ]
+    },
+    {
+        id: 'node-final',
+        title: 'Quiz Final de Etapa',
+        description: 'Teste seus conhecimentos sobre educação e patrimônio.',
+        x: 20, y: 15, type: 'final', educoinsReward: 100,
         slides: [
             {
                 type: 'cover',
-                title: 'Avaliação Final',
-                content: 'Conclua este módulo respondendo ao questionário.'
+                title: 'Conclusão da Etapa 2',
+                content: 'Parabéns por chegar até o final. Vamos testar seus conhecimentos e liberar suas EduCoins!',
+                image: '/assets/illustration_badge.png'
             }
         ]
     }

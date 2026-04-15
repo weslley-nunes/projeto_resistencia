@@ -8,18 +8,18 @@ generator client {
 }
 
 model Account {
-  id                 String  @id @default(cuid())
-  userId             String
-  type               String
-  provider           String
-  providerAccountId  String
-  refresh_token      String?
-  access_token       String?
-  expires_at         Int?
-  token_type         String?
-  scope              String?
-  id_token           String?
-  session_state      String?
+  id                String  @id @default(cuid())
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
@@ -54,40 +54,41 @@ model User {
   image         String?
   username      String?   @unique
   password      String?
-  
+
   // Custom Fields
-  role          String    @default("STUDENT") // ADMIN, TEACHER, TUTOR, STUDENT
-  status        String    @default("PENDING") // PENDING, APPROVED, REJECTED
-  
+  role   String @default("STUDENT") // ADMIN, TEACHER, TUTOR, STUDENT
+  status String @default("PENDING") // PENDING, APPROVED, REJECTED
+
   // Avatar Configuration
-  avatarConfig  String?   // JSON string storing the avatar configuration
-  unlockedItems String    @default("[]") // JSON string array of unlocked item IDs  // Registration Data
-  cpf           String?   // @unique constraint removed for simplicity in dev, can add later
-  phone         String?
-  city          String?
-  school        String?
-  jobTitle      String?
-  teachingTime  String?
+  avatarConfig   String? // JSON string storing the avatar configuration
+  unlockedItems  String  @default("[]") // JSON string array of unlocked item IDs  // Registration Data
+  cpf            String? // @unique constraint removed for simplicity in dev, can add later
+  phone          String?
+  city           String?
+  school         String?
+  jobTitle       String?
+  teachingTime   String?
   educationLevel String?
-  trainingArea  String?
+  trainingArea   String?
 
   // Gamification & Progress
-  educoins      Int            @default(0)
-  progress      UserProgress[]
-  xp            Int       @default(0)
-  level         Int       @default(1)
-  
+  educoins Int            @default(0)
+  progress UserProgress[]
+  xp       Int            @default(0)
+  level    Int            @default(1)
+
   // Documents & Special Status
-  documentsUrl       String?
-  quotaDocumentsUrl  String? // URL for quota documents
-  pcdDocumentsUrl    String? // URL for PcD documents
-  quotaType          String? // INDIGENOUS, QUILOMBOLA
-  isPcd              Boolean   @default(false)
-  
-  accounts      Account[]
-  sessions      Session[]
-  
-  quizResults   QuizResult[]
+  documentsUrl      String?
+  quotaDocumentsUrl String? // URL for quota documents
+  pcdDocumentsUrl   String? // URL for PcD documents
+  quotaType         String? // INDIGENOUS, QUILOMBOLA
+  isPcd             Boolean @default(false)
+
+  accounts Account[]
+  sessions Session[]
+
+  quizResults         QuizResult[]
+  activitySubmissions ActivitySubmission[]
 }
 
 model VerificationToken {
@@ -99,10 +100,10 @@ model VerificationToken {
 }
 
 model Registration {
-  id             String   @id @default(cuid())
+  id             String @id @default(cuid())
   name           String
-  email          String   @unique
-  cpf            String   @unique
+  email          String @unique
+  cpf            String @unique
   phone          String
   city           String
   school         String
@@ -110,21 +111,36 @@ model Registration {
   teachingTime   String
   educationLevel String
   trainingArea   String
-  
-  quotaType      String?  // AMPLA, INDIGENA, QUILOMBOLA, PCD
-  fileUrl        String?  // Path to the uploaded PDF
-  
-  status         String   @default("PENDING") // PENDING, EXPORTED
-  createdAt      DateTime @default(now())
+
+  quotaType String? // AMPLA, INDIGENA, QUILOMBOLA, PCD
+  fileUrl   String? // Path to the uploaded PDF
+
+  status    String   @default("PENDING") // PENDING, EXPORTED
+  createdAt DateTime @default(now())
 }
 
 model QuizResult {
   id          String   @id @default(cuid())
   userId      String
   moduleId    String
-  score       Int      // Percentage 0-100
+  score       Int // Percentage 0-100
   passed      Boolean
   completedAt DateTime @default(now())
-  
-  user        User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+}
+
+model ActivitySubmission {
+  id        String   @id @default(cuid())
+  userId    String
+  moduleId  String
+  nodeId    String
+  type      String // 'open-text', 'file-upload'
+  content   String? // for text responses
+  fileUrl   String? // for file uploads
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@unique([userId, moduleId, nodeId]) // Ensuring only 1 submission per node per user (or without it if multiple tries allowed)
 }

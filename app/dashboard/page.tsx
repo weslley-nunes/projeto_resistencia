@@ -10,6 +10,7 @@ import { useGameStore } from '@/lib/store';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft, CheckCircle, X, Lock, MapPin } from 'lucide-react';
 import QuizModal from '@/components/QuizModal';
+import ActivitySubmissionForm from '@/components/ActivitySubmissionForm';
 import { MapNode } from '@/app/modulo1/data'; // Importing type
 
 export default function DashboardPage() {
@@ -128,7 +129,7 @@ export default function DashboardPage() {
                             </Link>
                         )}
                         <div className="px-4 py-2 bg-brand-accent/20 text-brand-secondary font-bold rounded-lg border border-brand-accent/50">
-                            {currentModule === 'modulo1' ? 'Módulo 1: Introdução' : 'Módulo 2: Memória'}
+                            {currentModule === 'modulo1' ? 'Etapa 1: Introdução' : 'Etapa 2: Memória'}
                         </div>
                     </div>
                 </div>
@@ -313,16 +314,29 @@ export default function DashboardPage() {
 
                                     {/* Interactive Activity Display */}
                                     {selectedNode.slides[currentSlideIndex].activity && (
-                                        <div className="bg-brand-secondary/5 p-6 rounded-2xl border border-brand-secondary/10">
-                                            <p className="font-bold text-lg mb-4 text-brand-secondary">{selectedNode.slides[currentSlideIndex].activity?.question}</p>
-                                            <div className="space-y-2">
-                                                {selectedNode.slides[currentSlideIndex].activity?.options.map((opt, idx) => (
-                                                    <div key={idx} className="p-3 bg-white border border-gray-200 rounded-lg text-sm text-gray-600">
-                                                        {opt}
+                                        <div className="bg-brand-secondary/5 p-6 rounded-2xl border border-brand-secondary/10 flex flex-col gap-4">
+                                            <p className="font-bold text-lg text-brand-secondary">{selectedNode.slides[currentSlideIndex].activity?.question}</p>
+                                            
+                                            {(!selectedNode.slides[currentSlideIndex].activity?.type || selectedNode.slides[currentSlideIndex].activity?.type === 'quiz') && (
+                                                <>
+                                                    <div className="space-y-2">
+                                                        {selectedNode.slides[currentSlideIndex].activity?.options?.map((opt, idx) => (
+                                                            <div key={idx} className="p-3 bg-white border border-gray-200 rounded-lg text-sm text-gray-600">
+                                                                {opt}
+                                                            </div>
+                                                        ))}
                                                     </div>
-                                                ))}
-                                            </div>
-                                            <p className="mt-4 text-xs text-brand-primary italic">Interaja mentalmente ou discuta com colegas!</p>
+                                                    <p className="mt-4 text-xs text-brand-primary italic">Interaja mentalmente ou discuta com colegas!</p>
+                                                </>
+                                            )}
+
+                                            {(selectedNode.slides[currentSlideIndex].activity?.type === 'open-text' || selectedNode.slides[currentSlideIndex].activity?.type === 'file-upload') && (
+                                                <ActivitySubmissionForm
+                                                    type={selectedNode.slides[currentSlideIndex].activity?.type as 'open-text' | 'file-upload'}
+                                                    nodeId={selectedNode.id}
+                                                    moduleId={currentModule}
+                                                />
+                                            )}
                                         </div>
                                     )}
                                 </div>

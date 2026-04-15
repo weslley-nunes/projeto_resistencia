@@ -146,7 +146,7 @@ export default function Modulo1Page() {
                             <div className="p-8 overflow-y-auto custom-scrollbar flex-1">
                                 <div className="prose prose-stone max-w-none prose-headings:text-amber-700 prose-a:text-amber-600 prose-blockquote:border-l-amber-500">
                                     {/* Simple rendering for now - ideally use ReactMarkdown */}
-                                    <div dangerouslySetInnerHTML={{ __html: activeNode.content.replace(/\n/g, '<br/>').replace(/# (.*)/g, '<h1 class="text-2xl font-bold mb-4">$1</h1>').replace(/## (.*)/g, '<h2 class="text-xl font-bold mt-6 mb-3">$1</h2>').replace(/> "(.*)"/g, '<blockquote class="border-l-4 border-amber-500 pl-4 italic text-gray-600 my-4">$1</blockquote>') }} />
+                                    <div dangerouslySetInnerHTML={{ __html: activeNode.description.replace(/\n/g, '<br/>').replace(/# (.*)/g, '<h1 class="text-2xl font-bold mb-4">$1</h1>').replace(/## (.*)/g, '<h2 class="text-xl font-bold mt-6 mb-3">$1</h2>').replace(/> "(.*)"/g, '<blockquote class="border-l-4 border-amber-500 pl-4 italic text-gray-600 my-4">$1</blockquote>') }} />
                                 </div>
                             </div>
 
