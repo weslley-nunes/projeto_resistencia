@@ -3,6 +3,7 @@
 import { PlayCircle, Calendar, Users, BookOpen, Clock, AlertCircle, Send, CheckCircle2, Loader2, X, Upload, Video, FileText, Globe, Lock } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
+import Link from 'next/link';
 import { motion, AnimatePresence } from 'framer-motion';
 
 const MODULO1 = [
@@ -151,21 +152,30 @@ export default function AulasPage() {
                                                     <span className="font-medium">{item.practice}</span>
                                                 </div>
                                                 
-                                                {submission ? (
-                                                    <button 
-                                                        onClick={() => setSelectedActivity({ ...item, submission })}
-                                                        className="w-full flex items-center justify-center gap-2 bg-green-100 text-green-700 py-2.5 rounded-xl font-bold text-xs hover:bg-green-200 transition border border-green-200 shadow-sm"
+                                                <div className="flex flex-col gap-2">
+                                                    {submission ? (
+                                                        <button 
+                                                            onClick={() => setSelectedActivity({ ...item, submission })}
+                                                            className="w-full flex items-center justify-center gap-2 bg-green-100 text-green-700 py-2.5 rounded-xl font-bold text-xs hover:bg-green-200 transition border border-green-200 shadow-sm"
+                                                        >
+                                                            <CheckCircle2 size={16} /> Enviado • Ver/Editar
+                                                        </button>
+                                                    ) : (
+                                                        <button 
+                                                            onClick={() => setSelectedActivity(item)}
+                                                            className="w-full flex items-center justify-center gap-2 bg-brand-primary text-white py-2.5 rounded-xl font-bold text-xs hover:bg-brand-primary/90 transition shadow-md shadow-brand-primary/20"
+                                                        >
+                                                            <Send size={16} /> Enviar Atividade
+                                                        </button>
+                                                    )}
+                                                    
+                                                    <Link 
+                                                        href={`/dashboard/atividades-publicas?classId=${item.id}`}
+                                                        className="w-full py-2.5 px-4 rounded-xl font-bold text-xs flex items-center justify-center gap-2 transition bg-gray-50 text-gray-600 hover:bg-gray-100 border border-gray-200"
                                                     >
-                                                        <CheckCircle2 size={16} /> Enviado • Ver/Editar
-                                                    </button>
-                                                ) : (
-                                                    <button 
-                                                        onClick={() => setSelectedActivity(item)}
-                                                        className="w-full flex items-center justify-center gap-2 bg-brand-primary text-white py-2.5 rounded-xl font-bold text-xs hover:bg-brand-primary/90 transition shadow-md shadow-brand-primary/20"
-                                                    >
-                                                        <Send size={16} /> Enviar Atividade
-                                                    </button>
-                                                )}
+                                                        <Globe size={16} className="text-gray-400" /> Ver Exemplos Públicos
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </td>
                                     </tr>
