@@ -1,3 +1,5 @@
+'use client';
+
 import { PlayCircle, Calendar, Users, BookOpen, Clock, AlertCircle, Send, CheckCircle2, Loader2, X, Upload, Video, FileText, Globe, Lock } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { useSession } from 'next-auth/react';
