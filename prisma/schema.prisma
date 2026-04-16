@@ -133,14 +133,16 @@ model QuizResult {
 model ActivitySubmission {
   id        String   @id @default(cuid())
   userId    String
-  moduleId  String
-  nodeId    String
-  type      String // 'open-text', 'file-upload'
+  moduleId  String?
+  nodeId    String?
+  classId   String?  // New field for linking to class schedule
   content   String? // for text responses
-  fileUrl   String? // for file uploads
+  files     String   @default("[]") // JSON string for multiple files
+  isPublic  Boolean  @default(false)
   createdAt DateTime @default(now())
 
   user User @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([userId, moduleId, nodeId]) // Ensuring only 1 submission per node per user (or without it if multiple tries allowed)
+  @@unique([userId, classId]) 
 }
+

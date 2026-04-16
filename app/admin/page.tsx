@@ -196,25 +196,38 @@ export default function AdminDashboard() {
                             className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 font-bold shadow-lg shadow-green-600/20 transition"
                         >
                             <Download size={20} />
-                            Baixar Inscrições (CSV)
+                            Inscrições (CSV)
                         </button>
+                        <Link
+                            href="/admin/activities"
+                            className="bg-brand-primary hover:bg-brand-primary/90 text-white px-6 py-3 rounded-xl flex items-center gap-2 font-bold shadow-lg shadow-brand-primary/20 transition"
+                        >
+                            <FileText size={20} />
+                            Ver Atividades
+                        </Link>
                     </div>
                 </div>
 
                 {/* Stats Cards */}
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
                     <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                        <p className="text-sm text-gray-500 mb-1">Total de Inscritos</p>
-                        <p className="text-4xl font-bold text-brand-secondary">{users.length}</p>
+                        <p className="text-sm text-gray-500 mb-1">Inscritos</p>
+                        <p className="text-3xl font-bold text-brand-secondary">{users.length}</p>
                     </div>
                     <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                        <p className="text-sm text-gray-500 mb-1">Aguardando Aprovação</p>
-                        <p className="text-4xl font-bold text-yellow-500">{users.filter(u => u.status === 'PENDING' || u.status === 'PENDING_APPROVAL').length}</p>
+                        <p className="text-sm text-gray-500 mb-1">Pendentes</p>
+                        <p className="text-3xl font-bold text-yellow-500">{users.filter(u => u.status === 'PENDING' || u.status === 'PENDING_APPROVAL').length}</p>
                     </div>
                     <div className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm">
-                        <p className="text-sm text-gray-500 mb-1">Ativos (Alunos)</p>
-                        <p className="text-4xl font-bold text-green-500">{users.filter(u => u.status === 'APPROVED').length}</p>
+                        <p className="text-sm text-gray-500 mb-1">Alunos Ativos</p>
+                        <p className="text-3xl font-bold text-green-500">{users.filter(u => u.status === 'APPROVED').length}</p>
                     </div>
+                    <Link href="/admin/activities" className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-brand-primary/50 transition block">
+                        <p className="text-sm text-gray-500 mb-1">Ver Atividades</p>
+                        <p className="text-3xl font-bold text-blue-500 flex items-center gap-1">
+                            Acessar <ExternalLink size={20} />
+                        </p>
+                    </Link>
                 </div>
 
                 {/* Filters */}
