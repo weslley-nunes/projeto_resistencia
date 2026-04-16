@@ -99,18 +99,18 @@ export const quizQuestions: QuizQuestion[] = [
     }
 ];
 
-// --- LEARNING TRAIL NODES (Full Granular Etapa 01 Path) ---
+// --- LEARNING TRAIL NODES (Consolidated into 6 nodes) ---
 export const mapNodes: MapNode[] = [
     {
         id: 'etapa1-1',
         title: 'Eu sou porque somos',
-        description: 'Dinâmica inicial de apresentação.',
-        x: 42, y: 85, type: 'start', educoinsReward: 30,
+        description: 'Dinâmica inicial e Boas-vindas.',
+        x: 18, y: 82, type: 'start', educoinsReward: 30,
         slides: [
             {
                 type: 'cover',
                 title: 'Quem sou eu?',
-                content: 'Inicie um diálogo a partir de sua apresentação. O que trago? O que espero levar?\n\nExemplo: "Eu sou Rosi e trago para essa roda o desejo de aprender e partilhar."',
+                content: 'Inicie um diálogo a partir de sua apresentação.\n\n"Eu sou Rosi e trago para essa roda o desejo de aprender e partilhar. O que espero levar?"',
                 image: '/assets/quilombola_heritage_1776281094378.png'
             },
             {
@@ -126,162 +126,86 @@ export const mapNodes: MapNode[] = [
     },
     {
         id: 'etapa1-2',
-        title: 'Direito à Memória',
-        description: 'Fundamentos: Laraia e Halbwachs',
-        x: 32, y: 78, type: 'lesson', educoinsReward: 50,
+        title: 'Cultura e Memória',
+        description: 'Fundamentos e Direito à Existência',
+        x: 35, y: 65, type: 'lesson', educoinsReward: 50,
         slides: [
             {
                 type: 'text',
-                title: 'Roubando Memórias',
-                content: 'Mas quem é capaz de roubar memórias? A quem foi dado esse direito? \n\nPara responder, usamos o conceito de cultura (Laraia, 2009) e memória individual/coletiva (Halbwachs, 2006).'
+                title: 'Quem rouba as memórias?',
+                content: 'Não se pode falar de cultura sem falar de memórias. Para entender isso, usamos os conceitos de Cultura (Laraia) e Memória (Halbwachs).\n\nNem todos os povos tiveram o direito de "existir" na história oficial.'
+            },
+            {
+                type: 'text',
+                title: 'O Mundo da Cultura',
+                content: 'A cultura caracteriza e qualifica o ser humano. Pela cultura, transformamos a natureza em significado. Somos seres pluriétnicos e multiculturais.'
             }
         ]
     },
     {
         id: 'etapa1-3',
-        title: 'Vocação Holística',
-        description: 'Compreendendo o Sujeito Social',
-        x: 45, y: 72, type: 'lesson', educoinsReward: 50,
+        title: 'Etnocentrismo e Negação',
+        description: 'As Marcas da Colonização',
+        x: 58, y: 72, type: 'challenge', educoinsReward: 100,
         slides: [
             {
-                type: 'text',
-                title: 'Alteridade e Diálogo',
-                content: 'Brandão (1989) propõe a “vocação holística” para ampliar visões de mundo na tentativa de compreensão e respeito à alteridade.'
-            }
-        ]
-    },
-    {
-        id: 'etapa1-4',
-        title: 'Multiculturalismo',
-        description: 'O Mundo da Cultura',
-        x: 58, y: 68, type: 'lesson', educoinsReward: 50,
-        slides: [
+                type: 'quote',
+                title: 'O Avesso do Nós',
+                content: 'O etnocentrismo é a visão onde um grupo julga o outro como inferior a partir de seus próprios valores.'
+            },
             {
                 type: 'text',
-                title: 'Significado e Criação',
-                content: 'A cultura é o que nos caracteriza e qualifica. O multiculturalismo é a capacidade de compreender que somos diversos, compostos por muitas culturas.'
-            }
-        ]
-    },
-    {
-        id: 'etapa1-5',
-        title: 'Etnocentrismo Cultural',
-        description: 'A Visão de Superioridade',
-        x: 72, y: 75, type: 'challenge', educoinsReward: 100,
-        slides: [
-            {
-                type: 'text',
-                title: 'Etnocentrismo',
-                content: 'Prática histórica onde grupos colocam sua cultura como superior. Propagada no século XV pela colonização europeia.'
+                title: 'Silenciamento Histórico',
+                content: 'A história foi escrita pelas mãos dos colonizadores. Aos ameríndios e africanos restou o silenciamento e a negação de suas existências.'
             },
             {
                 type: 'activity',
-                title: 'Verificando Conhecimento',
-                content: 'Responda as questões sobre o tópico.',
+                title: 'Quiz de Conhecimento',
+                content: 'Verifique o que aprendeu sobre etnocentrismo e cultura.',
                 activity: {
                     type: 'quiz',
-                    question: 'Pronto?'
+                    question: 'Pronto para o desafio?'
                 }
             }
         ]
     },
     {
-        id: 'etapa1-6',
-        title: 'O Silenciamento',
-        description: 'História e Colonialidade',
-        x: 85, y: 65, type: 'lesson', educoinsReward: 50,
-        slides: [
-            {
-                type: 'text',
-                title: 'Amérindia e África',
-                content: 'Aos ameríndios e africanos restou o silenciamento e a negação de suas existências pelas mãos dos colonizadores.'
-            }
-        ]
-    },
-    {
-        id: 'etapa1-7',
-        title: 'Relativismo Cultural',
-        description: 'A Contraposição ao Etnocentrismo',
-        x: 75, y: 55, type: 'lesson', educoinsReward: 50,
+        id: 'etapa1-4',
+        title: 'Relativismo e Identidade',
+        description: 'Diálogo e Respeito à Diferença',
+        x: 72, y: 52, type: 'lesson', educoinsReward: 60,
         slides: [
             {
                 type: 'text',
                 title: 'Franz Boas',
-                content: 'Convicção de que todos os grupos humanos produzem cultura e devem ser entendidas dentro de seu próprio contexto.'
-            }
-        ]
-    },
-    {
-        id: 'etapa1-8',
-        title: 'Alteridade e Diferença',
-        description: 'O Eu através do Outro',
-        x: 62, y: 48, type: 'lesson', educoinsReward: 50,
-        slides: [
+                content: 'O Relativismo Cultural defende que cada cultura deve ser entendida em seu próprio contexto. Isso combate o racismo e a xenofobia.'
+            },
             {
-                type: 'text',
-                title: 'Reconhecimento',
-                content: 'O ser humano só se reconhece enquanto ser mediante a sua relação com o outro e com o coletivo.'
+                type: 'quote',
+                title: 'Ethos e Pertença',
+                content: 'O ethos é o conjunto de maneiras de ser que torna um grupo único e singular. Nos reconhecemos através do coletivo.'
             }
         ]
     },
     {
-        id: 'etapa1-9',
-        title: 'Identidade e Ethos',
-        description: 'Maneiras de Ser Singular',
-        x: 48, y: 42, type: 'lesson', educoinsReward: 50,
-        slides: [
-            {
-                type: 'text',
-                title: 'Maneiras de Ser',
-                content: 'O ethos (Geertz) é o conjunto de maneiras de ser que torna um grupo exclusivo. Unindo integrantes através de memórias.'
-            }
-        ]
-    },
-    {
-        id: 'etapa1-10',
-        title: 'Patrimônio Imaterial',
-        description: 'Lembrança Coletiva',
-        x: 35, y: 50, type: 'lesson', educoinsReward: 50,
-        slides: [
-            {
-                type: 'text',
-                title: 'Suportes da Memória',
-                content: 'A memória não é só lembrar; é influenciada pela história. Suportes como objetos e paisagens dão sentido à existência.'
-            }
-        ]
-    },
-    {
-        id: 'etapa1-11',
-        title: 'Vídeo: Filhos da Terra',
-        description: 'Material Complementar',
-        x: 25, y: 38, type: 'info', educoinsReward: 40,
+        id: 'etapa1-5',
+        title: 'Vozes do Patrimônio',
+        description: 'Memória Coletiva e Resistência',
+        x: 48, y: 40, type: 'lesson', educoinsReward: 60,
         slides: [
             {
                 type: 'video',
                 title: 'Filhos da Terra',
-                content: 'Um olhar sobre a resistência e o patrimônio vivo.',
+                content: 'Assista a este documentário sobre resistência e memória viva.',
                 videoUrl: 'https://www.youtube.com/watch?v=xKrIZUVTdvc'
-            }
-        ]
-    },
-    {
-        id: 'etapa1-12',
-        title: 'Atividade Reflexiva',
-        description: 'Diálogo com Emília Viotti',
-        x: 18, y: 28, type: 'lesson', educoinsReward: 60,
-        slides: [
-            {
-                type: 'quote',
-                title: 'Dialética Invertida',
-                content: '“Um povo sem memória é um povo sem história. E um povo sem história está fadado a cometer, no presente e no futuro, os mesmos erros do passado.”'
             },
             {
                 type: 'activity',
-                title: 'Texto Narrativo',
-                content: 'Escreva um texto narrativo a partir da afirmação de Emília Viotti da Costa.',
+                title: 'Atividade Reflexiva',
+                content: '"Um povo sem memória é um povo sem história. E um povo sem história está fadado a cometer os mesmos erros do passado" (Emília Viotti da Costa).',
                 activity: {
                     type: 'open-text',
-                    question: 'Sua reflexão:'
+                    question: 'Escreva um texto narrativo a partir dessa afirmação.'
                 }
             }
         ]
@@ -289,35 +213,26 @@ export const mapNodes: MapNode[] = [
     {
         id: 'etapa1-final',
         title: 'Cartografia da Memória',
-        description: 'Projeto Prático de Conclusão',
-        x: 10, y: 15, type: 'final', educoinsReward: 200,
+        description: 'Trabalho de Conclusão da Etapa',
+        x: 25, y: 22, type: 'final', educoinsReward: 200,
         slides: [
             {
                 type: 'cover',
-                title: 'Prática de Campo',
-                content: 'Elabore sua Cartografia da Memória. Identifique marcos em seu território ou família.',
+                title: 'Prática Final',
+                content: 'Elabore sua Cartografia da Memória. Identifique marcos em seu território, família ou comunidade que representem o direito à memória.',
                 image: '/assets/festa_divino_1776281053453.png'
             },
             {
                 type: 'activity',
-                title: 'Entrega do Projeto',
-                content: 'Registro e articulção com os conceitos de cultura.',
+                title: 'Entrega da Atividade',
+                content: 'Este envio é obrigatório para concluir a Etapa 01 e liberar a próxima fase.',
                 activity: {
                     type: 'file-upload',
-                    question: 'Anexe aqui a sua Cartografia da Memória.'
+                    question: 'Anexe aqui sua Cartografia (PDF, Imagem ou Texto).'
                 }
             }
         ]
     }
 ];
 
-export const fullAcademicText = `
-### Etapa 01 - Educação escolar e o patrimônio: cidadania, identidade e diversidade cultural
-
-**Tópico 1 - Direito à Memória**
-Ao iniciarmos um tópico sob o título Direito a memória devemos nos perguntar: Mas quem é capaz de roubar memórias? A quem foi dado esse direito? Para respondermos essa questão precisamos ter em mente três conceitos que se complementam: o conceito de cultura (Laraia, 2009) e os conceitos de memória individual e memória coletiva (Halbwachs, 2006). Não se pode falar de cultura sem falar de memórias e não se pode falar de memórias sem falar de culturas.
-
-Diante das construções filosóficas e historiográficas, nem todos os povos têm o direito de “existir”, no sentido que sua memória e cultura foram e ainda são apagadas diariamente. Devemos partir da premissa que a humanidade é pluriétnica e multicultural. Esta característica a torna mais rica e bela.
-
-... (Texto Completo Integrado nos Slides) ...
-`;
+export const fullAcademicText = `A reestruturação consolidou o conteúdo do Tópico 1 em 6 nós principais, mantendo a profundidade acadêmica e todas as atividades sugeridas (Dinâmica inicial, Quiz, Atividade Reflexiva e Cartografia da Memória).`;
