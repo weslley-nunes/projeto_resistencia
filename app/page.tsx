@@ -90,7 +90,7 @@ export default function LandingPage() {
           </div>
           <button
             onClick={() => window.location.href = '/login'}
-            className="px-6 py-2 rounded-full border border-white/20 hover:bg-white/10 transition backdrop-blur-sm"
+            className="px-6 py-2 rounded-full bg-brand-primary text-white font-bold hover:bg-brand-primary/90 transition shadow-lg shadow-brand-primary/20"
           >
             Entrar
           </button>
@@ -119,20 +119,23 @@ export default function LandingPage() {
 
           <p className="text-lg text-gray-300 max-w-lg leading-relaxed">
             Bem-vindo ao Ambiente Virtual de Aprendizagem do <strong>Projeto Resistência</strong>.
-            Uma formação híbrida de <strong>225h</strong> para transformar a educação patrimonial nas escolas do Tocantins.
+            Uma formação de <strong>225h</strong> para transformar a educação patrimonial nas escolas do Tocantins.
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 pt-4">
             <button
-              onClick={() => window.location.href = '/inscricao'}
+              onClick={() => window.location.href = '/login'}
               className="px-8 py-4 rounded-full bg-brand-primary text-white font-bold text-lg hover:bg-brand-primary/90 transition shadow-lg shadow-brand-primary/25 flex items-center justify-center gap-2 group"
             >
-              Inscreva-se Agora
+              Entrar no Ambiente
               <ArrowRight className="group-hover:translate-x-1 transition-transform" />
             </button>
-            <a href="#sobre" className="px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white font-medium hover:bg-white/10 transition backdrop-blur-sm flex items-center justify-center w-full sm:w-auto">
-              Conhecer o Curso
-            </a>
+            <button 
+              onClick={() => window.location.href = '/inscricao'}
+              className="px-8 py-4 rounded-full bg-white/5 border border-white/10 text-white/60 text-sm font-medium hover:bg-white/10 hover:text-white transition backdrop-blur-sm flex items-center justify-center w-full sm:w-auto"
+            >
+              Já se inscreveu? Veja seu status
+            </button>
           </div>
         </motion.div>
 
