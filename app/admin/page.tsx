@@ -191,6 +191,13 @@ export default function AdminDashboard() {
                         <p className="text-gray-500">Gerencie inscrições e acompanhe o progresso dos cursistas.</p>
                     </div>
                     <div className="flex gap-4">
+                        <a
+                            href="/api/admin/backup"
+                            className="bg-purple-600 hover:bg-purple-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 font-bold shadow-lg shadow-purple-600/20 transition"
+                        >
+                            <Download size={20} />
+                            Backup (.db)
+                        </a>
                         <button
                             onClick={handleExport}
                             className="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 font-bold shadow-lg shadow-green-600/20 transition"
