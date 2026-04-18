@@ -1,7 +1,7 @@
 'use client';
 
 import { useState } from 'react';
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { Eye, EyeOff, Loader2 } from 'lucide-react';
@@ -30,13 +30,12 @@ export default function LoginPage() {
                 setError('Email ou senha inválidos.');
             } else {
                 // Fetch the updated session to check the role
-                const res = await fetch('/api/auth/session');
-                const session = await res.json();
+                const session = await getSession();
 
                 if (session?.user?.role === 'ADMIN') {
-                    router.push('/admin');
+                    window.location.href = '/admin';
                 } else {
-                    router.push('/dashboard');
+                    window.location.href = '/dashboard';
                 }
             }
         } catch (err) {
