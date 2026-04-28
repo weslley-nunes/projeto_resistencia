@@ -9,7 +9,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 const MODULO1 = [
     { id: "m1-0", date: "26/03", theme: "Aula Inaugural: Apresentação do curso e do AVA", qa: "---", host: "WESLEY MUNIZ", practice: "Familiarização com a plataforma", videoUrl: "https://youtu.be/YsXhn3DVBP8" },
     { id: "m1-1", date: "09/04", theme: "Direito à memória", qa: "Quinta-feira, 19h", host: "Cristiane Loriza Dantas PUC-Goiás", practice: "Levantamento de memórias locais", videoUrl: "https://youtu.be/RxLDTQeF5Rg" },
-    { id: "m1-2", date: "23/04", theme: "Memória e Paisagem", qa: "Quinta-feira, 19h", host: "Marianne Salun UNIFESP", practice: "Registro fotográfico de paisagens culturais" },
+    { id: "m1-2", date: "23/04", theme: "Memória e Paisagem", qa: "Quinta-feira, 19h", host: "Marianne Salun UNIFESP", practice: "Registro fotográfico de paisagens culturais", videoUrl: "https://youtu.be/CbJkXkIDhP8" },
     { id: "m1-3", date: "07/05", theme: "Educação patrimonial no contexto regional", qa: "Quinta-feira, 19h", host: "Bianka Cristina Dias Alves UEG/PARFOR", practice: "Pesquisa sobre patrimônio local" },
     { id: "m1-4", date: "21/05", theme: "Participação da comunidade na gestão do patrimônio", qa: "Quinta-feira, 19h", host: "Paulo Campos UFMG", practice: "Entrevista com liderança local" },
     { id: "m1-5", date: "03/06", theme: "Diversidade e Patrimônio: saberes e fazeres tradicionais", qa: "Quinta-feira, 19h", host: "Luana Rodrigues UFMG", practice: "Planejamento de oficina com mestre" },
