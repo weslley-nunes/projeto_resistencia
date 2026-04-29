@@ -6,6 +6,7 @@ import { useState, useEffect } from 'react';
 import GameMap from '@/components/GameMap';
 import { mapNodes as nodesM1, quizQuestions as quizM1 } from '@/app/modulo1/data';
 import { mapNodes as nodesM2, quizQuestions as quizM2 } from '@/app/modulo2/data';
+import { mapNodes as nodesM3, quizQuestions as quizM3 } from '@/app/modulo3/data';
 import { useGameStore } from '@/lib/store';
 import { motion, AnimatePresence } from 'framer-motion';
 import { ChevronRight, ChevronLeft, CheckCircle, X, Lock, MapPin } from 'lucide-react';
@@ -32,15 +33,17 @@ export default function DashboardPage() {
     const addXp = useGameStore(state => state.addXp);
 
     // Module State
-    const [currentModule, setCurrentModule] = useState<'modulo1' | 'modulo2'>('modulo1');
+    const [currentModule, setCurrentModule] = useState<'modulo1' | 'modulo2' | 'modulo3'>('modulo1');
 
     // Derived Data based on current module
-    const currentNodes = currentModule === 'modulo1' ? nodesM1 : nodesM2;
-    const currentQuiz = currentModule === 'modulo1' ? quizM1 : quizM2;
+    const currentNodes = currentModule === 'modulo1' ? nodesM1 : currentModule === 'modulo2' ? nodesM2 : nodesM3;
+    const currentQuiz = currentModule === 'modulo1' ? quizM1 : currentModule === 'modulo2' ? quizM2 : quizM3;
 
     // Check if Module 1 is complete to unlock Module 2
     // Assuming 'node-final' is the id of the final node in Module 1
     const isModule1Complete = completedNodes.includes('etapa1-final'); // Final node of Etapa 01
+    // Assuming 'm2-quiz-final' is the final node of Module 2
+    const isModule2Complete = completedNodes.includes('m2-quiz-final');
 
     const [selectedNode, setSelectedNode] = useState<MapNode | null>(null);
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
@@ -129,7 +132,7 @@ export default function DashboardPage() {
                             </Link>
                         )}
                         <div className="px-4 py-2 bg-brand-accent/20 text-brand-secondary font-bold rounded-lg border border-brand-accent/50">
-                            {currentModule === 'modulo1' ? 'Etapa 01: Direito à Memória' : 'Etapa 02: Memória e Paisagem'}
+                            {currentModule === 'modulo1' ? 'Etapa 01: Direito à Memória' : currentModule === 'modulo2' ? 'Etapa 02: Memória e Paisagem' : 'Etapa 03: Educação Patrimonial'}
                         </div>
                     </div>
                 </div>
@@ -173,7 +176,30 @@ export default function DashboardPage() {
                         </div>
                         <div className="flex flex-col text-left">
                             <span className="font-bold text-sm">Etapa 02</span>
-                            <span className="text-[10px] opacity-80">{isModule1Complete ? 'Disponível' : 'Bloqueado'}</span>
+                            <span className="text-[10px] opacity-80">{isModule1Complete ? 'Memória e Paisagem' : 'Bloqueado'}</span>
+                        </div>
+                    </button>
+
+                    <div className="h-0.5 w-8 bg-gray-200"></div>
+
+                    {/* Module 3 Step */}
+                    <button
+                        onClick={() => isModule2Complete && setCurrentModule('modulo3')}
+                        disabled={!isModule2Complete}
+                        className={`flex items-center gap-3 px-4 py-2 rounded-xl transition-all whitespace-nowrap
+                            ${currentModule === 'modulo3'
+                                ? 'bg-brand-primary text-white shadow-md scale-105'
+                                : isModule2Complete
+                                    ? 'bg-gray-50 text-gray-600 hover:bg-gray-100 cursor-pointer'
+                                    : 'bg-gray-50 text-gray-300 cursor-not-allowed opacity-60'}`}
+                    >
+                        <div className={`w-8 h-8 rounded-full flex items-center justify-center font-bold text-sm
+                            ${currentModule === 'modulo3' ? 'bg-white text-brand-primary' : 'bg-gray-200 text-gray-400'}`}>
+                            {isModule2Complete ? '3' : <Lock size={14} />}
+                        </div>
+                        <div className="flex flex-col text-left">
+                            <span className="font-bold text-sm">Etapa 03</span>
+                            <span className="text-[10px] opacity-80">{isModule2Complete ? 'Educação Patrimonial' : 'Bloqueado'}</span>
                         </div>
                     </button>
 
@@ -194,7 +220,7 @@ export default function DashboardPage() {
                     nodes={currentNodes}
                     onNodeClick={handleNodeClick}
                     completedNodes={completedNodes}
-                    backgroundImage={currentModule === 'modulo1' ? '/assets/map_background_culture_education.png' : '/assets/map_background_tocantins_historical.png'}
+                    backgroundImage={currentModule === 'modulo1' ? '/assets/map_background_culture_education.png' : currentModule === 'modulo2' ? '/assets/map_background_tocantins_historical.png' : '/assets/map_background_tocantins_historical.png'}
                 />
             </div>
 
