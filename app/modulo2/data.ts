@@ -100,31 +100,66 @@ export const mapNodes: MapNode[] = [
     },
     {
         id: 'node-2',
-        title: 'Tópico 2: Educação Museal e Curadoria',
-        description: 'Os espaços culturais como ambientes educativos.',
-        x: 40, y: 75, type: 'lesson', educoinsReward: 50,
+        title: 'Tópico 2: Memória e Paisagem',
+        description: 'A paisagem como construção histórica, cultural e simbólica.',
+        x: 40, y: 75, type: 'lesson', educoinsReward: 80,
         slides: [
             {
+                type: 'quote',
+                title: 'Antoine de Saint Exupéry',
+                content: 'Em cada um de nós há um segredo, uma paisagem interior com planícies invioláveis, vales de silêncio e paraísos secretos'
+            },
+            {
                 type: 'text',
-                title: 'Curadoria e Educação Museal',
-                content: 'O conceito de museu desloca-se de uma instituição centrada no objeto para uma instituição centrada nas pessoas, memórias e territórios. O que é curar o que nos cura?'
+                title: 'Paisagens Culturais',
+                content: 'Iniciamos esse tópico com essa citação poética sobre nossas paisagens interiores, para assim nos aprofundarmos um pouco mais no conceito de memória. O patrimônio que habita nossas memórias ganha vida no nosso cotidiano por meio de nossos saberes, dizeres viveres, e nos lugares que elegemos como espaço de memória. Chamamos isso de paisagens culturais, lugares de memórias e é sobre esses aspectos que nos debruçaremos.'
+            },
+            {
+                type: 'text',
+                title: 'Memória e Identidade',
+                content: 'Sugerimos que você faça um exercício de invocar da sua memória, imagens e vivências, lembranças individuais e dos grupos ao quais você pertence, sempre no intuito de compreender que nós somos nosso maior patrimônio. Sabemos que as nossas memórias são permeadas de nossas histórias e sedimentam nosso patrimônio cultural. A memória não é estanque, é relacional e está sujeita a ser ressignificada.'
+            },
+            {
+                type: 'text',
+                title: 'Suportes da Memória',
+                content: 'Os objetos são por vezes suportes de nossa memória, uma flor guardada dentro de um livro, uma boneca de infância, uma miniatura de um lugar que visitamos, o cheiro de café passado cedinho, aquela praça onde ocorreu uma manifestação que marcou a história da nossa cidade, um velho álbum de fotografias... São esses objetos, esses espaços, e essas narrativas que formam os suportes da memória.'
+            },
+            {
+                type: 'text',
+                title: 'Lugares de Memória',
+                content: 'Os lugares de memória não são formados apenas por um espaço geográfico, mas por toda a subjetividade que os compõem. Eles se constituem a partir da interação desses elementos, e neles, a memória e a história interagem com as nossas identidades. Os lugares de memória são lugares nos três sentidos da palavra: material, simbólico e funcional.'
+            },
+            {
+                type: 'text',
+                title: 'Paisagem como Patrimônio',
+                content: 'A relação entre a paisagem e o Patrimônio Cultural constitui um caso especial. A paisagem cultural é entendida como sendo parte do Patrimônio Cultural por trazer inscrita sobre si, numa espécie de fotografia, as crenças, os valores, os saberes e fazeres de um grupo que a transforma de simples paisagem natural em paisagem cultural com valor inestimável, por estarem na base de suas vidas e habitarem suas memórias.'
+            },
+            {
+                type: 'quote',
+                title: 'Adélia Prado',
+                content: 'O que a memória ama fica eterno... Ela chorava pela eternidade que vivia dentro dela e que eu, na minha meninice, era incapaz de compreender. O tempo passou e hoje me emociono diante das mesmas coisas, tocada por pequenos milagres do cotidiano.'
+            },
+            {
+                type: 'text',
+                title: 'A Eternidade da Memória',
+                content: 'A memória é contrária ao tempo. Enquanto o tempo leva a vida embora como vento, a memória traz de volta o que realmente importa, eternizando momentos. Quanto mais vivemos, mais eternidades criamos dentro da gente... Somos a soma de nossos afetos, e aquilo que amamos pode ser facilmente reativado por novos gatilhos: somos traídos pelo enredo de um filme, uma música antiga, um lugar especial.'
             },
             {
                 type: 'activity',
-                title: 'Oficina: Curar o que nos cura',
-                content: 'Propõe-se criar uma miniexposição estruturando respostas de curadoria compartilhada.',
+                title: 'Atividade Reflexiva',
+                content: 'Quais são os lugares de memória ou paisagens da nossa cidade ou região que alimentam nossas lembranças?',
                 activity: {
                     type: 'open-text',
-                    question: '1) Qual história queremos contar? 2) Que sujeitos foram silenciados? 3) Que imagens representam essa narrativa? 4) Para quem? 5) Que aprendizado provoca?'
+                    question: 'Em que eles se constituem e em quais esferas eles se encaixam: no material, na funcional ou na simbólica? Ou nas três?'
                 }
             },
             {
                 type: 'activity',
-                title: 'Envio da Miniexposição',
-                content: '',
+                title: 'Oficina de memória: objetos que falam',
+                content: 'Convide a turma a levar para sala de aula um objeto que remeta a uma lembrança. Depois, em roda, cada um apresentará seu objeto e partilhará a lembrança que ele remete.',
                 activity: {
                     type: 'file-upload',
-                    question: 'Faça upload do seu Cartaz Curatorial ou registro fotográfico da maquete simbólica.'
+                    question: 'Crie uma frase que sintetize a memória. Registre no papel e faça um mural ou teia (interligados com barbante). Anexe aqui a foto do resultado!'
                 }
             }
         ]
