@@ -61,6 +61,37 @@ export default function AulasPage() {
         }
     };
 
+    const getDeadlineInfo = (dateStr: string, hasSubmission: boolean) => {
+        const match = dateStr.match(/(\d{2})\/(\d{2})/);
+        if (!match) return null;
+        const [_, day, month] = match;
+        const year = new Date().getFullYear(); 
+        const classDate = new Date(year, parseInt(month) - 1, parseInt(day));
+        
+        const deadline = new Date(classDate);
+        deadline.setDate(deadline.getDate() + 14);
+        
+        const now = new Date();
+        // Reset hours for accurate day diff
+        now.setHours(0, 0, 0, 0);
+        deadline.setHours(0, 0, 0, 0);
+        
+        const diffTime = deadline.getTime() - now.getTime();
+        const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        
+        if (hasSubmission) {
+            return { status: 'submitted', text: 'Atividade entregue' };
+        }
+        
+        if (diffDays < 0) {
+            return { status: 'late', text: `Atrasada: ${Math.abs(diffDays)} dias` };
+        } else if (diffDays === 0) {
+            return { status: 'pending', text: `Prazo: Termina hoje!` };
+        } else {
+            return { status: 'pending', text: `Prazo: ${diffDays} dias (${deadline.toLocaleDateString('pt-BR', {day: '2-digit', month:'2-digit'})})` };
+        }
+    };
+
     return (
         <div className="space-y-8 max-w-6xl mx-auto pb-12">
             <header className="flex flex-col md:flex-row justify-between items-start md:items-center bg-gradient-to-br from-brand-secondary to-brand-primary p-8 rounded-3xl shadow-lg border border-white/10 text-white gap-4">
@@ -110,6 +141,8 @@ export default function AulasPage() {
                         <tbody className="divide-y divide-gray-100">
                             {(activeTab === 'mod1' ? MODULO1 : MODULO2).map((item, index) => {
                                 const submission = submissions[item.id];
+                                const deadlineInfo = getDeadlineInfo(item.date, !!submission);
+                                
                                 return (
                                     <tr key={item.id} className="hover:bg-brand-secondary/5 transition-colors group">
                                         <td className="p-4 pl-8 align-top">
@@ -153,12 +186,24 @@ export default function AulasPage() {
                                                 </div>
                                                 
                                                 <div className="flex flex-col gap-2">
+                                                    {deadlineInfo && (
+                                                        <div className={`flex items-center gap-1.5 text-xs font-bold px-2 py-1.5 rounded-lg w-fit border
+                                                            ${deadlineInfo.status === 'submitted' ? 'bg-green-50 text-green-700 border-green-200' 
+                                                            : deadlineInfo.status === 'late' ? 'bg-red-50 text-red-700 border-red-200' 
+                                                            : 'bg-blue-50 text-blue-700 border-blue-200'}`}>
+                                                            {deadlineInfo.status === 'submitted' ? <CheckCircle2 size={14} /> 
+                                                            : deadlineInfo.status === 'late' ? <AlertCircle size={14} /> 
+                                                            : <Clock size={14} />}
+                                                            {deadlineInfo.text}
+                                                        </div>
+                                                    )}
+                                                
                                                     {submission ? (
                                                         <button 
                                                             onClick={() => setSelectedActivity({ ...item, submission })}
                                                             className="w-full flex items-center justify-center gap-2 bg-green-100 text-green-700 py-2.5 rounded-xl font-bold text-xs hover:bg-green-200 transition border border-green-200 shadow-sm"
                                                         >
-                                                            <CheckCircle2 size={16} /> Enviado • Ver/Editar
+                                                            <CheckCircle2 size={16} /> Ver/Editar Entrega
                                                         </button>
                                                     ) : (
                                                         <button 
