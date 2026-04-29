@@ -3,6 +3,7 @@
 import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { LayoutDashboard, Map, Users, LogOut, Settings, Video, MessageSquare } from "lucide-react";
+import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
 import { useGameStore } from "@/lib/store";
@@ -18,8 +19,21 @@ const sidebarItems = [
 
 export default function Sidebar() {
     const { data: session } = useSession();
-    const { level, educoins } = useGameStore();
+    const { level, educoins, syncProgress } = useGameStore();
     const pathname = usePathname();
+
+    useEffect(() => {
+        if (session?.user?.email) {
+            fetch('/api/progress')
+                .then(res => res.ok ? res.json() : null)
+                .then(data => {
+                    if (data) {
+                        syncProgress(data.educoins, data.xp, data.level, data.completedNodes);
+                    }
+                })
+                .catch(err => console.error("Error syncing progress", err));
+        }
+    }, [session, syncProgress]);
 
     return (
         <aside className="fixed left-0 top-0 h-screen w-64 bg-brand-secondary text-white border-r border-white/10 flex flex-col z-50">

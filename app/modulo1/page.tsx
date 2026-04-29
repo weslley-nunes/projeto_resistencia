@@ -7,24 +7,24 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { X, BookOpen, User, Coins, ChevronLeft, ChevronRight, Check, Play, FileText, HelpCircle } from 'lucide-react';
 import ActivitySubmissionForm from '@/components/ActivitySubmissionForm';
 import QuizModal from '@/components/QuizModal';
+import { useGameStore } from '@/lib/store';
 
 export default function Modulo1Page() {
     const [activeNode, setActiveNode] = useState<MapNode | null>(null);
     const [currentSlideIndex, setCurrentSlideIndex] = useState(0);
-    const [completedNodes, setCompletedNodes] = useState<string[]>([]);
-    const [educoins, setEducoins] = useState(0);
     const [isLoading, setIsLoading] = useState(true);
     const [showQuiz, setShowQuiz] = useState(false);
+    
+    const { educoins, completedNodes, syncProgress, completeNode, addEducoins } = useGameStore();
 
     // Fetch initial progress
     useEffect(() => {
         async function fetchProgress() {
             try {
-                const res = await fetch('/api/progress?moduleId=modulo-1');
+                const res = await fetch('/api/progress');
                 if (res.ok) {
                     const data = await res.json();
-                    setCompletedNodes(data.completedNodes || []);
-                    setEducoins(data.educoins || 0);
+                    syncProgress(data.educoins || 0, data.xp || 0, data.level || 1, data.completedNodes || []);
                 }
             } catch (error) {
                 console.error('Failed to load progress', error);
@@ -33,7 +33,7 @@ export default function Modulo1Page() {
             }
         }
         fetchProgress();
-    }, []);
+    }, [syncProgress]);
 
     const handleNodeClick = (node: MapNode) => {
         setActiveNode(node);
@@ -60,8 +60,8 @@ export default function Modulo1Page() {
     const handleCompleteNode = async () => {
         if (activeNode && !completedNodes.includes(activeNode.id)) {
             // Optimistic update
-            setCompletedNodes(prev => [...prev, activeNode.id]);
-            setEducoins(prev => prev + activeNode.educoinsReward);
+            completeNode(activeNode.id);
+            addEducoins(activeNode.educoinsReward);
 
             // Persist to DB
             try {

@@ -13,17 +13,13 @@ export async function GET(request: Request) {
     const { searchParams } = new URL(request.url);
     const moduleId = searchParams.get('moduleId');
 
-    if (!moduleId) {
-        return new NextResponse('Module ID is required', { status: 400 });
-    }
-
     try {
         const user = await prisma.user.findUnique({
             where: { email: session.user.email },
             include: {
-                progress: {
+                progress: moduleId ? {
                     where: { moduleId }
-                }
+                } : true
             }
         });
 
@@ -31,11 +27,12 @@ export async function GET(request: Request) {
             return new NextResponse('User not found', { status: 404 });
         }
 
-        // @ts-ignore - Prisma types might be slightly delayed in IDE
         const completedNodes = user.progress.map((p: any) => p.nodeId);
 
         return NextResponse.json({
             educoins: user.educoins,
+            xp: user.xp,
+            level: user.level,
             completedNodes
         });
 

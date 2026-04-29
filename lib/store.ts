@@ -24,6 +24,7 @@ type GameState = {
     selectAvatar: (avatarId: string) => void;
     advancePhase: () => void;
     completeNode: (nodeId: string) => void;
+    syncProgress: (educoins: number, xp: number, level: number, completedNodes: string[]) => void;
 };
 
 export const useGameStore = create<GameState>()(
@@ -65,6 +66,13 @@ export const useGameStore = create<GameState>()(
                 if (state.completedNodes.includes(nodeId)) return state;
                 return { completedNodes: [...state.completedNodes, nodeId] };
             }),
+
+            syncProgress: (educoins, xp, level, completedNodes) => set(() => ({
+                educoins,
+                xp,
+                level,
+                completedNodes
+            })),
         }),
         {
             name: 'projeto-resistencia-storage',
