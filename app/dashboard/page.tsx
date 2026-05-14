@@ -73,12 +73,28 @@ export default function DashboardPage() {
         }
     };
 
-    const handleCompleteLesson = () => {
+    const handleCompleteLesson = async () => {
         if (selectedNode) {
             if (!completedNodes.includes(selectedNode.id)) {
+                // Optimistic update
                 completeNode(selectedNode.id);
                 addEducoins(selectedNode.educoinsReward);
                 addXp(50);
+
+                // Persist to DB
+                try {
+                    await fetch('/api/progress', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                            moduleId: currentModule,
+                            nodeId: selectedNode.id,
+                            reward: selectedNode.educoinsReward
+                        })
+                    });
+                } catch (error) {
+                    console.error('Failed to save progress', error);
+                }
             }
             setSelectedNode(null);
             setCurrentSlideIndex(0);

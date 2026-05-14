@@ -69,7 +69,7 @@ export default function Modulo1Page() {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({
-                        moduleId: 'modulo-1',
+                        moduleId: 'modulo1',
                         nodeId: activeNode.id,
                         reward: activeNode.educoinsReward
                     })
