@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "next dev --webpack",
     "build": "next build --webpack",
-    "start": "npx prisma db push && node create_admin.js && node scripts/import_seed.js && node scripts/daily_backup.js & next start",
+    "start": "npx prisma db push && node create_admin.js && node scripts/import_seed.js && node scripts/fix_progress.js && node scripts/daily_backup.js & next start",
     "lint": "eslint"
   },
   "dependencies": {
