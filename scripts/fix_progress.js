@@ -4,16 +4,38 @@ const path = require('path');
 const prisma = new PrismaClient();
 
 const OK_NODES = [
-  'etapa1-1',
-  'etapa1-2',
-  'etapa1-3'
+  // Módulo 1 (Etapa 01)
+  { id: 'etapa1-1', moduleId: 'modulo1' },
+  { id: 'etapa1-2', moduleId: 'modulo1' },
+  { id: 'etapa1-3', moduleId: 'modulo1' },
+  { id: 'etapa1-4', moduleId: 'modulo1' },
+  { id: 'etapa1-5', moduleId: 'modulo1' },
+  { id: 'etapa1-final', moduleId: 'modulo1' },
+
+  // Módulo 2 (Etapa 02)
+  { id: 'm2-intro', moduleId: 'modulo2' },
+  { id: 'm2-identidade', moduleId: 'modulo2' },
+  { id: 'm2-suportes', moduleId: 'modulo2' },
+  { id: 'm2-paisagem', moduleId: 'modulo2' },
+  { id: 'm2-eternidade', moduleId: 'modulo2' },
+  { id: 'm2-praticas', moduleId: 'modulo2' },
+  { id: 'm2-quiz-final', moduleId: 'modulo2' },
+
+  // Módulo 3 (Etapa 03)
+  { id: 'm3-intro', moduleId: 'modulo3' },
+  { id: 'm3-autonomia', moduleId: 'modulo3' },
+  { id: 'm3-vida', moduleId: 'modulo3' },
+  { id: 'm3-transformador', moduleId: 'modulo3' },
+  { id: 'm3-regional', moduleId: 'modulo3' },
+  { id: 'm3-praticas', moduleId: 'modulo3' },
+  { id: 'm3-quiz-final', moduleId: 'modulo3' }
 ];
 
 async function main() {
-  const flagPath = path.join(__dirname, '../prisma/fix_progress_done.flag');
+  const flagPath = path.join(__dirname, '../prisma/fix_progress_v2_done.flag');
   
   if (fs.existsSync(flagPath)) {
-    console.log('--- Script fix_progress já foi executado anteriormente. Pulando... ---');
+    console.log('--- Script fix_progress_v2 já foi executado anteriormente. Pulando... ---');
     return;
   }
 
@@ -42,13 +64,13 @@ async function main() {
     });
     progressDeletedCount += deleteResult.count;
 
-    // 4. Inserir registros de progresso apenas até a etapa 3
-    for (const nodeId of OK_NODES) {
+    // 4. Inserir registros de progresso dos módulos 1, 2 e 3
+    for (const node of OK_NODES) {
       await prisma.userProgress.create({
         data: {
           userId: user.id,
-          moduleId: 'modulo1',
-          nodeId: nodeId
+          moduleId: node.moduleId,
+          nodeId: node.id
         }
       });
       progressInsertedCount++;
@@ -58,13 +80,12 @@ async function main() {
   console.log(`--- Atualização concluída ---`);
   console.log(`Usuários atualizados (Educoins para 2780): ${updatedCount}`);
   console.log(`Registros de progresso antigos deletados: ${progressDeletedCount}`);
-  console.log(`Novos registros de progresso inseridos (etapas 1 a 3): ${progressInsertedCount}`);
+  console.log(`Novos registros de progresso inseridos (etapas dos módulos 1 a 3): ${progressInsertedCount}`);
 
   // Criar o arquivo de flag para evitar re-execução
   fs.writeFileSync(flagPath, 'done', 'utf8');
-  console.log(`Flag de execução única criada em ${flagPath}`);
+  console.log(`Flag de execução única v2 criada em ${flagPath}`);
 }
-
 
 main()
   .catch((e) => {
@@ -74,4 +95,5 @@ main()
   .finally(async () => {
     await prisma.$disconnect();
   });
+
 
