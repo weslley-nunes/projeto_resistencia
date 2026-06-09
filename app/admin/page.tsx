@@ -3,7 +3,7 @@
 import { useSession, signOut } from 'next-auth/react';
 import { useRouter } from 'next/navigation';
 import { useEffect, useState } from 'react';
-import { Download, CheckCircle, XCircle, Search, Shield, LogOut, ArrowLeft, FileText, Trash2, Filter, ChevronLeft, ChevronRight, ExternalLink } from 'lucide-react';
+import { Download, CheckCircle, XCircle, Search, Shield, LogOut, ArrowLeft, FileText, Trash2, Filter, ChevronLeft, ChevronRight, ExternalLink, FileSpreadsheet } from 'lucide-react';
 import Link from 'next/link';
 
 interface User {
@@ -125,7 +125,11 @@ export default function AdminDashboard() {
     };
 
     const handleExport = () => {
-        window.location.href = '/api/admin/export';
+        window.location.href = '/api/admin/export?format=csv';
+    };
+
+    const handleExportExcel = () => {
+        window.location.href = '/api/admin/export?format=xlsx';
     };
 
     // Filter Logic
@@ -204,6 +208,13 @@ export default function AdminDashboard() {
                         >
                             <Download size={20} />
                             Inscrições (CSV)
+                        </button>
+                        <button
+                            onClick={handleExportExcel}
+                            className="bg-emerald-600 hover:bg-emerald-700 text-white px-6 py-3 rounded-xl flex items-center gap-2 font-bold shadow-lg shadow-emerald-600/20 transition"
+                        >
+                            <FileSpreadsheet size={20} />
+                            Inscrições (Excel)
                         </button>
                         <Link
                             href="/admin/activities"
