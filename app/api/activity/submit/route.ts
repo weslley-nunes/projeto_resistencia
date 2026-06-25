@@ -51,30 +51,46 @@ export async function POST(request: Request) {
             }
         }
 
-        // Upsert the activity submission
-        const submission = await prisma.activitySubmission.upsert({
+        // Find existing submission
+        const existing = await prisma.activitySubmission.findFirst({
             where: {
-                userId_moduleId_nodeId: {
-                    userId: user.id,
-                    moduleId,
-                    nodeId
-                }
-            },
-            update: {
-                type,
-                content,
-                fileUrl,
-                createdAt: new Date(),
-            },
-            create: {
                 userId: user.id,
                 moduleId,
-                nodeId,
-                type,
-                content,
-                fileUrl
+                nodeId
             }
         });
+
+        const uploadedFiles = [];
+        if (fileUrl) {
+            const file = formData.get('file') as File | null;
+            uploadedFiles.push({
+                name: file ? file.name : 'arquivo',
+                url: fileUrl,
+                type: file ? file.type : 'application/octet-stream'
+            });
+        }
+
+        let submission;
+        if (existing) {
+            submission = await prisma.activitySubmission.update({
+                where: { id: existing.id },
+                data: {
+                    content,
+                    files: fileUrl ? JSON.stringify(uploadedFiles) : existing.files,
+                    createdAt: new Date(),
+                }
+            });
+        } else {
+            submission = await prisma.activitySubmission.create({
+                data: {
+                    userId: user.id,
+                    moduleId,
+                    nodeId,
+                    content,
+                    files: fileUrl ? JSON.stringify(uploadedFiles) : '[]',
+                }
+            });
+        }
 
         return NextResponse.json({ success: true, submission });
 
