@@ -11,7 +11,7 @@ const MODULO1 = [
     { id: "m1-1", date: "09/04", theme: "Direito à memória", qa: "Quinta-feira, 19h", host: "Cristiane Loriza Dantas PUC-Goiás", practice: "Levantamento de memórias locais", videoUrl: "https://youtu.be/RxLDTQeF5Rg" },
     { id: "m1-2", date: "23/04", theme: "Memória e Paisagem", qa: "Quinta-feira, 19h", host: "Marianne Salun UNIFESP", practice: "Registro fotográfico de paisagens culturais", videoUrl: "https://youtu.be/CbJkXkIDhP8" },
     { id: "m1-3", date: "07/05", theme: "Educação patrimonial no contexto regional", qa: "Quinta-feira, 19h", host: "Bianka Cristina Dias Alves UEG/PARFOR", practice: "Pesquisa sobre patrimônio local", videoUrl: "https://youtu.be/32bbrPlo0xQ" },
-    { id: "m1-4", date: "21/05", theme: "Participação da comunidade na gestão do patrimônio", qa: "Quinta-feira, 19h", host: "Paulo Campos UFMG", practice: "Entrevista com liderança local", videoUrl: "https://youtu.be/32bbrPlo0xQ" },
+    { id: "m1-4", date: "21/05", theme: "Participação da comunidade na gestão do patrimônio", qa: "Quinta-feira, 19h", host: "Paulo Campos UFMG", practice: "Entrevista com liderança local", videoUrl: "https://youtu.be/QQ6bwmikPjk" },
     { id: "m1-5", date: "03/06", theme: "Diversidade e Patrimônio: saberes e fazeres tradicionais", qa: "Quinta-feira, 19h", host: "Luana Rodrigues UFMG", practice: "Planejamento de oficina com mestre", videoUrl: "https://youtu.be/eK9p7OCdBNM" },
     { id: "m1-6", date: "18/06", theme: "Diversidade e Patrimônio: lugares e objetos", qa: "Quinta-feira, 19h", host: "Luana Campos UFMT", practice: "Mapeamento de locais de memória", videoUrl: "https://youtu.be/wMSyQfgbaVk" },
     { id: "m1-7", date: "18/06 a 30/06", theme: "Oficinas práticas (20h)", qa: "Acompanhamento tutor/articulador", host: "---", practice: "Oficinas de artes e ofícios" },
@@ -20,11 +20,11 @@ const MODULO1 = [
 ];
 
 const MODULO2 = [
-    { id: "m2-0", date: "06/08", theme: "Arte-educação e patrimônio", qa: "Quinta-feira, 19h", host: "Emicleia Alves Pinheiro IFG", practice: "Projeto de intervenção artística" },
-    { id: "m2-1", date: "20/08", theme: "Educação Museal e Curadoria", qa: "Quinta-feira, 19h", host: "Henrique de Freitas - idealizador Museu Zoroastra Goiânia", practice: "Planejamento de exposição virtual" },
-    { id: "m2-2", date: "03/09", theme: "Inventários participativos", qa: "Quinta-feira, 19h", host: "Aline UNICAMP", practice: "Elaboração de inventário local" },
-    { id: "m2-3", date: "17/09", theme: "Educação patrimonial e tecnologias", qa: "Quinta-feira, 19h", host: "Daniel Corrêa UEG", practice: "Criação de conteúdo digital" },
-    { id: "m2-4", date: "01/10", theme: "Educação patrimonial e turística", qa: "Quinta-feira, 19h", host: "Beatriz Couto / Gestora Pública em arquitetura e patrimônio", practice: "Roteiro turístico-cultural" },
+    { id: "m2-0", date: "06/08", theme: "Arte-educação e patrimônio", qa: "Quinta-feira, 19h", host: "Emicleia Alves Pinheiro IFG", practice: "Projeto de intervenção artística", videoUrl: "https://youtu.be/xRULXQp2i6s" },
+    { id: "m2-1", date: "20/08", theme: "Educação Museal e Curadoria", qa: "Quinta-feira, 19h", host: "Henrique de Freitas - idealizador Museu Zoroastra Goiânia", practice: "Planejamento de exposição virtual", videoUrl: "https://youtu.be/8I1U9n99xUA" },
+    { id: "m2-2", date: "03/09", theme: "Inventários participativos", qa: "Quinta-feira, 19h", host: "Aline UNICAMP", practice: "Elaboração de inventário local", videoUrl: "https://youtu.be/z_eRgo9dJ7o" },
+    { id: "m2-3", date: "17/09", theme: "Educação patrimonial e tecnologias", qa: "Quinta-feira, 19h", host: "Daniel Corrêa UEG", practice: "Criação de conteúdo digital", videoUrl: "https://youtu.be/0oLb_us2K6Y" },
+    { id: "m2-4", date: "01/10", theme: "Educação patrimonial e turística", qa: "Quinta-feira, 19h", host: "Beatriz Couto / Gestora Pública em arquitetura e patrimônio", practice: "Roteiro turístico-cultural", videoUrl: "https://youtu.be/T_2zgBLtkoM" },
     { id: "m2-5", date: "02/10 a 30/11", theme: "Curadoria de Exposição (20h)", qa: "Acompanhamento tutor articulador", host: "---", practice: "Montagem de exposição na escola" },
     { id: "m2-6", date: "02/10 a 30/11", theme: "Festival Cultural Temático (20h)", qa: "Acompanhamento tutor articulador", host: "---", practice: "Organização do evento" },
     { id: "m2-7", date: "02/10 a 30/11", theme: "Elaboração de material didático (20h)", qa: "Acompanhamento tutor articulador", host: "---", practice: "Produção de livro, podcast ou jogo educativo" },

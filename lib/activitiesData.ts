@@ -75,7 +75,7 @@ export const AULAS_CRONOGRAMA: AulaPratica[] = [
         qa: "Quinta-feira, 19h", 
         host: "Paulo Campos UFMG", 
         practice: "Entrevista com liderança local", 
-        videoUrl: "https://youtu.be/32bbrPlo0xQ" 
+        videoUrl: "https://youtu.be/QQ6bwmikPjk" 
     },
     { 
         id: "m1-5", 
@@ -139,7 +139,8 @@ export const AULAS_CRONOGRAMA: AulaPratica[] = [
         theme: "Arte-educação e patrimônio", 
         qa: "Quinta-feira, 19h", 
         host: "Emicleia Alves Pinheiro IFG", 
-        practice: "Projeto de intervenção artística" 
+        practice: "Projeto de intervenção artística",
+        videoUrl: "https://youtu.be/xRULXQp2i6s"
     },
     { 
         id: "m2-1", 
@@ -149,7 +150,8 @@ export const AULAS_CRONOGRAMA: AulaPratica[] = [
         theme: "Educação Museal e Curadoria", 
         qa: "Quinta-feira, 19h", 
         host: "Henrique de Freitas - idealizador Museu Zoroastra Goiânia", 
-        practice: "Planejamento de exposição virtual" 
+        practice: "Planejamento de exposição virtual",
+        videoUrl: "https://youtu.be/8I1U9n99xUA"
     },
     { 
         id: "m2-2", 
@@ -159,7 +161,8 @@ export const AULAS_CRONOGRAMA: AulaPratica[] = [
         theme: "Inventários participativos", 
         qa: "Quinta-feira, 19h", 
         host: "Aline UNICAMP", 
-        practice: "Elaboração de inventário local" 
+        practice: "Elaboração de inventário local",
+        videoUrl: "https://youtu.be/z_eRgo9dJ7o"
     },
     { 
         id: "m2-3", 
@@ -169,7 +172,8 @@ export const AULAS_CRONOGRAMA: AulaPratica[] = [
         theme: "Educação patrimonial e tecnologias", 
         qa: "Quinta-feira, 19h", 
         host: "Daniel Corrêa UEG", 
-        practice: "Criação de conteúdo digital" 
+        practice: "Criação de conteúdo digital",
+        videoUrl: "https://youtu.be/0oLb_us2K6Y"
     },
     { 
         id: "m2-4", 
@@ -179,7 +183,8 @@ export const AULAS_CRONOGRAMA: AulaPratica[] = [
         theme: "Educação patrimonial e turística", 
         qa: "Quinta-feira, 19h", 
         host: "Beatriz Couto / Gestora Pública", 
-        practice: "Roteiro turístico-cultural" 
+        practice: "Roteiro turístico-cultural",
+        videoUrl: "https://youtu.be/T_2zgBLtkoM"
     },
     { 
         id: "m2-5", 
