@@ -221,7 +221,7 @@ export default function AdminDashboard() {
                             className="bg-brand-primary hover:bg-brand-primary/90 text-white px-6 py-3 rounded-xl flex items-center gap-2 font-bold shadow-lg shadow-brand-primary/20 transition"
                         >
                             <FileText size={20} />
-                            Ver Atividades
+                            Atividades & Trilhas
                         </Link>
                     </div>
                 </div>
@@ -241,9 +241,9 @@ export default function AdminDashboard() {
                         <p className="text-3xl font-bold text-green-500">{users.filter(u => u.status === 'APPROVED').length}</p>
                     </div>
                     <Link href="/admin/activities" className="bg-white p-6 rounded-2xl border border-gray-100 shadow-sm hover:border-brand-primary/50 transition block">
-                        <p className="text-sm text-gray-500 mb-1">Ver Atividades</p>
-                        <p className="text-3xl font-bold text-blue-500 flex items-center gap-1">
-                            Acessar <ExternalLink size={20} />
+                        <p className="text-sm text-gray-500 mb-1">Controle Pedagógico</p>
+                        <p className="text-2xl font-bold text-blue-600 flex items-center gap-1">
+                            Atividades & Trilhas <ExternalLink size={20} />
                         </p>
                     </Link>
                 </div>
